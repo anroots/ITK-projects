@@ -29,7 +29,7 @@ unsigned char OUT [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 0x92, 0x82, 0xf0, 0x80, 0x90};
 
 // Used to create an artificial delay
-unsigned int x;
+unsigned int cycle_delay;
 
 // Initialization
 void init(void) {
@@ -43,23 +43,23 @@ void init(void) {
 void main (void)
 {
 
-// Initialize
-init();
+	// Initialize
+	init();
 
-// todo! Comment
-while (true)
-{
-    if (BUTTON_ENTER == 1)
-    {
-
-        if (FREE_SLOTS > 0) {    
-            FREE_SLOTS--;
-        }
-
-
-        LED = OUT[MALU];
+	// todo! Comment
+	while (1)
+	{
+	    if (BUTTON_ENTER == 1)
+	    {
 	
-	for (y = 0; y < 1000; y++);
-    }
+	        if (FREE_SLOTS > 0) {    
+	            FREE_SLOTS--;
+	        }
+	
+	
+	        LED = OUT[FREE_SLOTS];
+		
+		for (cycle_delay = 0; cycle_delay < 1000; cycle_delay++);
+	    }
+	}
 }
-
