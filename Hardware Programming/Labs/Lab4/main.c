@@ -78,6 +78,13 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 	}
 }
 
+/**
+ * Returns a specified digit from a n-digit number 
+**/
+unsigned char get_digit(unsigned int value, unsigned char place) {
+	return 4;
+}
+
 
 /**
  * Writes a number to the LED display
@@ -85,16 +92,10 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 **/
 void display(unsigned int value) {
 
-	// We have 3 7-segment displays, divide the number among them and use
-	// write_segment to write
-
-	/*if (value > 99) {
-		write_segment(2, 0);
-	}*/
-	// For testing, get 0 to each segment
-	write_segment(2, 1);
-	write_segment(1, 2);
-	write_segment(0, 3);
+	// Separate value to digits and print each one
+	write_segment(2, get_digit(value, 3));
+	write_segment(1, get_digit(value, 2));
+	write_segment(0, get_digit(value, 1));
 }
 
 
@@ -130,7 +131,7 @@ void main (void) {
 
  	// LED test
 	while(1) {
-		display(100); // test OK if 100
+		display(112); // test OK if 100
 	}
 
 	while (1) {
