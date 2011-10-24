@@ -12,7 +12,7 @@ S:G$NUMBERS$0$0({10}DA10,SC:U),E,0,0
 S:G$cycle_delay$0$0({4}SL:U),E,0,0
 S:G$cycle_duration$0$0({4}SL:U),E,0,0
 S:Lwrite_segment$value$1$1({1}SC:U),E,0,0
-S:Lwrite_segment$segment_number$1$1({1}SC:U),R,0,0,[]
+S:Lwrite_segment$segment_number$1$1({1}SC:U),R,0,0,[r2]
 S:Ldisplay$value$1$1({2}SI:U),R,0,0,[]
 S:G$P0$0$0({1}SC:U),I,0,0
 S:G$SP$0$0({1}SC:U),I,0,0

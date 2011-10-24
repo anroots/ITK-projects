@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 11:52:05 2011
+; This file was generated Mon Oct 24 12:16:17 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -488,24 +488,35 @@ _init:
 ;Allocation info for local variables in function 'write_segment'
 ;------------------------------------------------------------
 ;value                     Allocated with name '_write_segment_PARM_2'
-;segment_number            Allocated to registers 
+;segment_number            Allocated to registers r2 
 ;------------------------------------------------------------
 	G$write_segment$0$0 ==.
-	C$main.c$50$1$1 ==.
-;	main.c:50: void write_segment(unsigned char segment_number, unsigned char value) {
+	C$main.c$49$1$1 ==.
+;	main.c:49: void write_segment(unsigned char segment_number, unsigned char value) {
 ;	-----------------------------------------
 ;	 function write_segment
 ;	-----------------------------------------
 _write_segment:
-	C$main.c$52$1$1 ==.
-;	main.c:52: P1 = 0xf9;
-	mov	_P1,#0xF9
-	C$main.c$53$1$1 ==.
-;	main.c:53: P2 = 0xf9;
-	mov	_P2,#0xF9
-	C$main.c$54$1$1 ==.
-;	main.c:54: return;
-	C$main.c$55$1$1 ==.
+	mov	r2,dpl
+	C$main.c$51$1$1 ==.
+;	main.c:51: switch (segment_number) {
+	clr	a
+	cjne	r2,#0x00,00109$
+	inc	a
+00109$:
+	C$main.c$63$1$1 ==.
+;	main.c:63: P3 = NUMBERS[value];
+	mov	a,_write_segment_PARM_2
+	add	a,#_NUMBERS
+	mov	r0,a
+	mov	ar2,@r0
+	mov	_P3,r2
+	C$main.c$64$1$1 ==.
+;	main.c:64: P2 = NUMBERS[value];
+	mov	_P2,r2
+	C$main.c$65$1$1 ==.
+;	main.c:65: return;
+	C$main.c$66$1$1 ==.
 	XG$write_segment$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -514,27 +525,27 @@ _write_segment:
 ;value                     Allocated to registers 
 ;------------------------------------------------------------
 	G$display$0$0 ==.
-	C$main.c$62$1$1 ==.
-;	main.c:62: void display(unsigned int value) {
+	C$main.c$73$1$1 ==.
+;	main.c:73: void display(unsigned int value) {
 ;	-----------------------------------------
 ;	 function display
 ;	-----------------------------------------
 _display:
-	C$main.c$68$1$1 ==.
-;	main.c:68: write_segment(2, 0);
-	mov	_write_segment_PARM_2,#0x00
+	C$main.c$82$1$1 ==.
+;	main.c:82: write_segment(2, 1);
+	mov	_write_segment_PARM_2,#0x01
 	mov	dpl,#0x02
 	lcall	_write_segment
-	C$main.c$69$1$1 ==.
-;	main.c:69: write_segment(1, 0);
-	mov	_write_segment_PARM_2,#0x00
+	C$main.c$83$1$1 ==.
+;	main.c:83: write_segment(1, 2);
+	mov	_write_segment_PARM_2,#0x02
 	mov	dpl,#0x01
 	lcall	_write_segment
-	C$main.c$70$1$1 ==.
-;	main.c:70: write_segment(0, 0);
-	mov	_write_segment_PARM_2,#0x00
+	C$main.c$84$1$1 ==.
+;	main.c:84: write_segment(0, 3);
+	mov	_write_segment_PARM_2,#0x03
 	mov	dpl,#0x00
-	C$main.c$71$1$1 ==.
+	C$main.c$85$1$1 ==.
 	XG$display$0$0 ==.
 	ljmp	_write_segment
 ;------------------------------------------------------------
@@ -542,17 +553,17 @@ _display:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$check_outgoing$0$0 ==.
-	C$main.c$77$1$1 ==.
-;	main.c:77: void check_outgoing(){
+	C$main.c$91$1$1 ==.
+;	main.c:91: void check_outgoing(){
 ;	-----------------------------------------
 ;	 function check_outgoing
 ;	-----------------------------------------
 _check_outgoing:
-	C$main.c$79$1$1 ==.
-;	main.c:79: if (BUTTON_EXIT == 1) {
+	C$main.c$93$1$1 ==.
+;	main.c:93: if (BUTTON_EXIT == 1) {
 	jnb	_P1_1,00105$
-	C$main.c$82$2$2 ==.
-;	main.c:82: if (free_slots < MAX_SLOTS) {
+	C$main.c$96$2$2 ==.
+;	main.c:96: if (free_slots < MAX_SLOTS) {
 	mov	r2,_free_slots
 	mov	r3,#0x00
 	clr	c
@@ -561,11 +572,11 @@ _check_outgoing:
 	mov	a,r3
 	subb	a,(_MAX_SLOTS + 1)
 	jnc	00105$
-	C$main.c$83$3$3 ==.
-;	main.c:83: free_slots++;
+	C$main.c$97$3$3 ==.
+;	main.c:97: free_slots++;
 	inc	_free_slots
 00105$:
-	C$main.c$86$1$1 ==.
+	C$main.c$100$1$1 ==.
 	XG$check_outgoing$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -573,24 +584,24 @@ _check_outgoing:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$check_incoming$0$0 ==.
-	C$main.c$91$1$1 ==.
-;	main.c:91: void check_incoming() {
+	C$main.c$105$1$1 ==.
+;	main.c:105: void check_incoming() {
 ;	-----------------------------------------
 ;	 function check_incoming
 ;	-----------------------------------------
 _check_incoming:
-	C$main.c$92$1$1 ==.
-;	main.c:92: if (BUTTON_ENTER == 1) {
+	C$main.c$106$1$1 ==.
+;	main.c:106: if (BUTTON_ENTER == 1) {
 	jnb	_P1_0,00105$
-	C$main.c$94$2$2 ==.
-;	main.c:94: if (free_slots > 0) {    
+	C$main.c$108$2$2 ==.
+;	main.c:108: if (free_slots > 0) {    
 	mov	a,_free_slots
 	jz	00105$
-	C$main.c$95$3$3 ==.
-;	main.c:95: free_slots--;
+	C$main.c$109$3$3 ==.
+;	main.c:109: free_slots--;
 	dec	_free_slots
 00105$:
-	C$main.c$98$1$1 ==.
+	C$main.c$112$1$1 ==.
 	XG$check_incoming$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -598,26 +609,25 @@ _check_incoming:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$main$0$0 ==.
-	C$main.c$101$1$1 ==.
-;	main.c:101: void main (void) {
+	C$main.c$115$1$1 ==.
+;	main.c:115: void main (void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	C$main.c$102$1$1 ==.
-;	main.c:102: init(); // Initialize
+	C$main.c$116$1$1 ==.
+;	main.c:116: init(); // Initialize
 	lcall	_init
-	C$main.c$105$1$1 ==.
-;	main.c:105: while(1) {
+	C$main.c$119$1$1 ==.
+;	main.c:119: while(1) {
 00102$:
-	C$main.c$106$2$2 ==.
-;	main.c:106: write_segment(0, 0);
-	mov	_write_segment_PARM_2,#0x00
-	mov	dpl,#0x00
-	lcall	_write_segment
-	C$main.c$122$1$1 ==.
-;	main.c:122: display(free_slots); // Output the number of free slots
-	C$main.c$124$1$1 ==.
+	C$main.c$120$2$2 ==.
+;	main.c:120: display(100); // test OK if 100
+	mov	dptr,#0x0064
+	lcall	_display
+	C$main.c$136$1$1 ==.
+;	main.c:136: display(free_slots); // Output the number of free slots
+	C$main.c$138$1$1 ==.
 	XG$main$0$0 ==.
 	sjmp	00102$
 	.area CSEG    (CODE)

@@ -46,11 +46,22 @@ void init(void) {
 /**
  * Writes value to segment_number
 **/
-
 void write_segment(unsigned char segment_number, unsigned char value) {
-	//P1_0 = NUMBERS[0];
-	P1 = 0xf9;
-	P2 = 0xf9;
+	//__sfr __at (0x80) SEGMENT_PORT;
+	switch (segment_number) {
+		case 0:
+			// todo
+			break;
+		case 1:
+			// todo
+			break;
+		case 2:
+			// todo
+			break;
+	}
+	
+	P3 = NUMBERS[value];
+	P2 = NUMBERS[value];
 	return;
 }
 
@@ -64,10 +75,13 @@ void display(unsigned int value) {
 	// We have 3 7-segment displays, divide the number among them and use
 	// write_segment to write
 
+	/*if (value > 99) {
+		write_segment(2, 0);
+	}*/
 	// For testing, get 0 to each segment
-	write_segment(2, 0);
-	write_segment(1, 0);
-	write_segment(0, 0);
+	write_segment(2, 1);
+	write_segment(1, 2);
+	write_segment(0, 3);
 }
 
 

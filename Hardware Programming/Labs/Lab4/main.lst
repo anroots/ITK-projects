@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-                              4 ; This file was generated Mon Oct 24 11:52:05 2011
+                              4 ; This file was generated Mon Oct 24 12:16:17 2011
                               5 ;--------------------------------------------------------
                               6 	.module main
                               7 	.optsdcc -mmcs51 --model-small
@@ -434,7 +434,7 @@
                             434 	.area HOME    (CODE)
                             435 	.area HOME    (CODE)
    0003                     436 __sdcc_program_startup:
-   0003 12s00r57            437 	lcall	_main
+   0003 12s00r63            437 	lcall	_main
                             438 ;	return from main will lock up
    0006 80 FE               439 	sjmp .
                             440 ;--------------------------------------------------------
@@ -488,139 +488,149 @@
                             488 ;Allocation info for local variables in function 'write_segment'
                             489 ;------------------------------------------------------------
                             490 ;value                     Allocated with name '_write_segment_PARM_2'
-                            491 ;segment_number            Allocated to registers 
+                            491 ;segment_number            Allocated to registers r2 
                             492 ;------------------------------------------------------------
                     0018    493 	G$write_segment$0$0 ==.
-                    0018    494 	C$main.c$50$1$1 ==.
-                            495 ;	main.c:50: void write_segment(unsigned char segment_number, unsigned char value) {
+                    0018    494 	C$main.c$49$1$1 ==.
+                            495 ;	main.c:49: void write_segment(unsigned char segment_number, unsigned char value) {
                             496 ;	-----------------------------------------
                             497 ;	 function write_segment
                             498 ;	-----------------------------------------
    0018                     499 _write_segment:
-                    0018    500 	C$main.c$52$1$1 ==.
-                            501 ;	main.c:52: P1 = 0xf9;
-   0018 75 90 F9            502 	mov	_P1,#0xF9
-                    001B    503 	C$main.c$53$1$1 ==.
-                            504 ;	main.c:53: P2 = 0xf9;
-   001B 75 A0 F9            505 	mov	_P2,#0xF9
-                    001E    506 	C$main.c$54$1$1 ==.
-                            507 ;	main.c:54: return;
-                    001E    508 	C$main.c$55$1$1 ==.
-                    001E    509 	XG$write_segment$0$0 ==.
-   001E 22                  510 	ret
-                            511 ;------------------------------------------------------------
-                            512 ;Allocation info for local variables in function 'display'
-                            513 ;------------------------------------------------------------
-                            514 ;value                     Allocated to registers 
-                            515 ;------------------------------------------------------------
-                    001F    516 	G$display$0$0 ==.
-                    001F    517 	C$main.c$62$1$1 ==.
-                            518 ;	main.c:62: void display(unsigned int value) {
-                            519 ;	-----------------------------------------
-                            520 ;	 function display
-                            521 ;	-----------------------------------------
-   001F                     522 _display:
-                    001F    523 	C$main.c$68$1$1 ==.
-                            524 ;	main.c:68: write_segment(2, 0);
-   001F 75*15 00            525 	mov	_write_segment_PARM_2,#0x00
-   0022 75 82 02            526 	mov	dpl,#0x02
-   0025 12s00r18            527 	lcall	_write_segment
-                    0028    528 	C$main.c$69$1$1 ==.
-                            529 ;	main.c:69: write_segment(1, 0);
-   0028 75*15 00            530 	mov	_write_segment_PARM_2,#0x00
-   002B 75 82 01            531 	mov	dpl,#0x01
-   002E 12s00r18            532 	lcall	_write_segment
-                    0031    533 	C$main.c$70$1$1 ==.
-                            534 ;	main.c:70: write_segment(0, 0);
-   0031 75*15 00            535 	mov	_write_segment_PARM_2,#0x00
-   0034 75 82 00            536 	mov	dpl,#0x00
-                    0037    537 	C$main.c$71$1$1 ==.
-                    0037    538 	XG$display$0$0 ==.
-   0037 02s00r18            539 	ljmp	_write_segment
-                            540 ;------------------------------------------------------------
-                            541 ;Allocation info for local variables in function 'check_outgoing'
-                            542 ;------------------------------------------------------------
-                            543 ;------------------------------------------------------------
-                    003A    544 	G$check_outgoing$0$0 ==.
-                    003A    545 	C$main.c$77$1$1 ==.
-                            546 ;	main.c:77: void check_outgoing(){
-                            547 ;	-----------------------------------------
-                            548 ;	 function check_outgoing
-                            549 ;	-----------------------------------------
-   003A                     550 _check_outgoing:
-                    003A    551 	C$main.c$79$1$1 ==.
-                            552 ;	main.c:79: if (BUTTON_EXIT == 1) {
-   003A 30 91 0F            553 	jnb	_P1_1,00105$
-                    003D    554 	C$main.c$82$2$2 ==.
-                            555 ;	main.c:82: if (free_slots < MAX_SLOTS) {
-   003D AA*00               556 	mov	r2,_free_slots
-   003F 7B 00               557 	mov	r3,#0x00
-   0041 C3                  558 	clr	c
-   0042 EA                  559 	mov	a,r2
-   0043 95*01               560 	subb	a,_MAX_SLOTS
-   0045 EB                  561 	mov	a,r3
-   0046 95*02               562 	subb	a,(_MAX_SLOTS + 1)
-   0048 50 02               563 	jnc	00105$
-                    004A    564 	C$main.c$83$3$3 ==.
-                            565 ;	main.c:83: free_slots++;
-   004A 05*00               566 	inc	_free_slots
-   004C                     567 00105$:
-                    004C    568 	C$main.c$86$1$1 ==.
-                    004C    569 	XG$check_outgoing$0$0 ==.
-   004C 22                  570 	ret
-                            571 ;------------------------------------------------------------
-                            572 ;Allocation info for local variables in function 'check_incoming'
-                            573 ;------------------------------------------------------------
-                            574 ;------------------------------------------------------------
-                    004D    575 	G$check_incoming$0$0 ==.
-                    004D    576 	C$main.c$91$1$1 ==.
-                            577 ;	main.c:91: void check_incoming() {
-                            578 ;	-----------------------------------------
-                            579 ;	 function check_incoming
-                            580 ;	-----------------------------------------
-   004D                     581 _check_incoming:
-                    004D    582 	C$main.c$92$1$1 ==.
-                            583 ;	main.c:92: if (BUTTON_ENTER == 1) {
-   004D 30 90 06            584 	jnb	_P1_0,00105$
-                    0050    585 	C$main.c$94$2$2 ==.
-                            586 ;	main.c:94: if (free_slots > 0) {    
-   0050 E5*00               587 	mov	a,_free_slots
-   0052 60 02               588 	jz	00105$
-                    0054    589 	C$main.c$95$3$3 ==.
-                            590 ;	main.c:95: free_slots--;
-   0054 15*00               591 	dec	_free_slots
-   0056                     592 00105$:
-                    0056    593 	C$main.c$98$1$1 ==.
-                    0056    594 	XG$check_incoming$0$0 ==.
-   0056 22                  595 	ret
-                            596 ;------------------------------------------------------------
-                            597 ;Allocation info for local variables in function 'main'
-                            598 ;------------------------------------------------------------
-                            599 ;------------------------------------------------------------
-                    0057    600 	G$main$0$0 ==.
-                    0057    601 	C$main.c$101$1$1 ==.
-                            602 ;	main.c:101: void main (void) {
-                            603 ;	-----------------------------------------
-                            604 ;	 function main
-                            605 ;	-----------------------------------------
-   0057                     606 _main:
-                    0057    607 	C$main.c$102$1$1 ==.
-                            608 ;	main.c:102: init(); // Initialize
-   0057 12s00r00            609 	lcall	_init
-                    005A    610 	C$main.c$105$1$1 ==.
-                            611 ;	main.c:105: while(1) {
-   005A                     612 00102$:
-                    005A    613 	C$main.c$106$2$2 ==.
-                            614 ;	main.c:106: write_segment(0, 0);
-   005A 75*15 00            615 	mov	_write_segment_PARM_2,#0x00
-   005D 75 82 00            616 	mov	dpl,#0x00
-   0060 12s00r18            617 	lcall	_write_segment
-                    0063    618 	C$main.c$122$1$1 ==.
-                            619 ;	main.c:122: display(free_slots); // Output the number of free slots
-                    0063    620 	C$main.c$124$1$1 ==.
-                    0063    621 	XG$main$0$0 ==.
-   0063 80 F5               622 	sjmp	00102$
-                            623 	.area CSEG    (CODE)
-                            624 	.area CONST   (CODE)
-                            625 	.area XINIT   (CODE)
-                            626 	.area CABS    (ABS,CODE)
+   0018 AA 82               500 	mov	r2,dpl
+                    001A    501 	C$main.c$51$1$1 ==.
+                            502 ;	main.c:51: switch (segment_number) {
+   001A E4                  503 	clr	a
+   001B BA 00 01            504 	cjne	r2,#0x00,00109$
+   001E 04                  505 	inc	a
+   001F                     506 00109$:
+                    001F    507 	C$main.c$63$1$1 ==.
+                            508 ;	main.c:63: P3 = NUMBERS[value];
+   001F E5*15               509 	mov	a,_write_segment_PARM_2
+   0021 24r03               510 	add	a,#_NUMBERS
+   0023 F8                  511 	mov	r0,a
+   0024 86 02               512 	mov	ar2,@r0
+   0026 8A B0               513 	mov	_P3,r2
+                    0028    514 	C$main.c$64$1$1 ==.
+                            515 ;	main.c:64: P2 = NUMBERS[value];
+   0028 8A A0               516 	mov	_P2,r2
+                    002A    517 	C$main.c$65$1$1 ==.
+                            518 ;	main.c:65: return;
+                    002A    519 	C$main.c$66$1$1 ==.
+                    002A    520 	XG$write_segment$0$0 ==.
+   002A 22                  521 	ret
+                            522 ;------------------------------------------------------------
+                            523 ;Allocation info for local variables in function 'display'
+                            524 ;------------------------------------------------------------
+                            525 ;value                     Allocated to registers 
+                            526 ;------------------------------------------------------------
+                    002B    527 	G$display$0$0 ==.
+                    002B    528 	C$main.c$73$1$1 ==.
+                            529 ;	main.c:73: void display(unsigned int value) {
+                            530 ;	-----------------------------------------
+                            531 ;	 function display
+                            532 ;	-----------------------------------------
+   002B                     533 _display:
+                    002B    534 	C$main.c$82$1$1 ==.
+                            535 ;	main.c:82: write_segment(2, 1);
+   002B 75*15 01            536 	mov	_write_segment_PARM_2,#0x01
+   002E 75 82 02            537 	mov	dpl,#0x02
+   0031 12s00r18            538 	lcall	_write_segment
+                    0034    539 	C$main.c$83$1$1 ==.
+                            540 ;	main.c:83: write_segment(1, 2);
+   0034 75*15 02            541 	mov	_write_segment_PARM_2,#0x02
+   0037 75 82 01            542 	mov	dpl,#0x01
+   003A 12s00r18            543 	lcall	_write_segment
+                    003D    544 	C$main.c$84$1$1 ==.
+                            545 ;	main.c:84: write_segment(0, 3);
+   003D 75*15 03            546 	mov	_write_segment_PARM_2,#0x03
+   0040 75 82 00            547 	mov	dpl,#0x00
+                    0043    548 	C$main.c$85$1$1 ==.
+                    0043    549 	XG$display$0$0 ==.
+   0043 02s00r18            550 	ljmp	_write_segment
+                            551 ;------------------------------------------------------------
+                            552 ;Allocation info for local variables in function 'check_outgoing'
+                            553 ;------------------------------------------------------------
+                            554 ;------------------------------------------------------------
+                    0046    555 	G$check_outgoing$0$0 ==.
+                    0046    556 	C$main.c$91$1$1 ==.
+                            557 ;	main.c:91: void check_outgoing(){
+                            558 ;	-----------------------------------------
+                            559 ;	 function check_outgoing
+                            560 ;	-----------------------------------------
+   0046                     561 _check_outgoing:
+                    0046    562 	C$main.c$93$1$1 ==.
+                            563 ;	main.c:93: if (BUTTON_EXIT == 1) {
+   0046 30 91 0F            564 	jnb	_P1_1,00105$
+                    0049    565 	C$main.c$96$2$2 ==.
+                            566 ;	main.c:96: if (free_slots < MAX_SLOTS) {
+   0049 AA*00               567 	mov	r2,_free_slots
+   004B 7B 00               568 	mov	r3,#0x00
+   004D C3                  569 	clr	c
+   004E EA                  570 	mov	a,r2
+   004F 95*01               571 	subb	a,_MAX_SLOTS
+   0051 EB                  572 	mov	a,r3
+   0052 95*02               573 	subb	a,(_MAX_SLOTS + 1)
+   0054 50 02               574 	jnc	00105$
+                    0056    575 	C$main.c$97$3$3 ==.
+                            576 ;	main.c:97: free_slots++;
+   0056 05*00               577 	inc	_free_slots
+   0058                     578 00105$:
+                    0058    579 	C$main.c$100$1$1 ==.
+                    0058    580 	XG$check_outgoing$0$0 ==.
+   0058 22                  581 	ret
+                            582 ;------------------------------------------------------------
+                            583 ;Allocation info for local variables in function 'check_incoming'
+                            584 ;------------------------------------------------------------
+                            585 ;------------------------------------------------------------
+                    0059    586 	G$check_incoming$0$0 ==.
+                    0059    587 	C$main.c$105$1$1 ==.
+                            588 ;	main.c:105: void check_incoming() {
+                            589 ;	-----------------------------------------
+                            590 ;	 function check_incoming
+                            591 ;	-----------------------------------------
+   0059                     592 _check_incoming:
+                    0059    593 	C$main.c$106$1$1 ==.
+                            594 ;	main.c:106: if (BUTTON_ENTER == 1) {
+   0059 30 90 06            595 	jnb	_P1_0,00105$
+                    005C    596 	C$main.c$108$2$2 ==.
+                            597 ;	main.c:108: if (free_slots > 0) {    
+   005C E5*00               598 	mov	a,_free_slots
+   005E 60 02               599 	jz	00105$
+                    0060    600 	C$main.c$109$3$3 ==.
+                            601 ;	main.c:109: free_slots--;
+   0060 15*00               602 	dec	_free_slots
+   0062                     603 00105$:
+                    0062    604 	C$main.c$112$1$1 ==.
+                    0062    605 	XG$check_incoming$0$0 ==.
+   0062 22                  606 	ret
+                            607 ;------------------------------------------------------------
+                            608 ;Allocation info for local variables in function 'main'
+                            609 ;------------------------------------------------------------
+                            610 ;------------------------------------------------------------
+                    0063    611 	G$main$0$0 ==.
+                    0063    612 	C$main.c$115$1$1 ==.
+                            613 ;	main.c:115: void main (void) {
+                            614 ;	-----------------------------------------
+                            615 ;	 function main
+                            616 ;	-----------------------------------------
+   0063                     617 _main:
+                    0063    618 	C$main.c$116$1$1 ==.
+                            619 ;	main.c:116: init(); // Initialize
+   0063 12s00r00            620 	lcall	_init
+                    0066    621 	C$main.c$119$1$1 ==.
+                            622 ;	main.c:119: while(1) {
+   0066                     623 00102$:
+                    0066    624 	C$main.c$120$2$2 ==.
+                            625 ;	main.c:120: display(100); // test OK if 100
+   0066 90 00 64            626 	mov	dptr,#0x0064
+   0069 12s00r2B            627 	lcall	_display
+                    006C    628 	C$main.c$136$1$1 ==.
+                            629 ;	main.c:136: display(free_slots); // Output the number of free slots
+                    006C    630 	C$main.c$138$1$1 ==.
+                    006C    631 	XG$main$0$0 ==.
+   006C 80 F8               632 	sjmp	00102$
+                            633 	.area CSEG    (CODE)
+                            634 	.area CONST   (CODE)
+                            635 	.area XINIT   (CODE)
+                            636 	.area CABS    (ABS,CODE)

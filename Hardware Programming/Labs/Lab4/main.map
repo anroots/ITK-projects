@@ -63,13 +63,13 @@ CABS                               0000   0000 =      0. bytes (ABS,CON,CODE)
   0C:0061    s_GSINIT
   0C:0061    s_GSINIT5
   0C:0062    l_SSEG
-  0C:0069    l_CSEG
+  0C:0072    l_CSEG
   0C:007F    s_GSFINAL
   0C:0080    l_DSEG
   0C:0080    l_IRAM
   0C:0082    s_CSEG
-  0C:00EB    s_CONST
-  0C:00EB    s_XINIT
+  0C:00F4    s_CONST
+  0C:00F4    s_XINIT
 
 
 
@@ -401,7 +401,7 @@ Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-CSEG                               0082   0069 =    105. bytes (REL,CON,CODE)
+CSEG                               0082   0072 =    114. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
@@ -427,81 +427,89 @@ CSEG                               0082   0069 =    105. bytes (REL,CON,CODE)
   0C:0099    A$main$486
   0C:0099    C$main.c$44$1$1
   0C:0099    XG$init$0$0
-  0C:009A    A$main$502
-  0C:009A    C$main.c$50$1$1
-  0C:009A    C$main.c$52$1$1
+  0C:009A    A$main$500
+  0C:009A    C$main.c$49$1$1
   0C:009A    G$write_segment$0$0
   0C:009A    _write_segment
-  0C:009D    A$main$505
-  0C:009D    C$main.c$53$1$1
-  0C:00A0    A$main$510
-  0C:00A0    C$main.c$54$1$1
-  0C:00A0    C$main.c$55$1$1
-  0C:00A0    XG$write_segment$0$0
-  0C:00A1    A$main$525
-  0C:00A1    C$main.c$62$1$1
-  0C:00A1    C$main.c$68$1$1
-  0C:00A1    G$display$0$0
-  0C:00A1    _display
-  0C:00A4    A$main$526
-  0C:00A7    A$main$527
-  0C:00AA    A$main$530
-  0C:00AA    C$main.c$69$1$1
-  0C:00AD    A$main$531
-  0C:00B0    A$main$532
-  0C:00B3    A$main$535
-  0C:00B3    C$main.c$70$1$1
-  0C:00B6    A$main$536
-  0C:00B9    A$main$539
-  0C:00B9    C$main.c$71$1$1
-  0C:00B9    XG$display$0$0
-  0C:00BC    A$main$553
-  0C:00BC    C$main.c$77$1$1
-  0C:00BC    C$main.c$79$1$1
-  0C:00BC    G$check_outgoing$0$0
-  0C:00BC    _check_outgoing
-  0C:00BF    A$main$556
-  0C:00BF    C$main.c$82$2$2
-  0C:00C1    A$main$557
-  0C:00C3    A$main$558
-  0C:00C4    A$main$559
-  0C:00C5    A$main$560
-  0C:00C7    A$main$561
-  0C:00C8    A$main$562
-  0C:00CA    A$main$563
-  0C:00CC    A$main$566
-  0C:00CC    C$main.c$83$3$3
-  0C:00CE    A$main$570
-  0C:00CE    C$main.c$86$1$1
-  0C:00CE    XG$check_outgoing$0$0
-  0C:00CF    A$main$584
-  0C:00CF    C$main.c$91$1$1
-  0C:00CF    C$main.c$92$1$1
-  0C:00CF    G$check_incoming$0$0
-  0C:00CF    _check_incoming
-  0C:00D2    A$main$587
-  0C:00D2    C$main.c$94$2$2
-  0C:00D4    A$main$588
-  0C:00D6    A$main$591
-  0C:00D6    C$main.c$95$3$3
-  0C:00D8    A$main$595
-  0C:00D8    C$main.c$98$1$1
-  0C:00D8    XG$check_incoming$0$0
-  0C:00D9    A$main$609
-  0C:00D9    C$main.c$101$1$1
-  0C:00D9    C$main.c$102$1$1
-  0C:00D9    G$main$0$0
-  0C:00D9    _main
-  0C:00DC    A$main$615
-  0C:00DC    C$main.c$105$1$1
-  0C:00DC    C$main.c$106$2$2
-  0C:00DF    A$main$616
-  0C:00E2    A$main$617
-  0C:00E5    A$main$622
-  0C:00E5    C$main.c$122$1$1
-  0C:00E5    C$main.c$124$1$1
-  0C:00E5    XG$main$0$0
-  0C:00E7    __sdcc_external_startup
+  0C:009C    A$main$503
+  0C:009C    C$main.c$51$1$1
+  0C:009D    A$main$504
+  0C:00A0    A$main$505
+  0C:00A1    A$main$509
+  0C:00A1    C$main.c$63$1$1
+  0C:00A3    A$main$510
+  0C:00A5    A$main$511
+  0C:00A6    A$main$512
+  0C:00A8    A$main$513
+  0C:00AA    A$main$516
+  0C:00AA    C$main.c$64$1$1
+  0C:00AC    A$main$521
+  0C:00AC    C$main.c$65$1$1
+  0C:00AC    C$main.c$66$1$1
+  0C:00AC    XG$write_segment$0$0
+  0C:00AD    A$main$536
+  0C:00AD    C$main.c$73$1$1
+  0C:00AD    C$main.c$82$1$1
+  0C:00AD    G$display$0$0
+  0C:00AD    _display
+  0C:00B0    A$main$537
+  0C:00B3    A$main$538
+  0C:00B6    A$main$541
+  0C:00B6    C$main.c$83$1$1
+  0C:00B9    A$main$542
+  0C:00BC    A$main$543
+  0C:00BF    A$main$546
+  0C:00BF    C$main.c$84$1$1
+  0C:00C2    A$main$547
+  0C:00C5    A$main$550
+  0C:00C5    C$main.c$85$1$1
+  0C:00C5    XG$display$0$0
+  0C:00C8    A$main$564
+  0C:00C8    C$main.c$91$1$1
+  0C:00C8    C$main.c$93$1$1
+  0C:00C8    G$check_outgoing$0$0
+  0C:00C8    _check_outgoing
+  0C:00CB    A$main$567
+  0C:00CB    C$main.c$96$2$2
+  0C:00CD    A$main$568
+  0C:00CF    A$main$569
+  0C:00D0    A$main$570
+  0C:00D1    A$main$571
+  0C:00D3    A$main$572
+  0C:00D4    A$main$573
+  0C:00D6    A$main$574
+  0C:00D8    A$main$577
+  0C:00D8    C$main.c$97$3$3
+  0C:00DA    A$main$581
+  0C:00DA    C$main.c$100$1$1
+  0C:00DA    XG$check_outgoing$0$0
+  0C:00DB    A$main$595
+  0C:00DB    C$main.c$105$1$1
+  0C:00DB    C$main.c$106$1$1
+  0C:00DB    G$check_incoming$0$0
+  0C:00DB    _check_incoming
+  0C:00DE    A$main$598
+  0C:00DE    C$main.c$108$2$2
+  0C:00E0    A$main$599
+  0C:00E2    A$main$602
+  0C:00E2    C$main.c$109$3$3
+  0C:00E4    A$main$606
+  0C:00E4    C$main.c$112$1$1
+  0C:00E4    XG$check_incoming$0$0
+  0C:00E5    A$main$620
+  0C:00E5    C$main.c$115$1$1
+  0C:00E5    C$main.c$116$1$1
+  0C:00E5    G$main$0$0
+  0C:00E5    _main
+  0C:00E8    A$main$626
+  0C:00E8    C$main.c$119$1$1
+  0C:00E8    C$main.c$120$2$2
+  0C:00EB    A$main$627
+  0C:00EE    A$main$632
+  0C:00EE    C$main.c$136$1$1
+  0C:00EE    C$main.c$138$1$1
+  0C:00EE    XG$main$0$0
+  0C:00F0    __sdcc_external_startup
 
 
 ASxxxx Linker V01.75 + NoICE + SDCC Feb 1999,  page 1.
