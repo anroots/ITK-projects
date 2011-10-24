@@ -53,23 +53,23 @@ CABS                               0000   0000 =      0. bytes (ABS,CON,CODE)
   0C:0018    s_BIT_BANK
   0C:0018    s_OSEG
   0C:0018    s_REG_BANK_3
-  0C:001B    s_RSEG
-  0C:001B    s_SSEG
+  0C:001D    s_RSEG
+  0C:001D    s_SSEG
   0C:001E    l_GSINIT
   0C:0020    s__CODE
   0C:0022    l_GSINIT3
   0C:002A    l_GSINIT4
   0C:0037    s_GSINIT4
-  0C:005E    l_CSEG
   0C:0061    s_GSINIT
   0C:0061    s_GSINIT5
-  0C:0065    l_SSEG
+  0C:0063    l_SSEG
+  0C:0076    l_CSEG
   0C:007F    s_GSFINAL
   0C:0080    l_DSEG
   0C:0080    l_IRAM
   0C:0082    s_CSEG
-  0C:00E0    s_CONST
-  0C:00E0    s_XINIT
+  0C:00F8    s_CONST
+  0C:00F8    s_XINIT
 
 
 
@@ -291,14 +291,16 @@ DSEG                               0000   0080 =    128. bytes (REL,CON)
 
       Value  Global
    --------  --------------------------------
-     0008    G$FREE_SLOTS$0$0
-     0008    _FREE_SLOTS
-     0009    G$OUT$0$0
-     0009    _OUT
-     0013    G$cycle_delay$0$0
-     0013    _cycle_delay
-     0017    G$cycle_duration$0$0
-     0017    _cycle_duration
+     0008    G$free_slots$0$0
+     0008    _free_slots
+     0009    G$MAX_SLOTS$0$0
+     0009    _MAX_SLOTS
+     000B    G$OUT$0$0
+     000B    _OUT
+     0015    G$cycle_delay$0$0
+     0015    _cycle_delay
+     0019    G$cycle_duration$0$0
+     0019    _cycle_duration
 
 
 
@@ -306,11 +308,11 @@ Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-SSEG                               001B   0065 =    101. bytes (REL,OVR)
+SSEG                               001D   0063 =     99. bytes (REL,OVR)
 
       Value  Global
    --------  --------------------------------
-     001B    __start__stack
+     001D    __start__stack
 
 
 
@@ -324,10 +326,10 @@ HOME                               0000   0008 =      8. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
-  0C:0000    A$main$390
-  0C:0003    A$main$425
+  0C:0000    A$main$394
+  0C:0003    A$main$429
   0C:0003    __sdcc_program_startup
-  0C:0006    A$main$427
+  0C:0006    A$main$431
 
 Hexadecimal
 
@@ -371,17 +373,17 @@ GSINIT                             0061   001E =     30. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
-  0C:0061    A$main$407
-  0C:0061    C$main.c$25$1$1
-  0C:0064    A$main$408
-  0C:0067    A$main$409
-  0C:006A    A$main$410
-  0C:006D    A$main$411
-  0C:0070    A$main$412
-  0C:0073    A$main$413
-  0C:0076    A$main$414
-  0C:0079    A$main$415
-  0C:007C    A$main$416
+  0C:0061    A$main$411
+  0C:0061    C$main.c$27$1$1
+  0C:0064    A$main$412
+  0C:0067    A$main$413
+  0C:006A    A$main$414
+  0C:006D    A$main$415
+  0C:0070    A$main$416
+  0C:0073    A$main$417
+  0C:0076    A$main$418
+  0C:0079    A$main$419
+  0C:007C    A$main$420
 
 Hexadecimal
 
@@ -391,83 +393,100 @@ GSFINAL                            007F   0003 =      3. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
-  0C:007F    A$main$418
+  0C:007F    A$main$422
 
 Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-CSEG                               0082   005E =     94. bytes (REL,CON,CODE)
+CSEG                               0082   0076 =    118. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
-  0C:0082    A$main$453
-  0C:0082    C$main.c$32$0$0
-  0C:0082    C$main.c$33$1$1
+  0C:0082    A$main$457
+  0C:0082    C$main.c$34$0$0
+  0C:0082    C$main.c$35$1$1
   0C:0082    G$init$0$0
   0C:0082    _init
-  0C:0085    A$main$456
-  0C:0085    C$main.c$34$1$1
-  0C:0088    A$main$459
-  0C:0088    C$main.c$36$1$1
-  0C:008A    A$main$462
-  0C:008A    C$main.c$37$1$1
-  0C:008C    A$main$465
-  0C:008C    C$main.c$39$1$1
-  0C:008F    A$main$466
-  0C:0090    A$main$467
-  0C:0092    A$main$468
-  0C:0094    A$main$469
-  0C:0096    A$main$472
-  0C:0096    C$main.c$40$1$1
-  0C:0096    XG$init$0$0
-  0C:0097    A$main$486
-  0C:0097    C$main.c$43$1$1
-  0C:0097    C$main.c$45$1$1
-  0C:0097    G$main$0$0
-  0C:0097    _main
-  0C:009A    A$main$492
-  0C:009A    C$main.c$47$1$1
-  0C:009A    C$main.c$50$2$2
+  0C:0085    A$main$460
+  0C:0085    C$main.c$36$1$1
+  0C:0088    A$main$461
+  0C:0089    A$main$462
+  0C:008B    A$main$465
+  0C:008B    C$main.c$38$1$1
+  0C:008E    A$main$468
+  0C:008E    C$main.c$40$1$1
+  0C:0090    A$main$471
+  0C:0090    C$main.c$41$1$1
+  0C:0092    A$main$474
+  0C:0092    C$main.c$43$1$1
+  0C:0095    A$main$475
+  0C:0096    A$main$476
+  0C:0098    A$main$477
+  0C:009A    A$main$478
+  0C:009C    A$main$481
+  0C:009C    C$main.c$44$1$1
+  0C:009C    XG$init$0$0
   0C:009D    A$main$495
-  0C:009D    C$main.c$53$3$3
-  0C:009F    A$main$496
-  0C:00A1    A$main$499
-  0C:00A1    C$main.c$54$4$4
-  0C:00A3    A$main$503
-  0C:00A3    C$main.c$59$3$3
-  0C:00A4    A$main$504
-  0C:00A6    A$main$505
-  0C:00A8    A$main$506
-  0C:00AA    A$main$507
-  0C:00AC    A$main$509
-  0C:00AD    A$main$510
-  0C:00AF    A$main$511
-  0C:00B1    A$main$512
-  0C:00B3    A$main$513
-  0C:00B5    A$main$514
-  0C:00B7    A$main$515
-  0C:00B9    A$main$516
-  0C:00BB    A$main$517
-  0C:00BD    A$main$518
-  0C:00BF    A$main$519
-  0C:00C1    A$main$520
-  0C:00C2    A$main$521
-  0C:00C5    A$main$522
-  0C:00C7    A$main$523
-  0C:00CA    A$main$524
-  0C:00CC    A$main$525
-  0C:00CF    A$main$526
-  0C:00D1    A$main$527
-  0C:00D3    A$main$531
-  0C:00D3    C$main.c$63$2$2
-  0C:00D5    A$main$532
-  0C:00D7    A$main$533
-  0C:00D8    A$main$534
-  0C:00DA    A$main$537
-  0C:00DA    C$main.c$65$1$1
-  0C:00DA    XG$main$0$0
-  0C:00DC    __sdcc_external_startup
+  0C:009D    C$main.c$47$1$1
+  0C:009D    C$main.c$49$1$1
+  0C:009D    G$main$0$0
+  0C:009D    _main
+  0C:00A0    A$main$501
+  0C:00A0    C$main.c$51$1$1
+  0C:00A0    C$main.c$54$2$2
+  0C:00A3    A$main$504
+  0C:00A3    C$main.c$57$3$3
+  0C:00A5    A$main$505
+  0C:00A7    A$main$508
+  0C:00A7    C$main.c$58$4$4
+  0C:00A9    A$main$512
+  0C:00A9    C$main.c$63$2$2
+  0C:00AC    A$main$515
+  0C:00AC    C$main.c$66$3$5
+  0C:00AE    A$main$516
+  0C:00B0    A$main$517
+  0C:00B1    A$main$518
+  0C:00B2    A$main$519
+  0C:00B4    A$main$520
+  0C:00B5    A$main$521
+  0C:00B7    A$main$522
+  0C:00B9    A$main$525
+  0C:00B9    C$main.c$67$4$6
+  0C:00BB    A$main$529
+  0C:00BB    C$main.c$75$2$2
+  0C:00BC    A$main$530
+  0C:00BE    A$main$531
+  0C:00C0    A$main$532
+  0C:00C2    A$main$533
+  0C:00C4    A$main$535
+  0C:00C5    A$main$536
+  0C:00C7    A$main$537
+  0C:00C9    A$main$538
+  0C:00CB    A$main$539
+  0C:00CD    A$main$540
+  0C:00CF    A$main$541
+  0C:00D1    A$main$542
+  0C:00D3    A$main$543
+  0C:00D5    A$main$544
+  0C:00D7    A$main$545
+  0C:00D9    A$main$546
+  0C:00DA    A$main$547
+  0C:00DD    A$main$548
+  0C:00DF    A$main$549
+  0C:00E2    A$main$550
+  0C:00E4    A$main$551
+  0C:00E7    A$main$552
+  0C:00E9    A$main$553
+  0C:00EB    A$main$557
+  0C:00EB    C$main.c$78$2$2
+  0C:00ED    A$main$558
+  0C:00EF    A$main$559
+  0C:00F0    A$main$560
+  0C:00F2    A$main$563
+  0C:00F2    C$main.c$80$1$1
+  0C:00F2    XG$main$0$0
+  0C:00F4    __sdcc_external_startup
 
 
 ASxxxx Linker V01.75 + NoICE + SDCC Feb 1999,  page 1.

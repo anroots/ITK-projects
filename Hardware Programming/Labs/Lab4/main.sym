@@ -3,64 +3,77 @@
 Symbol Table
 
     A                                                              00D6 
-  D A$main$390                                                     0000 GR
- 14 A$main$407                                                     0000 GR
- 14 A$main$408                                                     0003 GR
- 14 A$main$409                                                     0006 GR
- 14 A$main$410                                                     0009 GR
- 14 A$main$411                                                     000C GR
- 14 A$main$412                                                     000F GR
- 14 A$main$413                                                     0012 GR
- 14 A$main$414                                                     0015 GR
- 14 A$main$415                                                     0018 GR
- 14 A$main$416                                                     001B GR
- 15 A$main$418                                                     0000 GR
-  D A$main$425                                                     0003 GR
-  D A$main$427                                                     0006 GR
- 16 A$main$453                                                     0000 GR
- 16 A$main$456                                                     0003 GR
- 16 A$main$459                                                     0006 GR
- 16 A$main$462                                                     0008 GR
- 16 A$main$465                                                     000A GR
- 16 A$main$466                                                     000D GR
- 16 A$main$467                                                     000E GR
- 16 A$main$468                                                     0010 GR
- 16 A$main$469                                                     0012 GR
- 16 A$main$472                                                     0014 GR
- 16 A$main$486                                                     0015 GR
- 16 A$main$492                                                     0018 GR
+  D A$main$394                                                     0000 GR
+ 14 A$main$411                                                     0000 GR
+ 14 A$main$412                                                     0003 GR
+ 14 A$main$413                                                     0006 GR
+ 14 A$main$414                                                     0009 GR
+ 14 A$main$415                                                     000C GR
+ 14 A$main$416                                                     000F GR
+ 14 A$main$417                                                     0012 GR
+ 14 A$main$418                                                     0015 GR
+ 14 A$main$419                                                     0018 GR
+ 14 A$main$420                                                     001B GR
+ 15 A$main$422                                                     0000 GR
+  D A$main$429                                                     0003 GR
+  D A$main$431                                                     0006 GR
+ 16 A$main$457                                                     0000 GR
+ 16 A$main$460                                                     0003 GR
+ 16 A$main$461                                                     0006 GR
+ 16 A$main$462                                                     0007 GR
+ 16 A$main$465                                                     0009 GR
+ 16 A$main$468                                                     000C GR
+ 16 A$main$471                                                     000E GR
+ 16 A$main$474                                                     0010 GR
+ 16 A$main$475                                                     0013 GR
+ 16 A$main$476                                                     0014 GR
+ 16 A$main$477                                                     0016 GR
+ 16 A$main$478                                                     0018 GR
+ 16 A$main$481                                                     001A GR
  16 A$main$495                                                     001B GR
- 16 A$main$496                                                     001D GR
- 16 A$main$499                                                     001F GR
- 16 A$main$503                                                     0021 GR
- 16 A$main$504                                                     0022 GR
- 16 A$main$505                                                     0024 GR
- 16 A$main$506                                                     0026 GR
- 16 A$main$507                                                     0028 GR
- 16 A$main$509                                                     002A GR
- 16 A$main$510                                                     002B GR
- 16 A$main$511                                                     002D GR
- 16 A$main$512                                                     002F GR
- 16 A$main$513                                                     0031 GR
- 16 A$main$514                                                     0033 GR
- 16 A$main$515                                                     0035 GR
- 16 A$main$516                                                     0037 GR
- 16 A$main$517                                                     0039 GR
- 16 A$main$518                                                     003B GR
- 16 A$main$519                                                     003D GR
- 16 A$main$520                                                     003F GR
- 16 A$main$521                                                     0040 GR
- 16 A$main$522                                                     0043 GR
- 16 A$main$523                                                     0045 GR
- 16 A$main$524                                                     0048 GR
- 16 A$main$525                                                     004A GR
- 16 A$main$526                                                     004D GR
- 16 A$main$527                                                     004F GR
- 16 A$main$531                                                     0051 GR
- 16 A$main$532                                                     0053 GR
- 16 A$main$533                                                     0055 GR
- 16 A$main$534                                                     0056 GR
- 16 A$main$537                                                     0058 GR
+ 16 A$main$501                                                     001E GR
+ 16 A$main$504                                                     0021 GR
+ 16 A$main$505                                                     0023 GR
+ 16 A$main$508                                                     0025 GR
+ 16 A$main$512                                                     0027 GR
+ 16 A$main$515                                                     002A GR
+ 16 A$main$516                                                     002C GR
+ 16 A$main$517                                                     002E GR
+ 16 A$main$518                                                     002F GR
+ 16 A$main$519                                                     0030 GR
+ 16 A$main$520                                                     0032 GR
+ 16 A$main$521                                                     0033 GR
+ 16 A$main$522                                                     0035 GR
+ 16 A$main$525                                                     0037 GR
+ 16 A$main$529                                                     0039 GR
+ 16 A$main$530                                                     003A GR
+ 16 A$main$531                                                     003C GR
+ 16 A$main$532                                                     003E GR
+ 16 A$main$533                                                     0040 GR
+ 16 A$main$535                                                     0042 GR
+ 16 A$main$536                                                     0043 GR
+ 16 A$main$537                                                     0045 GR
+ 16 A$main$538                                                     0047 GR
+ 16 A$main$539                                                     0049 GR
+ 16 A$main$540                                                     004B GR
+ 16 A$main$541                                                     004D GR
+ 16 A$main$542                                                     004F GR
+ 16 A$main$543                                                     0051 GR
+ 16 A$main$544                                                     0053 GR
+ 16 A$main$545                                                     0055 GR
+ 16 A$main$546                                                     0057 GR
+ 16 A$main$547                                                     0058 GR
+ 16 A$main$548                                                     005B GR
+ 16 A$main$549                                                     005D GR
+ 16 A$main$550                                                     0060 GR
+ 16 A$main$551                                                     0062 GR
+ 16 A$main$552                                                     0065 GR
+ 16 A$main$553                                                     0067 GR
+ 16 A$main$557                                                     0069 GR
+ 16 A$main$558                                                     006B GR
+ 16 A$main$559                                                     006D GR
+ 16 A$main$560                                                     006E GR
+ 16 A$main$563                                                     0070 GR
     AC                                                             00D6 
     ACC                                                            00E0 
     ACC.0                                                          00E0 
@@ -80,23 +93,27 @@ Symbol Table
     B.5                                                            00F5 
     B.6                                                            00F6 
     B.7                                                            00F7 
- 14 C$main.c$25$1$1                                             =  0000 GR
- 16 C$main.c$32$0$0                                             =  0000 GR
- 16 C$main.c$33$1$1                                             =  0000 GR
- 16 C$main.c$34$1$1                                             =  0003 GR
- 16 C$main.c$36$1$1                                             =  0006 GR
- 16 C$main.c$37$1$1                                             =  0008 GR
- 16 C$main.c$39$1$1                                             =  000A GR
- 16 C$main.c$40$1$1                                             =  0014 GR
- 16 C$main.c$43$1$1                                             =  0015 GR
- 16 C$main.c$45$1$1                                             =  0015 GR
- 16 C$main.c$47$1$1                                             =  0018 GR
- 16 C$main.c$50$2$2                                             =  0018 GR
- 16 C$main.c$53$3$3                                             =  001B GR
- 16 C$main.c$54$4$4                                             =  001F GR
- 16 C$main.c$59$3$3                                             =  0021 GR
- 16 C$main.c$63$2$2                                             =  0051 GR
- 16 C$main.c$65$1$1                                             =  0058 GR
+ 14 C$main.c$27$1$1                                             =  0000 GR
+ 16 C$main.c$34$0$0                                             =  0000 GR
+ 16 C$main.c$35$1$1                                             =  0000 GR
+ 16 C$main.c$36$1$1                                             =  0003 GR
+ 16 C$main.c$38$1$1                                             =  0009 GR
+ 16 C$main.c$40$1$1                                             =  000C GR
+ 16 C$main.c$41$1$1                                             =  000E GR
+ 16 C$main.c$43$1$1                                             =  0010 GR
+ 16 C$main.c$44$1$1                                             =  001A GR
+ 16 C$main.c$47$1$1                                             =  001B GR
+ 16 C$main.c$49$1$1                                             =  001B GR
+ 16 C$main.c$51$1$1                                             =  001E GR
+ 16 C$main.c$54$2$2                                             =  001E GR
+ 16 C$main.c$57$3$3                                             =  0021 GR
+ 16 C$main.c$58$4$4                                             =  0025 GR
+ 16 C$main.c$63$2$2                                             =  0027 GR
+ 16 C$main.c$66$3$5                                             =  002A GR
+ 16 C$main.c$67$4$6                                             =  0037 GR
+ 16 C$main.c$75$2$2                                             =  0039 GR
+ 16 C$main.c$78$2$2                                             =  0069 GR
+ 16 C$main.c$80$1$1                                             =  0070 GR
     CPRL2                                                          00C8 
     CT2                                                            00C9 
     CY                                                             00D7 
@@ -126,7 +143,6 @@ Symbol Table
     G$EX1$0$0                                                   =  00AA G
     G$F0$0$0                                                    =  00D5 G
     G$F1$0$0                                                    =  00D1 G
-  3 G$FREE_SLOTS$0$0                                            =  0000 GR
     G$IE$0$0                                                    =  00A8 G
     G$IE0$0$0                                                   =  0089 G
     G$IE1$0$0                                                   =  008B G
@@ -135,7 +151,8 @@ Symbol Table
     G$IP$0$0                                                    =  00B8 G
     G$IT0$0$0                                                   =  0088 G
     G$IT1$0$0                                                   =  008A G
-  3 G$OUT$0$0                                                   =  0001 GR
+  3 G$MAX_SLOTS$0$0                                             =  0001 GR
+  3 G$OUT$0$0                                                   =  0003 GR
     G$OV$0$0                                                    =  00D2 G
     G$P$0$0                                                     =  00D0 G
     G$P0$0$0                                                    =  0080 G
@@ -210,10 +227,11 @@ Symbol Table
     G$TR1$0$0                                                   =  008E G
     G$TXD$0$0                                                   =  00B1 G
     G$WR$0$0                                                    =  00B6 G
-  3 G$cycle_delay$0$0                                           =  000B GR
-  3 G$cycle_duration$0$0                                        =  000F GR
+  3 G$cycle_delay$0$0                                           =  000D GR
+  3 G$cycle_duration$0$0                                        =  0011 GR
+  3 G$free_slots$0$0                                            =  0000 GR
  16 G$init$0$0                                                  =  0000 GR
- 16 G$main$0$0                                                  =  0015 GR
+ 16 G$main$0$0                                                  =  001B GR
     IE                                                             00A8 
     IE.0                                                           00A8 
     IE.1                                                           00A9 
@@ -347,8 +365,8 @@ Symbol Table
     TR1                                                            008E 
     TR2                                                            00CA 
     TXD                                                            00B1 
- 16 XG$init$0$0                                                 =  0014 GR
- 16 XG$main$0$0                                                 =  0058 GR
+ 16 XG$init$0$0                                                 =  001A GR
+ 16 XG$main$0$0                                                 =  0070 GR
     _AC                                                         =  00D6 G
     _ACC                                                        =  00E0 G
     _B                                                          =  00F0 G
@@ -363,7 +381,6 @@ Symbol Table
     _EX1                                                        =  00AA G
     _F0                                                         =  00D5 G
     _F1                                                         =  00D1 G
-  3 _FREE_SLOTS                                                    0000 GR
     _IE                                                         =  00A8 G
     _IE0                                                        =  0089 G
     _IE1                                                        =  008B G
@@ -372,7 +389,8 @@ Symbol Table
     _IP                                                         =  00B8 G
     _IT0                                                        =  0088 G
     _IT1                                                        =  008A G
-  3 _OUT                                                           0001 GR
+  3 _MAX_SLOTS                                                     0001 GR
+  3 _OUT                                                           0003 GR
     _OV                                                         =  00D2 G
     _P                                                          =  00D0 G
     _P0                                                         =  0080 G
@@ -454,10 +472,11 @@ Symbol Table
     __sdcc_gsinit_startup                                          **** GX
   D __sdcc_program_startup                                         0003 GR
   5 __start__stack                                                 0000 GR
-  3 _cycle_delay                                                   000B GR
-  3 _cycle_duration                                                000F GR
+  3 _cycle_delay                                                   000D GR
+  3 _cycle_duration                                                0011 GR
+  3 _free_slots                                                    0000 GR
  16 _init                                                          0000 GR
- 16 _main                                                          0015 GR
+ 16 _main                                                          001B GR
     a                                                              00D6 
     ac                                                             00D6 
     acc                                                            00E0 
@@ -642,7 +661,7 @@ Area Table
    0 _CODE                                                                              size    0   flags 0
    1 RSEG                                                                               size    0   flags 0
    2 REG_BANK_0                                                                         size    8   flags 4
-   3 DSEG                                                                               size   13   flags 0
+   3 DSEG                                                                               size   15   flags 0
    4 OSEG                                                                               size    0   flags 4
    5 SSEG                                                                               size    1   flags 0
    6 ISEG                                                                               size    0   flags 0
@@ -661,7 +680,7 @@ Area Table
   13 GSINIT5                                                                            size    0   flags 20
   14 GSINIT                                                                             size   1E   flags 20
   15 GSFINAL                                                                            size    3   flags 20
-  16 CSEG                                                                               size   5A   flags 20
+  16 CSEG                                                                               size   72   flags 20
   17 CONST                                                                              size    0   flags 20
   18 XINIT                                                                              size    0   flags 20
   19 CABS                                                                               size    0   flags 28
