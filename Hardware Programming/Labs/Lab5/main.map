@@ -52,24 +52,24 @@ CABS                               0000   0000 =      0. bytes (ABS,CON,CODE)
   0C:0015    s_GSINIT3
   0C:0018    s_BIT_BANK
   0C:0018    s_REG_BANK_3
-  0C:0020    s_OSEG
   0C:0020    s__CODE
   0C:0021    l_GSINIT
+  0C:0021    s_OSEG
   0C:0022    l_GSINIT3
-  0C:0022    s_RSEG
-  0C:0022    s_SSEG
+  0C:0023    s_RSEG
+  0C:0023    s_SSEG
   0C:002A    l_GSINIT4
   0C:0037    s_GSINIT4
-  0C:005E    l_SSEG
+  0C:005D    l_SSEG
   0C:0061    s_GSINIT
   0C:0061    s_GSINIT5
   0C:0080    l_DSEG
   0C:0080    l_IRAM
   0C:0082    s_GSFINAL
   0C:0085    s_CSEG
-  0C:0151    l_CSEG
-  0C:01D6    s_CONST
-  0C:01D6    s_XINIT
+  0C:0157    l_CSEG
+  0C:01DC    s_CONST
+  0C:01DC    s_XINIT
 
 
 
@@ -295,40 +295,40 @@ DSEG                               0000   0080 =    128. bytes (REL,CON)
      0008    _NUMBER_OF_DIGITS
      0009    G$free_slots$0$0
      0009    _free_slots
-     000A    G$MAX_SLOTS$0$0
-     000A    _MAX_SLOTS
-     000C    G$NUMBERS$0$0
-     000C    _NUMBERS
-     0016    G$cycle_delay$0$0
-     0016    _cycle_delay
-     001A    G$cycle_duration$0$0
-     001A    _cycle_duration
-     001E    Lwrite_segment$value$1$1
-     001E    _write_segment_PARM_2
-     001F    Lget_digit$place$1$1
-     001F    _get_digit_PARM_2
+     000B    G$MAX_SLOTS$0$0
+     000B    _MAX_SLOTS
+     000D    G$NUMBERS$0$0
+     000D    _NUMBERS
+     0017    G$cycle_delay$0$0
+     0017    _cycle_delay
+     001B    G$cycle_duration$0$0
+     001B    _cycle_duration
+     001F    Lwrite_segment$value$1$1
+     001F    _write_segment_PARM_2
+     0020    Lget_digit$place$1$1
+     0020    _get_digit_PARM_2
 
 Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-OSEG                               0020   0002 =      2. bytes (REL,OVR)
+OSEG                               0021   0002 =      2. bytes (REL,OVR)
 
       Value  Global
    --------  --------------------------------
-     0020    __divsint_PARM_2
-     0020    __divuint_PARM_2
+     0021    __divsint_PARM_2
+     0021    __divuint_PARM_2
 
 
 Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-SSEG                               0022   005E =     94. bytes (REL,OVR)
+SSEG                               0023   005D =     93. bytes (REL,OVR)
 
       Value  Global
    --------  --------------------------------
-     0022    __start__stack
+     0023    __start__stack
 
 
 
@@ -417,7 +417,7 @@ Hexadecimal
 
 Area                               Addr   Size   Decimal Bytes (Attributes)
 --------------------------------   ----   ----   ------- ----- ------------
-CSEG                               0085   0151 =    337. bytes (REL,CON,CODE)
+CSEG                               0085   0157 =    343. bytes (REL,CON,CODE)
 
       Value  Global
    --------  --------------------------------
@@ -430,200 +430,198 @@ CSEG                               0085   0151 =    337. bytes (REL,CON,CODE)
   0C:0089    A$main$480
   0C:008B    A$main$483
   0C:008B    C$main.c$47$1$1
-  0C:008E    A$main$486
-  0C:008E    C$main.c$49$1$1
-  0C:0090    A$main$489
-  0C:0090    C$main.c$50$1$1
-  0C:0092    A$main$492
-  0C:0092    C$main.c$52$1$1
-  0C:0095    A$main$493
-  0C:0096    A$main$494
+  0C:008E    A$main$484
+  0C:008F    A$main$485
+  0C:0091    A$main$488
+  0C:0091    C$main.c$49$1$1
+  0C:0093    A$main$491
+  0C:0093    C$main.c$50$1$1
+  0C:0095    A$main$494
+  0C:0095    C$main.c$52$1$1
   0C:0098    A$main$495
-  0C:009A    A$main$496
-  0C:009C    A$main$499
-  0C:009C    C$main.c$53$1$1
-  0C:009C    XG$init$0$0
-  0C:009D    A$main$513
-  0C:009D    C$main.c$61$1$1
-  0C:009D    G$write_segment$0$0
-  0C:009D    _write_segment
-  0C:009F    A$main$516
-  0C:009F    C$main.c$63$1$1
-  0C:00A1    A$main$519
-  0C:00A1    C$main.c$64$1$1
-  0C:00A3    A$main$522
-  0C:00A3    C$main.c$65$1$1
-  0C:00A5    A$main$525
-  0C:00A5    C$main.c$68$1$1
-  0C:00A7    A$main$526
-  0C:00A9    A$main$527
+  0C:0099    A$main$496
+  0C:009B    A$main$497
+  0C:009D    A$main$498
+  0C:009F    A$main$501
+  0C:009F    C$main.c$53$1$1
+  0C:009F    XG$init$0$0
+  0C:00A0    A$main$515
+  0C:00A0    C$main.c$61$1$1
+  0C:00A0    G$write_segment$0$0
+  0C:00A0    _write_segment
+  0C:00A2    A$main$518
+  0C:00A2    C$main.c$63$1$1
+  0C:00A4    A$main$521
+  0C:00A4    C$main.c$64$1$1
+  0C:00A6    A$main$524
+  0C:00A6    C$main.c$65$1$1
+  0C:00A8    A$main$527
+  0C:00A8    C$main.c$68$1$1
   0C:00AA    A$main$528
-  0C:00AC    A$main$531
-  0C:00AC    C$main.c$71$1$1
-  0C:00AF    A$main$532
-  0C:00B1    A$main$534
-  0C:00B4    A$main$535
-  0C:00B6    A$main$539
-  0C:00B6    C$main.c$72$2$2
-  0C:00B9    A$main$540
-  0C:00BB    A$main$544
-  0C:00BB    C$main.c$73$2$2
-  0C:00BD    A$main$547
-  0C:00BD    C$main.c$74$2$2
-  0C:00BF    A$main$550
-  0C:00BF    C$main.c$75$2$2
-  0C:00C1    A$main$555
-  0C:00C1    C$main.c$76$2$2
-  0C:00C1    C$main.c$77$2$2
-  0C:00C2    A$main$559
-  0C:00C2    C$main.c$78$2$2
-  0C:00C4    A$main$562
-  0C:00C4    C$main.c$79$2$2
-  0C:00C6    A$main$565
-  0C:00C6    C$main.c$80$2$2
-  0C:00C8    A$main$570
-  0C:00C8    C$main.c$81$2$2
-  0C:00C8    C$main.c$82$2$2
-  0C:00C9    A$main$574
-  0C:00C9    C$main.c$83$2$2
-  0C:00CB    A$main$577
-  0C:00CB    C$main.c$84$2$2
-  0C:00CD    A$main$580
-  0C:00CD    C$main.c$85$2$2
-  0C:00CF    A$main$586
-  0C:00CF    C$main.c$87$1$1
-  0C:00CF    C$main.c$88$1$1
-  0C:00CF    XG$write_segment$0$0
-  0C:00D0    A$main$600
-  0C:00D0    C$main.c$94$1$1
-  0C:00D0    G$get_digit$0$0
-  0C:00D0    _get_digit
-  0C:00D2    A$main$601
-  0C:00D4    A$main$604
-  0C:00D4    C$main.c$96$1$1
-  0C:00D6    A$main$605
-  0C:00D8    A$main$608
-  0C:00D8    C$main.c$97$2$2
-  0C:00DA    A$main$609
-  0C:00DD    A$main$610
-  0C:00DE    A$main$611
-  0C:00DF    A$main$612
-  0C:00E2    A$main$613
-  0C:00E3    A$main$617
-  0C:00E3    C$main.c$98$1$1
-  0C:00E5    A$main$618
-  0C:00E8    A$main$621
-  0C:00E8    C$main.c$99$1$1
-  0C:00EB    A$main$622
-  0C:00EC    A$main$623
+  0C:00AC    A$main$529
+  0C:00AD    A$main$530
+  0C:00AF    A$main$533
+  0C:00AF    C$main.c$71$1$1
+  0C:00B2    A$main$534
+  0C:00B4    A$main$536
+  0C:00B7    A$main$537
+  0C:00B9    A$main$541
+  0C:00B9    C$main.c$72$2$2
+  0C:00BC    A$main$542
+  0C:00BE    A$main$546
+  0C:00BE    C$main.c$73$2$2
+  0C:00C0    A$main$549
+  0C:00C0    C$main.c$74$2$2
+  0C:00C2    A$main$552
+  0C:00C2    C$main.c$75$2$2
+  0C:00C4    A$main$557
+  0C:00C4    C$main.c$76$2$2
+  0C:00C4    C$main.c$77$2$2
+  0C:00C5    A$main$561
+  0C:00C5    C$main.c$78$2$2
+  0C:00C7    A$main$564
+  0C:00C7    C$main.c$79$2$2
+  0C:00C9    A$main$567
+  0C:00C9    C$main.c$80$2$2
+  0C:00CB    A$main$572
+  0C:00CB    C$main.c$81$2$2
+  0C:00CB    C$main.c$82$2$2
+  0C:00CC    A$main$576
+  0C:00CC    C$main.c$83$2$2
+  0C:00CE    A$main$579
+  0C:00CE    C$main.c$84$2$2
+  0C:00D0    A$main$582
+  0C:00D0    C$main.c$85$2$2
+  0C:00D2    A$main$588
+  0C:00D2    C$main.c$87$1$1
+  0C:00D2    C$main.c$88$1$1
+  0C:00D2    XG$write_segment$0$0
+  0C:00D3    A$main$602
+  0C:00D3    C$main.c$94$1$1
+  0C:00D3    G$get_digit$0$0
+  0C:00D3    _get_digit
+  0C:00D5    A$main$603
+  0C:00D7    A$main$606
+  0C:00D7    C$main.c$96$1$1
+  0C:00D9    A$main$607
+  0C:00DB    A$main$610
+  0C:00DB    C$main.c$97$2$2
+  0C:00DD    A$main$611
+  0C:00E0    A$main$612
+  0C:00E1    A$main$613
+  0C:00E2    A$main$614
+  0C:00E5    A$main$615
+  0C:00E6    A$main$619
+  0C:00E6    C$main.c$98$1$1
+  0C:00E8    A$main$620
+  0C:00EB    A$main$623
+  0C:00EB    C$main.c$99$1$1
   0C:00EE    A$main$624
-  0C:00F0    A$main$625
-  0C:00F2    A$main$626
-  0C:00F5    A$main$627
-  0C:00F7    A$main$628
-  0C:00FA    A$main$629
-  0C:00FB    A$main$630
-  0C:00FC    A$main$631
-  0C:00FF    A$main$632
-  0C:0100    A$main$636
-  0C:0100    C$main.c$101$1$1
-  0C:0103    A$main$637
-  0C:0104    A$main$638
+  0C:00EF    A$main$625
+  0C:00F1    A$main$626
+  0C:00F3    A$main$627
+  0C:00F5    A$main$628
+  0C:00F8    A$main$629
+  0C:00FA    A$main$630
+  0C:00FD    A$main$631
+  0C:00FE    A$main$632
+  0C:00FF    A$main$633
+  0C:0102    A$main$634
+  0C:0103    A$main$638
+  0C:0103    C$main.c$101$1$1
   0C:0106    A$main$639
-  0C:0108    A$main$640
-  0C:010A    A$main$643
-  0C:010A    C$main.c$113$1$1
-  0C:010A    XG$get_digit$0$0
-  0C:010D    A$main$657
-  0C:010D    C$main.c$120$1$1
-  0C:010D    G$display$0$0
-  0C:010D    _display
-  0C:010F    A$main$658
-  0C:0111    A$main$661
-  0C:0113    A$main$663
-  0C:0114    A$main$664
-  0C:0115    A$main$665
+  0C:0107    A$main$640
+  0C:0109    A$main$641
+  0C:010B    A$main$642
+  0C:010D    A$main$645
+  0C:010D    C$main.c$113$1$1
+  0C:010D    XG$get_digit$0$0
+  0C:0110    A$main$659
+  0C:0110    C$main.c$120$1$1
+  0C:0110    G$display$0$0
+  0C:0110    _display
+  0C:0112    A$main$660
+  0C:0114    A$main$663
+  0C:0116    A$main$665
   0C:0117    A$main$666
-  0C:0119    A$main$669
-  0C:0119    C$main.c$126$2$2
-  0C:011A    A$main$670
-  0C:011B    A$main$671
-  0C:011C    A$main$672
-  0C:011E    A$main$673
-  0C:0120    A$main$674
-  0C:0122    A$main$675
-  0C:0124    A$main$676
-  0C:0126    A$main$677
-  0C:0128    A$main$678
-  0C:012A    A$main$679
-  0C:012D    A$main$680
-  0C:0130    A$main$681
-  0C:0132    A$main$682
-  0C:0134    A$main$683
-  0C:0136    A$main$684
-  0C:0138    A$main$685
-  0C:013B    A$main$686
-  0C:013D    A$main$687
-  0C:013F    A$main$688
-  0C:0141    A$main$691
-  0C:0141    C$main.c$125$1$1
-  0C:0143    A$main$692
-  0C:0145    A$main$696
-  0C:0145    C$main.c$128$1$1
-  0C:0145    XG$display$0$0
-  0C:0146    A$main$710
-  0C:0146    C$main.c$134$1$1
-  0C:0146    C$main.c$136$1$1
-  0C:0146    G$check_outgoing$0$0
-  0C:0146    _check_outgoing
+  0C:0118    A$main$667
+  0C:011A    A$main$668
+  0C:011C    A$main$671
+  0C:011C    C$main.c$126$2$2
+  0C:011E    A$main$672
+  0C:0120    A$main$673
+  0C:0122    A$main$674
+  0C:0124    A$main$675
+  0C:0126    A$main$676
+  0C:0128    A$main$677
+  0C:012B    A$main$678
+  0C:012E    A$main$679
+  0C:0130    A$main$680
+  0C:0132    A$main$681
+  0C:0134    A$main$682
+  0C:0137    A$main$683
+  0C:0139    A$main$684
+  0C:013B    A$main$685
+  0C:013D    A$main$688
+  0C:013D    C$main.c$125$1$1
+  0C:013E    A$main$689
+  0C:0140    A$main$693
+  0C:0140    C$main.c$128$1$1
+  0C:0140    XG$display$0$0
+  0C:0141    A$main$707
+  0C:0141    C$main.c$134$1$1
+  0C:0141    C$main.c$136$1$1
+  0C:0141    G$check_outgoing$0$0
+  0C:0141    _check_outgoing
+  0C:0144    A$main$710
+  0C:0144    C$main.c$139$2$2
+  0C:0145    A$main$711
+  0C:0147    A$main$712
   0C:0149    A$main$713
-  0C:0149    C$main.c$139$2$2
   0C:014B    A$main$714
   0C:014D    A$main$715
-  0C:014E    A$main$716
-  0C:014F    A$main$717
-  0C:0151    A$main$718
-  0C:0152    A$main$719
-  0C:0154    A$main$720
-  0C:0156    A$main$723
-  0C:0156    C$main.c$140$3$3
-  0C:0158    A$main$727
-  0C:0158    C$main.c$143$1$1
-  0C:0158    XG$check_outgoing$0$0
-  0C:0159    A$main$741
-  0C:0159    C$main.c$148$1$1
-  0C:0159    C$main.c$149$1$1
-  0C:0159    G$check_incoming$0$0
-  0C:0159    _check_incoming
-  0C:015C    A$main$744
-  0C:015C    C$main.c$151$2$2
-  0C:015E    A$main$745
-  0C:0160    A$main$748
-  0C:0160    C$main.c$152$3$3
-  0C:0162    A$main$752
-  0C:0162    C$main.c$155$1$1
-  0C:0162    XG$check_incoming$0$0
-  0C:0163    A$main$766
-  0C:0163    C$main.c$158$1$1
-  0C:0163    C$main.c$159$1$1
-  0C:0163    G$main$0$0
-  0C:0163    _main
-  0C:0166    A$main$772
-  0C:0166    C$main.c$161$1$1
-  0C:0166    C$main.c$163$2$2
-  0C:0169    A$main$775
-  0C:0169    C$main.c$165$2$2
-  0C:016C    A$main$778
-  0C:016C    C$main.c$172$2$2
-  0C:016D    A$main$779
-  0C:016F    A$main$780
-  0C:0171    A$main$781
-  0C:0173    A$main$782
-  0C:0175    A$main$784
-  0C:0176    A$main$785
-  0C:0178    A$main$786
-  0C:017A    A$main$787
-  0C:017C    A$main$788
+  0C:014F    A$main$718
+  0C:014F    C$main.c$140$3$3
+  0C:0151    A$main$719
+  0C:0152    A$main$720
+  0C:0155    A$main$721
+  0C:0157    A$main$726
+  0C:0157    C$main.c$143$1$1
+  0C:0157    XG$check_outgoing$0$0
+  0C:0158    A$main$740
+  0C:0158    C$main.c$148$1$1
+  0C:0158    C$main.c$149$1$1
+  0C:0158    G$check_incoming$0$0
+  0C:0158    _check_incoming
+  0C:015B    A$main$743
+  0C:015B    C$main.c$151$2$2
+  0C:015D    A$main$744
+  0C:015F    A$main$745
+  0C:0161    A$main$748
+  0C:0161    C$main.c$152$3$3
+  0C:0163    A$main$749
+  0C:0165    A$main$750
+  0C:0168    A$main$751
+  0C:016A    A$main$756
+  0C:016A    C$main.c$155$1$1
+  0C:016A    XG$check_incoming$0$0
+  0C:016B    A$main$770
+  0C:016B    C$main.c$158$1$1
+  0C:016B    C$main.c$159$1$1
+  0C:016B    G$main$0$0
+  0C:016B    _main
+  0C:016E    A$main$776
+  0C:016E    C$main.c$161$1$1
+  0C:016E    C$main.c$163$2$2
+  0C:0171    A$main$779
+  0C:0171    C$main.c$165$2$2
+  0C:0174    A$main$782
+  0C:0174    C$main.c$172$2$2
+  0C:0175    A$main$783
+  0C:0177    A$main$784
+  0C:0179    A$main$785
+  0C:017B    A$main$786
+  0C:017D    A$main$788
   0C:017E    A$main$789
   0C:0180    A$main$790
   0C:0182    A$main$791
@@ -631,24 +629,26 @@ CSEG                               0085   0151 =    337. bytes (REL,CON,CODE)
   0C:0186    A$main$793
   0C:0188    A$main$794
   0C:018A    A$main$795
-  0C:018B    A$main$796
+  0C:018C    A$main$796
   0C:018E    A$main$797
   0C:0190    A$main$798
-  0C:0193    A$main$799
-  0C:0195    A$main$800
-  0C:0198    A$main$801
-  0C:019A    A$main$802
-  0C:019C    A$main$806
-  0C:019C    C$main.c$174$2$2
-  0C:019E    A$main$807
-  0C:01A0    A$main$808
-  0C:01A2    A$main$809
+  0C:0192    A$main$799
+  0C:0193    A$main$800
+  0C:0196    A$main$801
+  0C:0198    A$main$802
+  0C:019B    A$main$803
+  0C:019D    A$main$804
+  0C:01A0    A$main$805
+  0C:01A2    A$main$806
   0C:01A4    A$main$810
-  0C:01A7    A$main$813
-  0C:01A7    C$main.c$176$1$1
-  0C:01A7    XG$main$0$0
-  0C:01A9    __divuint
-  0C:01D2    __sdcc_external_startup
+  0C:01A4    C$main.c$174$2$2
+  0C:01A7    A$main$811
+  0C:01AA    A$main$812
+  0C:01AD    A$main$815
+  0C:01AD    C$main.c$176$1$1
+  0C:01AD    XG$main$0$0
+  0C:01AF    __divuint
+  0C:01D8    __sdcc_external_startup
 
 
 ASxxxx Linker V01.75 + NoICE + SDCC Feb 1999,  page 1.

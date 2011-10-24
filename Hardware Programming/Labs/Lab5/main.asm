@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 22:44:38 2011
+; This file was generated Mon Oct 24 22:56:37 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -334,7 +334,7 @@ _NUMBER_OF_DIGITS::
 	.ds 1
 G$free_slots$0$0==.
 _free_slots::
-	.ds 1
+	.ds 2
 G$MAX_SLOTS$0$0==.
 _MAX_SLOTS::
 	.ds 2
@@ -481,6 +481,8 @@ _init:
 	C$main.c$47$1$1 ==.
 ;	main.c:47: free_slots = MAX_SLOTS; // All slots are empty in the beginning
 	mov	_free_slots,#0x09
+	clr	a
+	mov	(_free_slots + 1),a
 	C$main.c$49$1$1 ==.
 ;	main.c:49: BUTTON_ENTER = 1; // Define as input
 	setb	_P1_0
@@ -665,30 +667,25 @@ _display:
 	subb	a,_NUMBER_OF_DIGITS
 	jnc	00105$
 	C$main.c$126$2$2 ==.
-;	main.c:126: write_segment(i, get_digit(value, i+1));
-	mov	a,r4
-	inc	a
-	mov	r5,a
-	mov	_get_digit_PARM_2,r5
+;	main.c:126: write_segment(i, get_digit(value, i));
+	mov	_get_digit_PARM_2,r4
 	mov	dpl,r2
 	mov	dph,r3
 	push	ar2
 	push	ar3
 	push	ar4
-	push	ar5
 	lcall	_get_digit
 	mov	_write_segment_PARM_2,dpl
-	pop	ar5
 	pop	ar4
 	mov	dpl,r4
-	push	ar5
+	push	ar4
 	lcall	_write_segment
-	pop	ar5
+	pop	ar4
 	pop	ar3
 	pop	ar2
 	C$main.c$125$1$1 ==.
 ;	main.c:125: for (i = 0; i < NUMBER_OF_DIGITS; i++) {
-	mov	ar4,r5
+	inc	r4
 	sjmp	00101$
 00105$:
 	C$main.c$128$1$1 ==.
@@ -710,17 +707,19 @@ _check_outgoing:
 	jnb	_P1_1,00105$
 	C$main.c$139$2$2 ==.
 ;	main.c:139: if (free_slots < MAX_SLOTS) {
-	mov	r2,_free_slots
-	mov	r3,#0x00
 	clr	c
-	mov	a,r2
+	mov	a,_free_slots
 	subb	a,_MAX_SLOTS
-	mov	a,r3
+	mov	a,(_free_slots + 1)
 	subb	a,(_MAX_SLOTS + 1)
 	jnc	00105$
 	C$main.c$140$3$3 ==.
 ;	main.c:140: free_slots++;
 	inc	_free_slots
+	clr	a
+	cjne	a,_free_slots,00111$
+	inc	(_free_slots + 1)
+00111$:
 00105$:
 	C$main.c$143$1$1 ==.
 	XG$check_outgoing$0$0 ==.
@@ -742,10 +741,15 @@ _check_incoming:
 	C$main.c$151$2$2 ==.
 ;	main.c:151: if (free_slots > 0) {    
 	mov	a,_free_slots
+	orl	a,(_free_slots + 1)
 	jz	00105$
 	C$main.c$152$3$3 ==.
 ;	main.c:152: free_slots--;
 	dec	_free_slots
+	mov	a,#0xff
+	cjne	a,_free_slots,00111$
+	dec	(_free_slots + 1)
+00111$:
 00105$:
 	C$main.c$155$1$1 ==.
 	XG$check_incoming$0$0 ==.
@@ -803,10 +807,8 @@ _main:
 00107$:
 	C$main.c$174$2$2 ==.
 ;	main.c:174: display(free_slots); // Output the number of free slots
-	mov	r2,_free_slots
-	mov	r3,#0x00
-	mov	dpl,r2
-	mov	dph,r3
+	mov	dpl,_free_slots
+	mov	dph,(_free_slots + 1)
 	lcall	_display
 	C$main.c$176$1$1 ==.
 	XG$main$0$0 ==.

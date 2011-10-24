@@ -28,7 +28,7 @@
 unsigned char NUMBER_OF_DIGITS = 3;
 
 // Variable to hold the number of current free slots
-unsigned char free_slots;
+unsigned int free_slots;
 
 unsigned int MAX_SLOTS;
 
@@ -123,7 +123,7 @@ void display(unsigned int value) {
 	
 	// Separate value to digits and print each one
 	for (i = 0; i < NUMBER_OF_DIGITS; i++) {
-		write_segment(i, get_digit(value, i+1));
+		write_segment(i, get_digit(value, i));
 	}
 }
 

@@ -9,7 +9,7 @@ F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 S:G$NUMBER_OF_DIGITS$0$0({1}SC:U),E,0,0
-S:G$free_slots$0$0({1}SC:U),E,0,0
+S:G$free_slots$0$0({2}SI:U),E,0,0
 S:G$MAX_SLOTS$0$0({2}SI:U),E,0,0
 S:G$NUMBERS$0$0({10}DA10,SC:U),E,0,0
 S:G$cycle_delay$0$0({4}SL:U),E,0,0
