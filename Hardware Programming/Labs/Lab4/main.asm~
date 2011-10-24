@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 11:12:30 2011
+; This file was generated Mon Oct 24 11:50:59 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -114,7 +114,7 @@
 	.globl _write_segment_PARM_2
 	.globl _cycle_duration
 	.globl _cycle_delay
-	.globl _OUT
+	.globl _NUMBERS
 	.globl _MAX_SLOTS
 	.globl _free_slots
 ;--------------------------------------------------------
@@ -332,8 +332,8 @@ _free_slots::
 G$MAX_SLOTS$0$0==.
 _MAX_SLOTS::
 	.ds 2
-G$OUT$0$0==.
-_OUT::
+G$NUMBERS$0$0==.
+_NUMBERS::
 	.ds 10
 G$cycle_delay$0$0==.
 _cycle_delay::
@@ -415,17 +415,17 @@ __interrupt_vect:
 	.globl __mcs51_genRAMCLEAR
 	G$main$0$0 ==.
 	C$main.c$27$1$1 ==.
-;	main.c:27: unsigned char OUT [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
-	mov	_OUT,#0xC0
-	mov	(_OUT + 0x0001),#0xF9
-	mov	(_OUT + 0x0002),#0xA4
-	mov	(_OUT + 0x0003),#0xB0
-	mov	(_OUT + 0x0004),#0x99
-	mov	(_OUT + 0x0005),#0x92
-	mov	(_OUT + 0x0006),#0x82
-	mov	(_OUT + 0x0007),#0xF0
-	mov	(_OUT + 0x0008),#0x80
-	mov	(_OUT + 0x0009),#0x90
+;	main.c:27: unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
+	mov	_NUMBERS,#0xC0
+	mov	(_NUMBERS + 0x0001),#0xF9
+	mov	(_NUMBERS + 0x0002),#0xA4
+	mov	(_NUMBERS + 0x0003),#0xB0
+	mov	(_NUMBERS + 0x0004),#0x99
+	mov	(_NUMBERS + 0x0005),#0x92
+	mov	(_NUMBERS + 0x0006),#0x82
+	mov	(_NUMBERS + 0x0007),#0xF0
+	mov	(_NUMBERS + 0x0008),#0x80
+	mov	(_NUMBERS + 0x0009),#0x90
 	.area GSFINAL (CODE)
 	ljmp	__sdcc_program_startup
 ;--------------------------------------------------------
@@ -461,30 +461,27 @@ _init:
 	ar0 = 0x00
 	ar1 = 0x01
 	C$main.c$36$1$1 ==.
-;	main.c:36: LED = 0xc0; // LED display is set to 0 when the system turns on, then changes to MAX slots
-	mov	_P2,#0xC0
-	C$main.c$37$1$1 ==.
-;	main.c:37: MAX_SLOTS = 10; // We have this many free slots, max
+;	main.c:36: MAX_SLOTS = 10; // We have this many free slots, max
 	mov	_MAX_SLOTS,#0x0A
 	clr	a
 	mov	(_MAX_SLOTS + 1),a
-	C$main.c$39$1$1 ==.
-;	main.c:39: free_slots = MAX_SLOTS; // All slots are empty in the beginning
+	C$main.c$38$1$1 ==.
+;	main.c:38: free_slots = MAX_SLOTS; // All slots are empty in the beginning
 	mov	_free_slots,#0x0A
-	C$main.c$41$1$1 ==.
-;	main.c:41: BUTTON_ENTER = 1; // Define as input
+	C$main.c$40$1$1 ==.
+;	main.c:40: BUTTON_ENTER = 1; // Define as input
 	setb	_P1_0
-	C$main.c$42$1$1 ==.
-;	main.c:42: BUTTON_EXIT = 1; // Define as input
+	C$main.c$41$1$1 ==.
+;	main.c:41: BUTTON_EXIT = 1; // Define as input
 	setb	_P1_1
-	C$main.c$44$1$1 ==.
-;	main.c:44: cycle_duration = 10; // The artificial time delay is X cycles long
-	mov	_cycle_duration,#0x0A
+	C$main.c$43$1$1 ==.
+;	main.c:43: cycle_duration = 1; // The artificial time delay is X cycles long
+	mov	_cycle_duration,#0x01
 	clr	a
 	mov	(_cycle_duration + 1),a
 	mov	(_cycle_duration + 2),a
 	mov	(_cycle_duration + 3),a
-	C$main.c$45$1$1 ==.
+	C$main.c$44$1$1 ==.
 	XG$init$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -494,12 +491,17 @@ _init:
 ;segment_number            Allocated to registers 
 ;------------------------------------------------------------
 	G$write_segment$0$0 ==.
-	C$main.c$51$1$1 ==.
-;	main.c:51: void write_segment(unsigned char segment_number, unsigned char value) {
+	C$main.c$50$1$1 ==.
+;	main.c:50: void write_segment(unsigned char segment_number, unsigned char value) {
 ;	-----------------------------------------
 ;	 function write_segment
 ;	-----------------------------------------
 _write_segment:
+	C$main.c$51$1$1 ==.
+;	main.c:51: P1_0 = NUMBERS[0];
+	mov	a,_NUMBERS
+	add	a,#0xff
+	mov	_P1_0,c
 	C$main.c$52$1$1 ==.
 ;	main.c:52: return;
 	C$main.c$53$1$1 ==.
@@ -517,16 +519,21 @@ _write_segment:
 ;	 function display
 ;	-----------------------------------------
 _display:
-	C$main.c$64$1$1 ==.
-;	main.c:64: write_segment(1, 0);
+	C$main.c$66$1$1 ==.
+;	main.c:66: write_segment(2, 0);
+	mov	_write_segment_PARM_2,#0x00
+	mov	dpl,#0x02
+	lcall	_write_segment
+	C$main.c$67$1$1 ==.
+;	main.c:67: write_segment(1, 0);
 	mov	_write_segment_PARM_2,#0x00
 	mov	dpl,#0x01
 	lcall	_write_segment
-	C$main.c$65$1$1 ==.
-;	main.c:65: write_segment(0, 0);
+	C$main.c$68$1$1 ==.
+;	main.c:68: write_segment(0, 0);
 	mov	_write_segment_PARM_2,#0x00
 	mov	dpl,#0x00
-	C$main.c$66$1$1 ==.
+	C$main.c$69$1$1 ==.
 	XG$display$0$0 ==.
 	ljmp	_write_segment
 ;------------------------------------------------------------
@@ -534,17 +541,17 @@ _display:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$check_outgoing$0$0 ==.
-	C$main.c$72$1$1 ==.
-;	main.c:72: void check_outgoing(){
+	C$main.c$75$1$1 ==.
+;	main.c:75: void check_outgoing(){
 ;	-----------------------------------------
 ;	 function check_outgoing
 ;	-----------------------------------------
 _check_outgoing:
-	C$main.c$74$1$1 ==.
-;	main.c:74: if (BUTTON_EXIT == 1) {
+	C$main.c$77$1$1 ==.
+;	main.c:77: if (BUTTON_EXIT == 1) {
 	jnb	_P1_1,00105$
-	C$main.c$77$2$2 ==.
-;	main.c:77: if (free_slots < MAX_SLOTS) {
+	C$main.c$80$2$2 ==.
+;	main.c:80: if (free_slots < MAX_SLOTS) {
 	mov	r2,_free_slots
 	mov	r3,#0x00
 	clr	c
@@ -553,11 +560,11 @@ _check_outgoing:
 	mov	a,r3
 	subb	a,(_MAX_SLOTS + 1)
 	jnc	00105$
-	C$main.c$78$3$3 ==.
-;	main.c:78: free_slots++;
+	C$main.c$81$3$3 ==.
+;	main.c:81: free_slots++;
 	inc	_free_slots
 00105$:
-	C$main.c$81$1$1 ==.
+	C$main.c$84$1$1 ==.
 	XG$check_outgoing$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -565,24 +572,24 @@ _check_outgoing:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$check_incoming$0$0 ==.
-	C$main.c$86$1$1 ==.
-;	main.c:86: void check_incoming() {
+	C$main.c$89$1$1 ==.
+;	main.c:89: void check_incoming() {
 ;	-----------------------------------------
 ;	 function check_incoming
 ;	-----------------------------------------
 _check_incoming:
-	C$main.c$87$1$1 ==.
-;	main.c:87: if (BUTTON_ENTER == 1) {
+	C$main.c$90$1$1 ==.
+;	main.c:90: if (BUTTON_ENTER == 1) {
 	jnb	_P1_0,00105$
-	C$main.c$89$2$2 ==.
-;	main.c:89: if (free_slots > 0) {    
+	C$main.c$92$2$2 ==.
+;	main.c:92: if (free_slots > 0) {    
 	mov	a,_free_slots
 	jz	00105$
-	C$main.c$90$3$3 ==.
-;	main.c:90: free_slots--;
+	C$main.c$93$3$3 ==.
+;	main.c:93: free_slots--;
 	dec	_free_slots
 00105$:
-	C$main.c$93$1$1 ==.
+	C$main.c$96$1$1 ==.
 	XG$check_incoming$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -590,60 +597,26 @@ _check_incoming:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$main$0$0 ==.
-	C$main.c$96$1$1 ==.
-;	main.c:96: void main (void) {
+	C$main.c$99$1$1 ==.
+;	main.c:99: void main (void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	C$main.c$97$1$1 ==.
-;	main.c:97: init(); // Initialize
+	C$main.c$100$1$1 ==.
+;	main.c:100: init(); // Initialize
 	lcall	_init
-	C$main.c$99$1$1 ==.
-;	main.c:99: while (1) {
+	C$main.c$103$1$1 ==.
+;	main.c:103: while(1) {
 00102$:
-	C$main.c$101$2$2 ==.
-;	main.c:101: check_incoming(); // Car enters
-	lcall	_check_incoming
-	C$main.c$103$2$2 ==.
-;	main.c:103: check_outgoing(); // Car leaves
-	lcall	_check_outgoing
-	C$main.c$110$2$2 ==.
-;	main.c:110: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
-	clr	a
-	mov	_cycle_delay,a
-	mov	(_cycle_delay + 1),a
-	mov	(_cycle_delay + 2),a
-	mov	(_cycle_delay + 3),a
-00104$:
-	clr	c
-	mov	a,_cycle_delay
-	subb	a,_cycle_duration
-	mov	a,(_cycle_delay + 1)
-	subb	a,(_cycle_duration + 1)
-	mov	a,(_cycle_delay + 2)
-	subb	a,(_cycle_duration + 2)
-	mov	a,(_cycle_delay + 3)
-	subb	a,(_cycle_duration + 3)
-	jnc	00107$
-	inc	_cycle_delay
-	clr	a
-	cjne	a,_cycle_delay,00104$
-	inc	(_cycle_delay + 1)
-	cjne	a,(_cycle_delay + 1),00104$
-	inc	(_cycle_delay + 2)
-	cjne	a,(_cycle_delay + 2),00104$
-	inc	(_cycle_delay + 3)
-	sjmp	00104$
-00107$:
-	C$main.c$112$2$2 ==.
-;	main.c:112: display(free_slots); // Output the number of free slots
-	mov	r2,_free_slots
-	mov	r3,#0x00
-	mov	dpl,r2
-	mov	dph,r3
-	lcall	_display
-	C$main.c$114$1$1 ==.
+	C$main.c$104$2$2 ==.
+;	main.c:104: write_segment(0, 0);
+	mov	_write_segment_PARM_2,#0x00
+	mov	dpl,#0x00
+	lcall	_write_segment
+	C$main.c$120$1$1 ==.
+;	main.c:120: display(free_slots); // Output the number of free slots
+	C$main.c$122$1$1 ==.
 	XG$main$0$0 ==.
 	sjmp	00102$
 	.area CSEG    (CODE)

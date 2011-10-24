@@ -1,0 +1,6 @@
+# MCU 8051 IDE: Virtual HW component configuration file
+# Date: 10/24/2011
+# Project: Lab4
+# Component: Multiplexed LED display
+
+MultiplexedLedDisplay {{0 - 1 - 2 - 3 - 4 - T0 - 5 - T1 - 6 - T2 - 7 - T3 -} {0 - 1 - 2 - 3 - 4 - T0 - 5 - T1 - 6 - T2 - 7 - T3 -} {} {} red 50 1}

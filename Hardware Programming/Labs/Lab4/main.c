@@ -16,7 +16,7 @@
 #define BUTTON_EXIT P1_1
 
 // Define a (whole) port to be used for LED
-#define LED P2
+//#define LED P2
 
 // Variable to hold the number of current free slots
 unsigned char free_slots;
@@ -33,7 +33,6 @@ unsigned long cycle_delay, cycle_duration;
 
 // Initialization
 void init(void) {
-    LED = NUMBERS[0]; // LED display is set to 0 when the system turns on, then changes to MAX slots
     MAX_SLOTS = 10; // We have this many free slots, max
     
     free_slots = MAX_SLOTS; // All slots are empty in the beginning
@@ -41,7 +40,7 @@ void init(void) {
     BUTTON_ENTER = 1; // Define as input
     BUTTON_EXIT = 1; // Define as input
 
-    cycle_duration = 10; // The artificial time delay is X cycles long
+    cycle_duration = 1; // The artificial time delay is X cycles long
 }
 
 /**
@@ -49,6 +48,9 @@ void init(void) {
 **/
 
 void write_segment(unsigned char segment_number, unsigned char value) {
+	//P1_0 = NUMBERS[0];
+	P1 = 0xf9;
+	P2 = 0xf9;
 	return;
 }
 
@@ -98,6 +100,11 @@ void check_incoming() {
 // Main
 void main (void) {
 	init(); // Initialize
+
+ 	// LED test
+	while(1) {
+		display(100); // test OK if 100
+	}
 
 	while (1) {
 
