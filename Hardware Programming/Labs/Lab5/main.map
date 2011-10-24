@@ -534,10 +534,10 @@ CSEG                               0085   0157 =    343. bytes (REL,CON,CODE)
   0C:0109    A$main$641
   0C:010B    A$main$642
   0C:010D    A$main$645
-  0C:010D    C$main.c$113$1$1
+  0C:010D    C$main.c$102$1$1
   0C:010D    XG$get_digit$0$0
   0C:0110    A$main$659
-  0C:0110    C$main.c$120$1$1
+  0C:0110    C$main.c$109$1$1
   0C:0110    G$display$0$0
   0C:0110    _display
   0C:0112    A$main$660
@@ -547,7 +547,7 @@ CSEG                               0085   0157 =    343. bytes (REL,CON,CODE)
   0C:0118    A$main$667
   0C:011A    A$main$668
   0C:011C    A$main$671
-  0C:011C    C$main.c$126$2$2
+  0C:011C    C$main.c$115$2$2
   0C:011E    A$main$672
   0C:0120    A$main$673
   0C:0122    A$main$674
@@ -563,60 +563,60 @@ CSEG                               0085   0157 =    343. bytes (REL,CON,CODE)
   0C:0139    A$main$684
   0C:013B    A$main$685
   0C:013D    A$main$688
-  0C:013D    C$main.c$125$1$1
+  0C:013D    C$main.c$114$1$1
   0C:013E    A$main$689
   0C:0140    A$main$693
-  0C:0140    C$main.c$128$1$1
+  0C:0140    C$main.c$117$1$1
   0C:0140    XG$display$0$0
   0C:0141    A$main$707
-  0C:0141    C$main.c$134$1$1
-  0C:0141    C$main.c$136$1$1
+  0C:0141    C$main.c$123$1$1
+  0C:0141    C$main.c$125$1$1
   0C:0141    G$check_outgoing$0$0
   0C:0141    _check_outgoing
   0C:0144    A$main$710
-  0C:0144    C$main.c$139$2$2
+  0C:0144    C$main.c$128$2$2
   0C:0145    A$main$711
   0C:0147    A$main$712
   0C:0149    A$main$713
   0C:014B    A$main$714
   0C:014D    A$main$715
   0C:014F    A$main$718
-  0C:014F    C$main.c$140$3$3
+  0C:014F    C$main.c$129$3$3
   0C:0151    A$main$719
   0C:0152    A$main$720
   0C:0155    A$main$721
   0C:0157    A$main$726
-  0C:0157    C$main.c$143$1$1
+  0C:0157    C$main.c$132$1$1
   0C:0157    XG$check_outgoing$0$0
   0C:0158    A$main$740
-  0C:0158    C$main.c$148$1$1
-  0C:0158    C$main.c$149$1$1
+  0C:0158    C$main.c$137$1$1
+  0C:0158    C$main.c$138$1$1
   0C:0158    G$check_incoming$0$0
   0C:0158    _check_incoming
   0C:015B    A$main$743
-  0C:015B    C$main.c$151$2$2
+  0C:015B    C$main.c$140$2$2
   0C:015D    A$main$744
   0C:015F    A$main$745
   0C:0161    A$main$748
-  0C:0161    C$main.c$152$3$3
+  0C:0161    C$main.c$141$3$3
   0C:0163    A$main$749
   0C:0165    A$main$750
   0C:0168    A$main$751
   0C:016A    A$main$756
-  0C:016A    C$main.c$155$1$1
+  0C:016A    C$main.c$144$1$1
   0C:016A    XG$check_incoming$0$0
   0C:016B    A$main$770
-  0C:016B    C$main.c$158$1$1
-  0C:016B    C$main.c$159$1$1
+  0C:016B    C$main.c$147$1$1
+  0C:016B    C$main.c$148$1$1
   0C:016B    G$main$0$0
   0C:016B    _main
   0C:016E    A$main$776
-  0C:016E    C$main.c$161$1$1
-  0C:016E    C$main.c$163$2$2
+  0C:016E    C$main.c$150$1$1
+  0C:016E    C$main.c$152$2$2
   0C:0171    A$main$779
-  0C:0171    C$main.c$165$2$2
+  0C:0171    C$main.c$154$2$2
   0C:0174    A$main$782
-  0C:0174    C$main.c$172$2$2
+  0C:0174    C$main.c$161$2$2
   0C:0175    A$main$783
   0C:0177    A$main$784
   0C:0179    A$main$785
@@ -641,11 +641,11 @@ CSEG                               0085   0157 =    343. bytes (REL,CON,CODE)
   0C:01A0    A$main$805
   0C:01A2    A$main$806
   0C:01A4    A$main$810
-  0C:01A4    C$main.c$174$2$2
+  0C:01A4    C$main.c$163$2$2
   0C:01A7    A$main$811
   0C:01AA    A$main$812
   0C:01AD    A$main$815
-  0C:01AD    C$main.c$176$1$1
+  0C:01AD    C$main.c$165$1$1
   0C:01AD    XG$main$0$0
   0C:01AF    __divuint
   0C:01D8    __sdcc_external_startup

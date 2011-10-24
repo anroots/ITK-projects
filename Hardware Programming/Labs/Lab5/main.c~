@@ -99,17 +99,6 @@ unsigned char get_digit(unsigned int value, unsigned char place) {
 		return (unsigned char)(value / 10) % 10;
 	}
 	return (unsigned char)(value / 100);
-	
-     /* Stubbed code
-	// todo! Currently returns stubs
-	if (place == 0) {
-		return 2;
-	}
-	if (place == 1) {
-		return 3;
-	}
-	return free_slots;
-	*/
 }
 
 
@@ -136,7 +125,7 @@ void check_outgoing(){
     	if (BUTTON_EXIT == 1) {
 
     		// Don't allow the counter to exceed MAX_SLOTS
-		if (free_slots < MAX_SLOTS) {
+		if (free_slots <= MAX_SLOTS) {
 			free_slots++;
 		}
     	}

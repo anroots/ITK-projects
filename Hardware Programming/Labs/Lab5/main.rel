@@ -270,21 +270,26 @@ S XG$get_digit$0$0 Def0088
 S XG$check_incoming$0$0 Def00E5
 S _write_segment Def001B
 S C$main.c$101$1$1 Def007E
-S C$main.c$120$1$1 Def008B
+S C$main.c$102$1$1 Def0088
 S XG$init$0$0 Def001A
-S C$main.c$113$1$1 Def0088
+S C$main.c$150$1$1 Def00E9
+S C$main.c$132$1$1 Def00D2
+S C$main.c$123$1$1 Def00BC
 S XG$display$0$0 Def00BB
-S C$main.c$161$1$1 Def00E9
-S C$main.c$143$1$1 Def00D2
-S C$main.c$134$1$1 Def00BC
-S C$main.c$125$1$1 Def00B8
+S C$main.c$114$1$1 Def00B8
+S C$main.c$140$2$2 Def00D6
+S C$main.c$125$1$1 Def00BC
 S G$get_digit$0$0 Def004E
 S A$main$501 Def001A
-S C$main.c$151$2$2 Def00D6
+S C$main.c$144$1$1 Def00E5
 S G$check_incoming$0$0 Def00D3
-S C$main.c$140$3$3 Def00CA
+S C$main.c$117$1$1 Def00BB
+S C$main.c$115$2$2 Def0097
 S A$main$610 Def0056
-S C$main.c$136$1$1 Def00BC
+S C$main.c$161$2$2 Def00EF
+S C$main.c$152$2$2 Def00E9
+S C$main.c$141$3$3 Def00DC
+S C$main.c$109$1$1 Def008B
 S A$main$800 Def010E
 S A$main$710 Def00BF
 S A$main$620 Def0063
@@ -292,9 +297,7 @@ S A$main$611 Def0058
 S A$main$602 Def004E
 S A$main$530 Def0028
 S A$main$521 Def001F
-S C$main.c$155$1$1 Def00E5
-S C$main.c$128$1$1 Def00BB
-S C$main.c$126$2$2 Def0097
+S C$main.c$137$1$1 Def00D3
 S A$main$810 Def011F
 S A$main$801 Def0111
 S A$main$720 Def00CD
@@ -302,9 +305,11 @@ S A$main$711 Def00C0
 S A$main$630 Def0075
 S A$main$612 Def005B
 S A$main$603 Def0050
-S C$main.c$172$2$2 Def00EF
-S C$main.c$163$2$2 Def00E9
-S C$main.c$152$3$3 Def00DC
+S C$main.c$165$1$1 Def0128
+S C$main.c$163$2$2 Def011F
+S C$main.c$154$2$2 Def00EC
+S C$main.c$147$1$1 Def00E6
+S C$main.c$138$1$1 Def00D3
 S G$init$0$0 Def0000
 S A$main$811 Def0122
 S A$main$802 Def0113
@@ -314,7 +319,8 @@ S A$main$640 Def0082
 S A$main$631 Def0078
 S A$main$613 Def005C
 S A$main$541 Def0034
-S C$main.c$148$1$1 Def00D3
+S C$main.c$148$1$1 Def00E6
+S C$main.c$128$2$2 Def00BF
 S XG$write_segment$0$0 Def004D
 S _check_outgoing Def00BC
 S A$main$812 Def0125
@@ -329,11 +335,6 @@ S A$main$542 Def0037
 S A$main$533 Def002A
 S A$main$524 Def0021
 S A$main$515 Def001B
-S C$main.c$176$1$1 Def0128
-S C$main.c$174$2$2 Def011F
-S C$main.c$165$2$2 Def00EC
-S C$main.c$158$1$1 Def00E6
-S C$main.c$149$1$1 Def00D3
 S G$display$0$0 Def008B
 S A$main$804 Def0118
 S A$main$750 Def00E0
@@ -348,14 +349,13 @@ S A$main$561 Def0040
 S A$main$552 Def003D
 S A$main$534 Def002D
 S A$main$480 Def0004
-S C$main.c$159$1$1 Def00E6
-S C$main.c$139$2$2 Def00BF
 S A$main$805 Def011B
 S A$main$751 Def00E3
 S A$main$715 Def00C8
 S A$main$634 Def007D
 S A$main$625 Def006A
 S A$main$607 Def0054
+S C$main.c$129$3$3 Def00CA
 S A$main$815 Def0128
 S A$main$806 Def011D
 S A$main$770 Def00E6
@@ -628,9 +628,9 @@ T 00 BB 22
 R 00 00 00 16
 T 00 BC
 R 00 00 00 16
-T 00 BC 30 91 13 C3 E5 00 00 01 95 00 00 03 E5
+T 00 BC 30 91 13 C3 E5 00 00 03 95 00 00 01 E5
 R 00 00 00 16 F1 21 07 00 03 F1 21 0B 00 03
-T 00 C5 00 00 02 95 00 00 04 50 08 05
+T 00 C5 00 00 04 95 00 00 02 40 08 05
 R 00 00 00 16 F1 21 02 00 03 F1 21 06 00 03
 T 00 CB 00 00 01 E4 B5 00 00 01 02 05
 R 00 00 00 16 F1 21 02 00 03 F1 21 07 00 03
