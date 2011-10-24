@@ -9,13 +9,6 @@
  * 	Ando Roots
  * 	Eero Jämsä
  *	Marek Kikkas
- *
- * TODO:
- * Write get_digit() function
- * Reset the switches on press
- *    ... and remove the time-delay?
- * Test for edge cases like 255 free slots?
- * Optimize
 **/
 
 // Define 2 buttons for entrance and exit
