@@ -1,7 +1,7 @@
                               1 ;--------------------------------------------------------
                               2 ; File Created by SDCC : free open source ANSI-C Compiler
                               3 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-                              4 ; This file was generated Mon Oct 24 23:03:17 2011
+                              4 ; This file was generated Mon Oct 24 23:11:36 2011
                               5 ;--------------------------------------------------------
                               6 	.module main
                               7 	.optsdcc -mmcs51 --model-small
@@ -474,13 +474,13 @@
                     0000    474 	ar0 = 0x00
                     0001    475 	ar1 = 0x01
                     0000    476 	C$main.c$45$1$1 ==.
-                            477 ;	main.c:45: MAX_SLOTS = 9; // We have this many free slots, max
-   0085 75 0B 09            478 	mov	_MAX_SLOTS,#0x09
+                            477 ;	main.c:45: MAX_SLOTS = 255; // We have this many free slots, max
+   0085 75 0B FF            478 	mov	_MAX_SLOTS,#0xFF
    0088 E4                  479 	clr	a
    0089 F5 0C               480 	mov	(_MAX_SLOTS + 1),a
                     0006    481 	C$main.c$47$1$1 ==.
                             482 ;	main.c:47: free_slots = MAX_SLOTS; // All slots are empty in the beginning
-   008B 75 09 09            483 	mov	_free_slots,#0x09
+   008B 75 09 FF            483 	mov	_free_slots,#0xFF
    008E E4                  484 	clr	a
    008F F5 0A               485 	mov	(_free_slots + 1),a
                     000C    486 	C$main.c$49$1$1 ==.
@@ -706,13 +706,13 @@
                             706 ;	main.c:125: if (BUTTON_EXIT == 1) {
    0141 30 91 13            707 	jnb	_P1_1,00105$
                     00BF    708 	C$main.c$128$2$2 ==.
-                            709 ;	main.c:128: if (free_slots <= MAX_SLOTS) {
+                            709 ;	main.c:128: if (free_slots < MAX_SLOTS) {
    0144 C3                  710 	clr	c
-   0145 E5 0B               711 	mov	a,_MAX_SLOTS
-   0147 95 09               712 	subb	a,_free_slots
-   0149 E5 0C               713 	mov	a,(_MAX_SLOTS + 1)
-   014B 95 0A               714 	subb	a,(_free_slots + 1)
-   014D 40 08               715 	jc	00105$
+   0145 E5 09               711 	mov	a,_free_slots
+   0147 95 0B               712 	subb	a,_MAX_SLOTS
+   0149 E5 0A               713 	mov	a,(_free_slots + 1)
+   014B 95 0C               714 	subb	a,(_MAX_SLOTS + 1)
+   014D 50 08               715 	jnc	00105$
                     00CA    716 	C$main.c$129$3$3 ==.
                             717 ;	main.c:129: free_slots++;
    014F 05 09               718 	inc	_free_slots

@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 23:03:17 2011
+; This file was generated Mon Oct 24 23:11:36 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -474,13 +474,13 @@ _init:
 	ar0 = 0x00
 	ar1 = 0x01
 	C$main.c$45$1$1 ==.
-;	main.c:45: MAX_SLOTS = 9; // We have this many free slots, max
-	mov	_MAX_SLOTS,#0x09
+;	main.c:45: MAX_SLOTS = 255; // We have this many free slots, max
+	mov	_MAX_SLOTS,#0xFF
 	clr	a
 	mov	(_MAX_SLOTS + 1),a
 	C$main.c$47$1$1 ==.
 ;	main.c:47: free_slots = MAX_SLOTS; // All slots are empty in the beginning
-	mov	_free_slots,#0x09
+	mov	_free_slots,#0xFF
 	clr	a
 	mov	(_free_slots + 1),a
 	C$main.c$49$1$1 ==.
@@ -706,13 +706,13 @@ _check_outgoing:
 ;	main.c:125: if (BUTTON_EXIT == 1) {
 	jnb	_P1_1,00105$
 	C$main.c$128$2$2 ==.
-;	main.c:128: if (free_slots <= MAX_SLOTS) {
+;	main.c:128: if (free_slots < MAX_SLOTS) {
 	clr	c
-	mov	a,_MAX_SLOTS
-	subb	a,_free_slots
-	mov	a,(_MAX_SLOTS + 1)
-	subb	a,(_free_slots + 1)
-	jc	00105$
+	mov	a,_free_slots
+	subb	a,_MAX_SLOTS
+	mov	a,(_free_slots + 1)
+	subb	a,(_MAX_SLOTS + 1)
+	jnc	00105$
 	C$main.c$129$3$3 ==.
 ;	main.c:129: free_slots++;
 	inc	_free_slots

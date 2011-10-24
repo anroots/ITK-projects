@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 23:00:13 2011
+; This file was generated Mon Oct 24 23:08:08 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -474,13 +474,13 @@ _init:
 	ar0 = 0x00
 	ar1 = 0x01
 	C$main.c$45$1$1 ==.
-;	main.c:45: MAX_SLOTS = 9; // We have this many free slots, max
-	mov	_MAX_SLOTS,#0x09
+;	main.c:45: MAX_SLOTS = 12; // We have this many free slots, max
+	mov	_MAX_SLOTS,#0x0C
 	clr	a
 	mov	(_MAX_SLOTS + 1),a
 	C$main.c$47$1$1 ==.
 ;	main.c:47: free_slots = MAX_SLOTS; // All slots are empty in the beginning
-	mov	_free_slots,#0x09
+	mov	_free_slots,#0x0C
 	clr	a
 	mov	(_free_slots + 1),a
 	C$main.c$49$1$1 ==.

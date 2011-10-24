@@ -42,7 +42,7 @@ unsigned long cycle_delay, cycle_duration;
 
 // Initialization
 void init(void) {
-    MAX_SLOTS = 9; // We have this many free slots, max
+    MAX_SLOTS = 255; // We have this many free slots, max
     
     free_slots = MAX_SLOTS; // All slots are empty in the beginning
     
@@ -125,7 +125,7 @@ void check_outgoing(){
     	if (BUTTON_EXIT == 1) {
 
     		// Don't allow the counter to exceed MAX_SLOTS
-		if (free_slots <= MAX_SLOTS) {
+		if (free_slots < MAX_SLOTS) {
 			free_slots++;
 		}
     	}
