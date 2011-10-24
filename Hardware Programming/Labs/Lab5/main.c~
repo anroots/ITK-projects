@@ -9,6 +9,13 @@
  * 	Ando Roots
  * 	Eero Jämsä
  *	Marek Kikkas
+ *
+ * TODO:
+ * Write get_digit() function
+ * Reset the switches on press
+ *    ... and remove the time-delay?
+ * Test for edge cases like 255 free slots?
+ * Optimize
 **/
 
 // Define 2 buttons for entrance and exit
@@ -82,8 +89,10 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 
 /**
  * Returns a specified digit from a n-digit number 
+ * Example: get_digit(124, 1) would return 1
 **/
 unsigned char get_digit(unsigned int value, unsigned char place) {
+
 	// todo! Currently returns stubs
 	if (place == 0) {
 		return 2;
@@ -105,7 +114,7 @@ void display(unsigned int value) {
 	
 	// Separate value to digits and print each one
 	for (i = 0; i < NUMBER_OF_DIGITS; i++) {
-		write_segment(i, get_digit(value, i));
+		write_segment(i, get_digit(value, i+1));
 	}
 }
 
