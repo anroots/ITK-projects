@@ -7,6 +7,8 @@ F:G$check_outgoing$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$check_incoming$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
+F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
+S:G$NUMBER_OF_DIGITS$0$0({1}SC:U),E,0,0
 S:G$free_slots$0$0({1}SC:U),E,0,0
 S:G$MAX_SLOTS$0$0({2}SI:U),E,0,0
 S:G$NUMBERS$0$0({10}DA10,SC:U),E,0,0
@@ -17,6 +19,7 @@ S:Lwrite_segment$segment_number$1$1({1}SC:U),R,0,0,[r2]
 S:Lget_digit$place$1$1({1}SC:U),E,0,0
 S:Lget_digit$value$1$1({2}SI:U),R,0,0,[]
 S:Ldisplay$value$1$1({2}SI:U),R,0,0,[r2,r3]
+S:Ldisplay$i$1$1({1}SC:U),R,0,0,[r4]
 S:G$P0$0$0({1}SC:U),I,0,0
 S:G$SP$0$0({1}SC:U),I,0,0
 S:G$DPL$0$0({1}SC:U),I,0,0

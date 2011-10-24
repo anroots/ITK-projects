@@ -15,8 +15,10 @@
 #define BUTTON_ENTER P1_0
 #define BUTTON_EXIT P1_1
 
-// Define a (whole) port to be used for LED
-//#define LED P2
+
+// The max number of digits we need to display the free slots
+// If we only have 48 slots, the number of digits we use is 2
+unsigned char NUMBER_OF_DIGITS = 3;
 
 // Variable to hold the number of current free slots
 unsigned char free_slots;
@@ -33,7 +35,7 @@ unsigned long cycle_delay, cycle_duration;
 
 // Initialization
 void init(void) {
-    MAX_SLOTS = 10; // We have this many free slots, max
+    MAX_SLOTS = 9; // We have this many free slots, max
     
     free_slots = MAX_SLOTS; // All slots are empty in the beginning
     
@@ -82,7 +84,14 @@ void write_segment(unsigned char segment_number, unsigned char value) {
  * Returns a specified digit from a n-digit number 
 **/
 unsigned char get_digit(unsigned int value, unsigned char place) {
-	return 4;
+	// todo! Currently returns stubs
+	if (place == 0) {
+		return 2;
+	}
+	if (place == 1) {
+		return 3;
+	}
+	return free_slots;
 }
 
 
@@ -92,10 +101,12 @@ unsigned char get_digit(unsigned int value, unsigned char place) {
 **/
 void display(unsigned int value) {
 
+	unsigned char i;
+	
 	// Separate value to digits and print each one
-	write_segment(2, get_digit(value, 3));
-	write_segment(1, get_digit(value, 2));
-	write_segment(0, get_digit(value, 1));
+	for (i = 0; i < NUMBER_OF_DIGITS; i++) {
+		write_segment(i, get_digit(value, i));
+	}
 }
 
 
@@ -128,11 +139,6 @@ void check_incoming() {
 // Main
 void main (void) {
 	init(); // Initialize
-
- 	// LED test
-	while(1) {
-		display(112); // test OK if 100
-	}
 
 	while (1) {
 
