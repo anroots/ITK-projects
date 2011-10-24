@@ -7,7 +7,7 @@
  * and a LED display for showing the number of open spaces
  * Team members:
  * 	Ando Roots
- * 	Eero Jämsa
+ * 	Eero Jämsä
  *	Marek Kikkas
 **/
 
@@ -24,15 +24,16 @@ unsigned char free_slots;
 unsigned int MAX_SLOTS;
 
 // An array of numbers 0...9 for LED display
-unsigned char OUT [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
+unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 0x92, 0x82, 0xf0, 0x80, 0x90};
 
 // Used to create an artificial delay
 unsigned long cycle_delay, cycle_duration;
 
+
 // Initialization
 void init(void) {
-    LED = 0xc0; // LED display is set to 0 when the system turns on, then changes to MAX slots
+    LED = NUMBERS[0]; // LED display is set to 0 when the system turns on, then changes to MAX slots
     MAX_SLOTS = 10; // We have this many free slots, max
     
     free_slots = MAX_SLOTS; // All slots are empty in the beginning
@@ -46,19 +47,23 @@ void init(void) {
 /**
  * Writes value to segment_number
 **/
+
 void write_segment(unsigned char segment_number, unsigned char value) {
-	// todo
+	return;
 }
 
 
 /**
  * Writes a number to the LED display
- * Can handle up to 2-digit decimal numbers
+ * Can handle up to 3-digit decimal numbers (<=250)
 **/
 void display(unsigned int value) {
 
-	// We have 2 7-segment displays, divide the number among them and use
-	// write_segment to write to both of them 
+	// We have 3 7-segment displays, divide the number among them and use
+	// write_segment to write
+
+	// For testing, get 0 to each segment
+	write_segment(2, 0);
 	write_segment(1, 0);
 	write_segment(0, 0);
 }
