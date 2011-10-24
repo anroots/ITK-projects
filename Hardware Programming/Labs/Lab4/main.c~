@@ -43,6 +43,39 @@ void init(void) {
     cycle_duration = 10; // The artificial time delay is X cycles long
 }
 
+/**
+ * Writes a number to the LED display
+**/
+void display(unsigned int value) {
+	LED = OUT[free_slots];
+}
+
+/**
+ * If a car leaves the parking house...
+**/
+void check_outgoing(){
+
+    	if (BUTTON_EXIT == 1) {
+
+    		// Don't allow the counter to exceed MAX_SLOTS
+		if (free_slots < MAX_SLOTS) {
+			free_slots++;
+		}
+    	}
+}
+
+/**
+ * If a new car enters to the parking house...
+**/
+void check_incoming() {
+	if (BUTTON_ENTER == 1) {
+		// Don't allow the counter to go negative	
+		if (free_slots > 0) {    
+			free_slots--;
+		}
+    	}
+}
+
 // Main
 void main (void) {
 	// Initialize
@@ -50,31 +83,17 @@ void main (void) {
 
 	while (1) {
 
-		// If a new car enters to the parking house...
-		if (BUTTON_ENTER == 1) {
+		check_incoming(); // Car enters
 
-			// Don't allow the counter to go negative	
-			if (free_slots > 0) {    
-				free_slots--;
-			}
-	    	}
-
-		// If a car leaves the parking house...
-	    	if (BUTTON_EXIT == 1) {
-
-	    		// Don't allow the counter to exceed MAX_SLOTS
-			if (free_slots < MAX_SLOTS) {
-				free_slots++;
-			}
-	    	}
-
+		check_outgoing(); // Car leaves
 		   
-		// Create an artificial time delay
-		// Needed so the user can have time to remove his/her finger
-		// from the button before the BUTTON_ENTER == 1 is checked again
+		/**
+		 * Create an artificial time delay
+		 * Needed so the user can have time to remove his/her finger
+		 * from the button before the BUTTON_ENTER == 1 is checked again
+		**/
 		for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
 
-		// Output ? 
-		LED = OUT[free_slots];
+		display(free_slots); // Output the number of free slots
 	}
 }

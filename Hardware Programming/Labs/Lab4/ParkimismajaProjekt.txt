@@ -1,0 +1,26 @@
+﻿Parkimismaja projekt
+
+Osalejad: Marek, Ando, Eero
+
+Realiseerimis idee
+Vabade parkimiskohte arvu näidatakse „Multiplexed LED Display“-l.
+Kasutusel on Simple Keypad-i kaks lülitit. Üks on parklasse sisenemiseks, teine parklast väljumiseks. Kasutada tuleks ka globaalset muutuja, mille algväärtus oleks vabade kohtade arv tühjas parklas. Kui sisenetakse parklasse, siis vähendatakse muutuja väärtust, väljudes suurendatatakse. Lülitile vajutades tuleb see kohe ka süsteemi poolt välja lülitada (algasendisse tuua), et järgmine parklasse siseneda soovija seda uuesti vajutada saaks. Superloobi lõpus kuvatakse vabade kohtade arv LED Displayle.
+
+Display1(järgu number, väärtus); *
+Display2(nr); *
+Init();
+main();
+
+*funktsiooni nimed on illustreerivad.
+
+Funktsioonide kirjeldused
+Display1 sisenditeks on järk ja ühekohaline number. Funktsioon peab oskama tolle numbri vastavasse numbri kohta suunata.
+Display2 sisendiks on kuni 3 kohaline number (<=250), mis lõikab numbri tükkideks ja söödab selle Display1-le.
+Init funktsioonis toimub „entrance“, „exit“ jm konfiguratsioon.
+Main funktsioonis superloop, mis loeb lülitite väärtusi. Suurendab vabade kohtade arvu ja saadab selle edasi Display2 funktsioonile.
+
+Ülesande jaotus
+Kõik kolmekesi mängime ja proovime (Display1 on väga põnev ja seda peaksid kõik proovima) ise lahendada. Järgmine teisipäev 18.10.2011 saame kokku ja arutame asja uuesti üle ning „sheerime“ mõtteid!
+
+Happy coding!
+

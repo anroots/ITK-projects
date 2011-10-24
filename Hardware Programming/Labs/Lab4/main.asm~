@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 10:20:11 2011
+; This file was generated Mon Oct 24 10:37:09 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -10,6 +10,7 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
+	.globl _display
 	.globl _init
 	.globl _CY
 	.globl _AC
@@ -110,7 +111,8 @@
 	.globl _cycle_duration
 	.globl _cycle_delay
 	.globl _OUT
-	.globl _FREE_SLOTS
+	.globl _MAX_SLOTS
+	.globl _free_slots
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -320,9 +322,12 @@ _CY	=	0x00d7
 ; internal ram data
 ;--------------------------------------------------------
 	.area DSEG    (DATA)
-G$FREE_SLOTS$0$0==.
-_FREE_SLOTS::
+G$free_slots$0$0==.
+_free_slots::
 	.ds 1
+G$MAX_SLOTS$0$0==.
+_MAX_SLOTS::
+	.ds 2
 G$OUT$0$0==.
 _OUT::
 	.ds 10
@@ -402,8 +407,8 @@ __interrupt_vect:
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
 	G$main$0$0 ==.
-	C$main.c$25$1$1 ==.
-;	main.c:25: unsigned char OUT [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
+	C$main.c$27$1$1 ==.
+;	main.c:27: unsigned char OUT [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 	mov	_OUT,#0xC0
 	mov	(_OUT + 0x0001),#0xF9
 	mov	(_OUT + 0x0002),#0xA4
@@ -434,8 +439,8 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$init$0$0 ==.
-	C$main.c$32$0$0 ==.
-;	main.c:32: void init(void) {
+	C$main.c$34$0$0 ==.
+;	main.c:34: void init(void) {
 ;	-----------------------------------------
 ;	 function init
 ;	-----------------------------------------
@@ -448,64 +453,107 @@ _init:
 	ar7 = 0x07
 	ar0 = 0x00
 	ar1 = 0x01
-	C$main.c$33$1$1 ==.
-;	main.c:33: LED = 0xc0; // LED display is set to 0 when the system turns on
+	C$main.c$35$1$1 ==.
+;	main.c:35: LED = 0xc0; // LED display is set to 0 when the system turns on, then changes to MAX slots
 	mov	_P2,#0xC0
-	C$main.c$34$1$1 ==.
-;	main.c:34: FREE_SLOTS = 10; // We have X free slots in the parking house
-	mov	_FREE_SLOTS,#0x0A
 	C$main.c$36$1$1 ==.
-;	main.c:36: BUTTON_ENTER = 1; // Define as input
+;	main.c:36: MAX_SLOTS = 10; // We have this many free slots, max
+	mov	_MAX_SLOTS,#0x0A
+	clr	a
+	mov	(_MAX_SLOTS + 1),a
+	C$main.c$38$1$1 ==.
+;	main.c:38: free_slots = MAX_SLOTS; // All slots are empty in the beginning
+	mov	_free_slots,#0x0A
+	C$main.c$40$1$1 ==.
+;	main.c:40: BUTTON_ENTER = 1; // Define as input
 	setb	_P1_1
-	C$main.c$37$1$1 ==.
-;	main.c:37: BUTTON_EXIT = 1; // Define as input
+	C$main.c$41$1$1 ==.
+;	main.c:41: BUTTON_EXIT = 1; // Define as input
 	setb	_P1_2
-	C$main.c$39$1$1 ==.
-;	main.c:39: cycle_duration = 10; // The artificial time delay is X cycles long
+	C$main.c$43$1$1 ==.
+;	main.c:43: cycle_duration = 10; // The artificial time delay is X cycles long
 	mov	_cycle_duration,#0x0A
 	clr	a
 	mov	(_cycle_duration + 1),a
 	mov	(_cycle_duration + 2),a
 	mov	(_cycle_duration + 3),a
-	C$main.c$40$1$1 ==.
+	C$main.c$44$1$1 ==.
 	XG$init$0$0 ==.
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'display'
+;------------------------------------------------------------
+;value                     Allocated to registers 
+;------------------------------------------------------------
+	G$display$0$0 ==.
+	C$main.c$49$1$1 ==.
+;	main.c:49: void display(unsigned int value) {
+;	-----------------------------------------
+;	 function display
+;	-----------------------------------------
+_display:
+	C$main.c$50$1$1 ==.
+;	main.c:50: LED = OUT[free_slots];
+	mov	a,_free_slots
+	add	a,#_OUT
+	mov	r0,a
+	mov	_P2,@r0
+	C$main.c$51$1$1 ==.
+	XG$display$0$0 ==.
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$main$0$0 ==.
-	C$main.c$43$1$1 ==.
-;	main.c:43: void main (void) {
+	C$main.c$54$1$1 ==.
+;	main.c:54: void main (void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	C$main.c$45$1$1 ==.
-;	main.c:45: init();
+	C$main.c$56$1$1 ==.
+;	main.c:56: init();
 	lcall	_init
-	C$main.c$47$1$1 ==.
-;	main.c:47: while (1) {
-00106$:
-	C$main.c$50$2$2 ==.
-;	main.c:50: if (BUTTON_ENTER == 1) {
+	C$main.c$58$1$1 ==.
+;	main.c:58: while (1) {
+00110$:
+	C$main.c$61$2$2 ==.
+;	main.c:61: if (BUTTON_ENTER == 1) {
 	jnb	_P1_1,00104$
-	C$main.c$53$3$3 ==.
-;	main.c:53: if (FREE_SLOTS > 0) {    
-	mov	a,_FREE_SLOTS
-	jz	00102$
-	C$main.c$54$4$4 ==.
-;	main.c:54: FREE_SLOTS--;
-	dec	_FREE_SLOTS
-00102$:
-	C$main.c$59$3$3 ==.
-;	main.c:59: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
+	C$main.c$64$3$3 ==.
+;	main.c:64: if (free_slots > 0) {    
+	mov	a,_free_slots
+	jz	00104$
+	C$main.c$65$4$4 ==.
+;	main.c:65: free_slots--;
+	dec	_free_slots
+00104$:
+	C$main.c$70$2$2 ==.
+;	main.c:70: if (BUTTON_EXIT == 1) {
+	jnb	_P1_2,00108$
+	C$main.c$73$3$5 ==.
+;	main.c:73: if (free_slots < MAX_SLOTS) {
+	mov	r2,_free_slots
+	mov	r3,#0x00
+	clr	c
+	mov	a,r2
+	subb	a,_MAX_SLOTS
+	mov	a,r3
+	subb	a,(_MAX_SLOTS + 1)
+	jnc	00108$
+	C$main.c$74$4$6 ==.
+;	main.c:74: free_slots++;
+	inc	_free_slots
+00108$:
+	C$main.c$84$2$2 ==.
+;	main.c:84: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
 	clr	a
 	mov	_cycle_delay,a
 	mov	(_cycle_delay + 1),a
 	mov	(_cycle_delay + 2),a
 	mov	(_cycle_delay + 3),a
-00108$:
+00112$:
 	clr	c
 	mov	a,_cycle_delay
 	subb	a,_cycle_duration
@@ -515,26 +563,27 @@ _main:
 	subb	a,(_cycle_duration + 2)
 	mov	a,(_cycle_delay + 3)
 	subb	a,(_cycle_duration + 3)
-	jnc	00104$
+	jnc	00115$
 	inc	_cycle_delay
 	clr	a
-	cjne	a,_cycle_delay,00108$
+	cjne	a,_cycle_delay,00112$
 	inc	(_cycle_delay + 1)
-	cjne	a,(_cycle_delay + 1),00108$
+	cjne	a,(_cycle_delay + 1),00112$
 	inc	(_cycle_delay + 2)
-	cjne	a,(_cycle_delay + 2),00108$
+	cjne	a,(_cycle_delay + 2),00112$
 	inc	(_cycle_delay + 3)
-	sjmp	00108$
-00104$:
-	C$main.c$63$2$2 ==.
-;	main.c:63: LED = OUT[FREE_SLOTS];
-	mov	a,_FREE_SLOTS
-	add	a,#_OUT
-	mov	r0,a
-	mov	_P2,@r0
-	C$main.c$65$1$1 ==.
+	sjmp	00112$
+00115$:
+	C$main.c$87$2$2 ==.
+;	main.c:87: display(free_slots);
+	mov	r2,_free_slots
+	mov	r3,#0x00
+	mov	dpl,r2
+	mov	dph,r3
+	lcall	_display
+	C$main.c$89$1$1 ==.
 	XG$main$0$0 ==.
-	sjmp	00106$
+	sjmp	00110$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)
