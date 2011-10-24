@@ -93,6 +93,14 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 **/
 unsigned char get_digit(unsigned int value, unsigned char place) {
 
+	if (place == 0) {
+		return (unsigned char)value % 10;
+	} else if (place == 1) {
+		return (unsigned char)(value / 10) % 10;
+	}
+	return (unsigned char)(value / 100);
+	
+     /* Stubbed code
 	// todo! Currently returns stubs
 	if (place == 0) {
 		return 2;
@@ -101,6 +109,7 @@ unsigned char get_digit(unsigned int value, unsigned char place) {
 		return 3;
 	}
 	return free_slots;
+	*/
 }
 
 
