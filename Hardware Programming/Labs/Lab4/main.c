@@ -45,24 +45,37 @@ void init(void) {
 
 /**
  * Writes value to segment_number
+ * The idea is that each segment is updated in sequence
+ * and then deleted (on-off), but since the cycle speed is so
+ * high, the human eye doesn't notice the off-phase
 **/
 void write_segment(unsigned char segment_number, unsigned char value) {
-	//__sfr __at (0x80) SEGMENT_PORT;
+
+	P3_0 = 1; // Reset P3 to avoid flickers
+	P3_1 = 1;
+	P3_2 = 1;
+
+	// This is the actual numerical value
+	P2 = NUMBERS[value];
+	
+	// Only write to the specified segment
 	switch (segment_number) {
 		case 0:
-			// todo
+			P3_1 = 1;
+			P3_2 = 1;
+			P3_0 = 0;
 			break;
 		case 1:
-			// todo
+			P3_0 = 1;
+			P3_2 = 1;
+			P3_1 = 0;
 			break;
 		case 2:
-			// todo
+			P3_3 = 1;
+			P3_1 = 1;
+			P3_2 = 0;
 			break;
 	}
-	
-	P3 = NUMBERS[value];
-	P2 = NUMBERS[value];
-	return;
 }
 
 
