@@ -11,9 +11,6 @@
  *	Marek Kikkas
 **/
 
-// WARNING: UNCOMPILED AND UNTESTED CODE!!!
-
-
 // Define 2 buttons for entrance and exit
 #define BUTTON_ENTER P1_1
 #define BUTTON_EXIT P1_2
@@ -29,7 +26,7 @@ unsigned char OUT [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 0x92, 0x82, 0xf0, 0x80, 0x90};
 
 // Used to create an artificial delay
-unsigned int cycle_delay;
+unsigned long cycle_delay, cycle_duration;
 
 // Initialization
 void init(void) {
@@ -38,28 +35,31 @@ void init(void) {
     
     BUTTON_ENTER = 1; // Define as input
     BUTTON_EXIT = 1; // Define as input
+
+    cycle_duration = 10; // The artificial time delay is X cycles long
 }
 
-void main (void)
-{
-
+// Main
+void main (void) {
 	// Initialize
 	init();
 
-	// todo! Comment
-	while (1)
-	{
-	    if (BUTTON_ENTER == 1)
-	    {
-	
-	        if (FREE_SLOTS > 0) {    
-	            FREE_SLOTS--;
-	        }
-	
-	
-	        LED = OUT[FREE_SLOTS];
-		
-		for (cycle_delay = 0; cycle_delay < 1000; cycle_delay++);
+	while (1) {
+
+		// If a new car enters to the parking house
+		if (BUTTON_ENTER == 1) {
+
+			// Don't allow the counter to go negative	
+			if (FREE_SLOTS > 0) {    
+				FREE_SLOTS--;
+			}
+		// Create an artificial time delay
+		// Needed so the user can have time to remove his/her finger
+		// from the button before the BUTTON_ENTER == 1 is checked again
+		for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
 	    }
+
+	    // Output ? 
+	    LED = OUT[FREE_SLOTS];
 	}
 }

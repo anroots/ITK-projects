@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Mon Oct 24 10:20:11 2011
+; This file was generated Mon Oct 24 10:17:48 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -107,7 +107,6 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _cycle_duration
 	.globl _cycle_delay
 	.globl _OUT
 	.globl _FREE_SLOTS
@@ -329,9 +328,6 @@ _OUT::
 G$cycle_delay$0$0==.
 _cycle_delay::
 	.ds 4
-G$cycle_duration$0$0==.
-_cycle_duration::
-	.ds 4
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -460,14 +456,7 @@ _init:
 	C$main.c$37$1$1 ==.
 ;	main.c:37: BUTTON_EXIT = 1; // Define as input
 	setb	_P1_2
-	C$main.c$39$1$1 ==.
-;	main.c:39: cycle_duration = 10; // The artificial time delay is X cycles long
-	mov	_cycle_duration,#0x0A
-	clr	a
-	mov	(_cycle_duration + 1),a
-	mov	(_cycle_duration + 2),a
-	mov	(_cycle_duration + 3),a
-	C$main.c$40$1$1 ==.
+	C$main.c$38$1$1 ==.
 	XG$init$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -475,64 +464,62 @@ _init:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$main$0$0 ==.
-	C$main.c$43$1$1 ==.
-;	main.c:43: void main (void) {
+	C$main.c$41$1$1 ==.
+;	main.c:41: void main (void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	C$main.c$45$1$1 ==.
-;	main.c:45: init();
+	C$main.c$43$1$1 ==.
+;	main.c:43: init();
 	lcall	_init
-	C$main.c$47$1$1 ==.
-;	main.c:47: while (1) {
+	C$main.c$45$1$1 ==.
+;	main.c:45: while (1) {
 00106$:
-	C$main.c$50$2$2 ==.
-;	main.c:50: if (BUTTON_ENTER == 1) {
+	C$main.c$48$2$2 ==.
+;	main.c:48: if (BUTTON_ENTER == 1) {
 	jnb	_P1_1,00104$
-	C$main.c$53$3$3 ==.
-;	main.c:53: if (FREE_SLOTS > 0) {    
+	C$main.c$51$3$3 ==.
+;	main.c:51: if (FREE_SLOTS > 0) {    
 	mov	a,_FREE_SLOTS
 	jz	00102$
-	C$main.c$54$4$4 ==.
-;	main.c:54: FREE_SLOTS--;
+	C$main.c$52$4$4 ==.
+;	main.c:52: FREE_SLOTS--;
 	dec	_FREE_SLOTS
 00102$:
-	C$main.c$59$3$3 ==.
-;	main.c:59: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
-	clr	a
-	mov	_cycle_delay,a
-	mov	(_cycle_delay + 1),a
+	C$main.c$57$3$3 ==.
+;	main.c:57: for (cycle_delay = 0; cycle_delay < 600; cycle_delay++);
+	mov	_cycle_delay,#0x58
+	mov	(_cycle_delay + 1),#0x02
+	mov	(_cycle_delay + 2),#0x00
+	mov	(_cycle_delay + 3),#0x00
+00110$:
+	dec	_cycle_delay
+	mov	a,#0xff
+	cjne	a,_cycle_delay,00120$
+	dec	(_cycle_delay + 1)
+	cjne	a,(_cycle_delay + 1),00120$
+	dec	(_cycle_delay + 2)
+	cjne	a,(_cycle_delay + 2),00120$
+	dec	(_cycle_delay + 3)
+00120$:
+	mov	a,_cycle_delay
+	orl	a,(_cycle_delay + 1)
+	orl	a,(_cycle_delay + 2)
+	orl	a,(_cycle_delay + 3)
+	jnz	00110$
+	mov	_cycle_delay,#0x58
+	mov	(_cycle_delay + 1),#0x02
 	mov	(_cycle_delay + 2),a
 	mov	(_cycle_delay + 3),a
-00108$:
-	clr	c
-	mov	a,_cycle_delay
-	subb	a,_cycle_duration
-	mov	a,(_cycle_delay + 1)
-	subb	a,(_cycle_duration + 1)
-	mov	a,(_cycle_delay + 2)
-	subb	a,(_cycle_duration + 2)
-	mov	a,(_cycle_delay + 3)
-	subb	a,(_cycle_duration + 3)
-	jnc	00104$
-	inc	_cycle_delay
-	clr	a
-	cjne	a,_cycle_delay,00108$
-	inc	(_cycle_delay + 1)
-	cjne	a,(_cycle_delay + 1),00108$
-	inc	(_cycle_delay + 2)
-	cjne	a,(_cycle_delay + 2),00108$
-	inc	(_cycle_delay + 3)
-	sjmp	00108$
 00104$:
-	C$main.c$63$2$2 ==.
-;	main.c:63: LED = OUT[FREE_SLOTS];
+	C$main.c$61$2$2 ==.
+;	main.c:61: LED = OUT[FREE_SLOTS];
 	mov	a,_FREE_SLOTS
 	add	a,#_OUT
 	mov	r0,a
 	mov	_P2,@r0
-	C$main.c$65$1$1 ==.
+	C$main.c$63$1$1 ==.
 	XG$main$0$0 ==.
 	sjmp	00106$
 	.area CSEG    (CODE)

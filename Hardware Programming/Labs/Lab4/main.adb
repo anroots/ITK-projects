@@ -4,7 +4,8 @@ F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 S:G$FREE_SLOTS$0$0({1}SC:U),E,0,0
 S:G$OUT$0$0({10}DA10,SC:U),E,0,0
-S:G$cycle_delay$0$0({2}SI:U),E,0,0
+S:G$cycle_delay$0$0({4}SL:U),E,0,0
+S:G$cycle_duration$0$0({4}SL:U),E,0,0
 S:G$P0$0$0({1}SC:U),I,0,0
 S:G$SP$0$0({1}SC:U),I,0,0
 S:G$DPL$0$0({1}SC:U),I,0,0
