@@ -12,8 +12,8 @@
 **/
 
 // Define 2 buttons for entrance and exit
-#define BUTTON_ENTER P1_1
-#define BUTTON_EXIT P1_2
+#define BUTTON_ENTER P1_0
+#define BUTTON_EXIT P1_1
 
 // Define a (whole) port to be used for LED
 #define LED P2
@@ -44,11 +44,25 @@ void init(void) {
 }
 
 /**
+ * Writes value to segment_number
+**/
+void write_segment(unsigned char segment_number, unsigned char value) {
+	// todo
+}
+
+
+/**
  * Writes a number to the LED display
+ * Can handle up to 2-digit decimal numbers
 **/
 void display(unsigned int value) {
-	LED = OUT[free_slots];
+
+	// We have 2 7-segment displays, divide the number among them and use
+	// write_segment to write to both of them 
+	write_segment(1, 0);
+	write_segment(0, 0);
 }
+
 
 /**
  * If a car leaves the parking house...
@@ -78,8 +92,7 @@ void check_incoming() {
 
 // Main
 void main (void) {
-	// Initialize
-	init();
+	init(); // Initialize
 
 	while (1) {
 

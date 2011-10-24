@@ -1,5 +1,6 @@
 M:main
 F:G$init$0$0({2}DF,SV:S),C,0,0,0,0,0
+F:G$write_segment$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$display$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$check_outgoing$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$check_incoming$0$0({2}DF,SV:S),C,0,0,0,0,0
@@ -10,6 +11,8 @@ S:G$MAX_SLOTS$0$0({2}SI:U),E,0,0
 S:G$OUT$0$0({10}DA10,SC:U),E,0,0
 S:G$cycle_delay$0$0({4}SL:U),E,0,0
 S:G$cycle_duration$0$0({4}SL:U),E,0,0
+S:Lwrite_segment$value$1$1({1}SC:U),E,0,0
+S:Lwrite_segment$segment_number$1$1({1}SC:U),R,0,0,[]
 S:Ldisplay$value$1$1({2}SI:U),R,0,0,[]
 S:G$P0$0$0({1}SC:U),I,0,0
 S:G$SP$0$0({1}SC:U),I,0,0
@@ -108,6 +111,7 @@ S:G$F0$0$0({1}SX:U),J,0,0
 S:G$AC$0$0({1}SX:U),J,0,0
 S:G$CY$0$0({1}SX:U),J,0,0
 S:G$init$0$0({2}DF,SV:S),C,0,0
+S:G$write_segment$0$0({2}DF,SV:S),C,0,0
 S:G$display$0$0({2}DF,SV:S),C,0,0
 S:G$check_outgoing$0$0({2}DF,SV:S),C,0,0
 S:G$check_incoming$0$0({2}DF,SV:S),C,0,0
