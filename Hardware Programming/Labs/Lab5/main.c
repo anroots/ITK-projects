@@ -35,7 +35,7 @@ unsigned long cycle_delay, cycle_duration;
 
 // Initialization
 void init(void) {
-    MAX_SLOTS = 255; // We have this many free slots, max
+    MAX_SLOTS = 200; // We have this many free slots, max
     
     free_slots = MAX_SLOTS; // All slots are empty in the beginning
     
@@ -111,27 +111,43 @@ void display(unsigned int value) {
 
 
 /**
+ * Wait a bit for mechanical switch contacts to settle
+**/
+void bounce_delay() {
+	for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
+}
+
+
+/**
  * If a car leaves the parking house...
 **/
 void check_outgoing(){
 
     	if (BUTTON_EXIT == 1) {
 
-    		// Don't allow the counter to exceed MAX_SLOTS
-		if (free_slots < MAX_SLOTS) {
-			free_slots++;
+		bounce_delay();
+	    	if (BUTTON_EXIT == 1) {
+	    		// Don't allow the counter to exceed MAX_SLOTS
+			if (free_slots < MAX_SLOTS) {
+				free_slots++;
+			}
 		}
     	}
 }
+
 
 /**
  * If a new car enters to the parking house...
 **/
 void check_incoming() {
 	if (BUTTON_ENTER == 1) {
-		// Don't allow the counter to go negative	
-		if (free_slots > 0) {    
-			free_slots--;
+		bounce_delay();
+		
+		if (BUTTON_ENTER == 1) {
+			// Don't allow the counter to go negative	
+			if (free_slots > 0) {    
+				free_slots--;
+			}
 		}
     	}
 }

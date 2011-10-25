@@ -3,6 +3,7 @@ F:G$init$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$write_segment$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$get_digit$0$0({2}DF,SC:U),C,0,0,0,0,0
 F:G$display$0$0({2}DF,SV:S),C,0,0,0,0,0
+F:G$bounce_delay$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$check_outgoing$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$check_incoming$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
@@ -120,6 +121,7 @@ S:G$init$0$0({2}DF,SV:S),C,0,0
 S:G$write_segment$0$0({2}DF,SV:S),C,0,0
 S:G$get_digit$0$0({2}DF,SC:U),C,0,0
 S:G$display$0$0({2}DF,SV:S),C,0,0
+S:G$bounce_delay$0$0({2}DF,SV:S),C,0,0
 S:G$check_outgoing$0$0({2}DF,SV:S),C,0,0
 S:G$check_incoming$0$0({2}DF,SV:S),C,0,0
 S:G$main$0$0({2}DF,SV:S),C,0,0
