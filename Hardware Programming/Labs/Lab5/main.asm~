@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 2.9.0 #5416 (Feb  3 2010) (UNIX)
-; This file was generated Tue Oct 25 09:00:29 2011
+; This file was generated Tue Oct 25 09:02:55 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -11,8 +11,8 @@
 ;--------------------------------------------------------
 	.globl _main
 	.globl _check_incoming
-	.globl _bounce_delay
 	.globl _check_outgoing
+	.globl _bounce_delay
 	.globl _display
 	.globl _get_digit
 	.globl _write_segment
@@ -475,13 +475,13 @@ _init:
 	ar0 = 0x00
 	ar1 = 0x01
 	C$main.c$38$1$1 ==.
-;	main.c:38: MAX_SLOTS = 255; // We have this many free slots, max
-	mov	_MAX_SLOTS,#0xFF
+;	main.c:38: MAX_SLOTS = 200; // We have this many free slots, max
+	mov	_MAX_SLOTS,#0xC8
 	clr	a
 	mov	(_MAX_SLOTS + 1),a
 	C$main.c$40$1$1 ==.
 ;	main.c:40: free_slots = MAX_SLOTS; // All slots are empty in the beginning
-	mov	_free_slots,#0xFF
+	mov	_free_slots,#0xC8
 	clr	a
 	mov	(_free_slots + 1),a
 	C$main.c$42$1$1 ==.
@@ -693,51 +693,18 @@ _display:
 	XG$display$0$0 ==.
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'check_outgoing'
-;------------------------------------------------------------
-;------------------------------------------------------------
-	G$check_outgoing$0$0 ==.
-	C$main.c$116$1$1 ==.
-;	main.c:116: void check_outgoing(){
-;	-----------------------------------------
-;	 function check_outgoing
-;	-----------------------------------------
-_check_outgoing:
-	C$main.c$118$1$1 ==.
-;	main.c:118: if (BUTTON_EXIT == 1) {
-	jnb	_P1_1,00105$
-	C$main.c$121$2$2 ==.
-;	main.c:121: if (free_slots < MAX_SLOTS) {
-	clr	c
-	mov	a,_free_slots
-	subb	a,_MAX_SLOTS
-	mov	a,(_free_slots + 1)
-	subb	a,(_MAX_SLOTS + 1)
-	jnc	00105$
-	C$main.c$122$3$3 ==.
-;	main.c:122: free_slots++;
-	inc	_free_slots
-	clr	a
-	cjne	a,_free_slots,00111$
-	inc	(_free_slots + 1)
-00111$:
-00105$:
-	C$main.c$125$1$1 ==.
-	XG$check_outgoing$0$0 ==.
-	ret
-;------------------------------------------------------------
 ;Allocation info for local variables in function 'bounce_delay'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$bounce_delay$0$0 ==.
-	C$main.c$130$1$1 ==.
-;	main.c:130: void bounce_delay() {
+	C$main.c$116$1$1 ==.
+;	main.c:116: void bounce_delay() {
 ;	-----------------------------------------
 ;	 function bounce_delay
 ;	-----------------------------------------
 _bounce_delay:
-	C$main.c$131$1$1 ==.
-;	main.c:131: for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
+	C$main.c$117$1$1 ==.
+;	main.c:117: for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
 	mov	_cycle_delay,#0x0A
 	clr	a
 	mov	(_cycle_delay + 1),a
@@ -763,43 +730,82 @@ _bounce_delay:
 	mov	(_cycle_delay + 1),a
 	mov	(_cycle_delay + 2),a
 	mov	(_cycle_delay + 3),a
-	C$main.c$132$1$1 ==.
+	C$main.c$118$1$1 ==.
 	XG$bounce_delay$0$0 ==.
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'check_outgoing'
+;------------------------------------------------------------
+;------------------------------------------------------------
+	G$check_outgoing$0$0 ==.
+	C$main.c$124$1$1 ==.
+;	main.c:124: void check_outgoing(){
+;	-----------------------------------------
+;	 function check_outgoing
+;	-----------------------------------------
+_check_outgoing:
+	C$main.c$126$1$1 ==.
+;	main.c:126: if (BUTTON_EXIT == 1) {
+	jnb	_P1_1,00107$
+	C$main.c$128$2$2 ==.
+;	main.c:128: bounce_delay();
+	lcall	_bounce_delay
+	C$main.c$129$1$2 ==.
+;	main.c:129: if (BUTTON_EXIT == 1) {
+	jnb	_P1_1,00107$
+	C$main.c$131$3$3 ==.
+;	main.c:131: if (free_slots < MAX_SLOTS) {
+	clr	c
+	mov	a,_free_slots
+	subb	a,_MAX_SLOTS
+	mov	a,(_free_slots + 1)
+	subb	a,(_MAX_SLOTS + 1)
+	jnc	00107$
+	C$main.c$132$4$4 ==.
+;	main.c:132: free_slots++;
+	inc	_free_slots
+	clr	a
+	cjne	a,_free_slots,00115$
+	inc	(_free_slots + 1)
+00115$:
+00107$:
+	C$main.c$136$1$1 ==.
+	XG$check_outgoing$0$0 ==.
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'check_incoming'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$check_incoming$0$0 ==.
-	C$main.c$138$1$1 ==.
-;	main.c:138: void check_incoming() {
+	C$main.c$142$1$1 ==.
+;	main.c:142: void check_incoming() {
 ;	-----------------------------------------
 ;	 function check_incoming
 ;	-----------------------------------------
 _check_incoming:
-	C$main.c$139$1$1 ==.
-;	main.c:139: if (BUTTON_ENTER == 1) {
+	C$main.c$143$1$1 ==.
+;	main.c:143: if (BUTTON_ENTER == 1) {
 	jnb	_P1_0,00107$
-	C$main.c$140$2$2 ==.
-;	main.c:140: bounce_delay();
+	C$main.c$144$2$2 ==.
+;	main.c:144: bounce_delay();
 	lcall	_bounce_delay
-	C$main.c$141$1$2 ==.
-;	main.c:141: if (BUTTON_ENTER == 1) {
+	C$main.c$146$1$2 ==.
+;	main.c:146: if (BUTTON_ENTER == 1) {
 	jnb	_P1_0,00107$
-	C$main.c$143$3$3 ==.
-;	main.c:143: if (free_slots > 0) {    
+	C$main.c$148$3$3 ==.
+;	main.c:148: if (free_slots > 0) {    
 	mov	a,_free_slots
 	orl	a,(_free_slots + 1)
 	jz	00107$
-	C$main.c$144$4$4 ==.
-;	main.c:144: free_slots--;
+	C$main.c$149$4$4 ==.
+;	main.c:149: free_slots--;
 	dec	_free_slots
 	mov	a,#0xff
 	cjne	a,_free_slots,00115$
 	dec	(_free_slots + 1)
 00115$:
 00107$:
-	C$main.c$148$1$1 ==.
+	C$main.c$153$1$1 ==.
 	XG$check_incoming$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -807,26 +813,26 @@ _check_incoming:
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$main$0$0 ==.
-	C$main.c$151$1$1 ==.
-;	main.c:151: void main (void) {
+	C$main.c$156$1$1 ==.
+;	main.c:156: void main (void) {
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-	C$main.c$152$1$1 ==.
-;	main.c:152: init(); // Initialize
+	C$main.c$157$1$1 ==.
+;	main.c:157: init(); // Initialize
 	lcall	_init
-	C$main.c$154$1$1 ==.
-;	main.c:154: while (1) {
+	C$main.c$159$1$1 ==.
+;	main.c:159: while (1) {
 00102$:
-	C$main.c$156$2$2 ==.
-;	main.c:156: check_incoming(); // Car enters
+	C$main.c$161$2$2 ==.
+;	main.c:161: check_incoming(); // Car enters
 	lcall	_check_incoming
-	C$main.c$158$2$2 ==.
-;	main.c:158: check_outgoing(); // Car leaves
+	C$main.c$163$2$2 ==.
+;	main.c:163: check_outgoing(); // Car leaves
 	lcall	_check_outgoing
-	C$main.c$165$2$2 ==.
-;	main.c:165: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
+	C$main.c$170$2$2 ==.
+;	main.c:170: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
 	clr	a
 	mov	_cycle_delay,a
 	mov	(_cycle_delay + 1),a
@@ -853,12 +859,12 @@ _main:
 	inc	(_cycle_delay + 3)
 	sjmp	00104$
 00107$:
-	C$main.c$167$2$2 ==.
-;	main.c:167: display(free_slots); // Output the number of free slots
+	C$main.c$172$2$2 ==.
+;	main.c:172: display(free_slots); // Output the number of free slots
 	mov	dpl,_free_slots
 	mov	dph,(_free_slots + 1)
 	lcall	_display
-	C$main.c$169$1$1 ==.
+	C$main.c$174$1$1 ==.
 	XG$main$0$0 ==.
 	sjmp	00102$
 	.area CSEG    (CODE)
