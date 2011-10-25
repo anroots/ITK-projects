@@ -10,13 +10,16 @@
  *	Marek Kikkas
 **/
 
+// Keypad port
+#define KEYPAD_PORT P1
+
 // Define start/stop button
-#define BUTTON_START P1_0
+#define BUTTON_START P1_3 & P1_6
 
 
 // The max number of digits we need to display the time
 // If we only have seconds up to 60, we'd use 2 digits
-unsigned char NUMBER_OF_DIGITS = 3;
+unsigned char NUMBER_OF_DIGITS = 4;
 
 // An array of numbers 0...9 for LED display
 unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
@@ -26,12 +29,6 @@ unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 unsigned long cycle_delay, cycle_duration;
 
 
-// Initialization
-void init(void) {
-    BUTTON_START = 1; // Define as input
-    
-    cycle_duration = 1; // The artificial time delay is X cycles long
-}
 
 /**
  * Writes value to segment_number
@@ -44,6 +41,7 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 	P3_0 = 1; // Reset P3 to avoid flickers
 	P3_1 = 1;
 	P3_2 = 1;
+	P3_3 = 1;
 
 	// This is the actual numerical value
 	P2 = NUMBERS[value];
@@ -53,18 +51,26 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 		case 0:
 			P3_1 = 1;
 			P3_2 = 1;
+			P3_3 = 1;
 			P3_0 = 0;
 			break;
 		case 1:
 			P3_0 = 1;
 			P3_2 = 1;
+			P3_3 = 1;
 			P3_1 = 0;
 			break;
 		case 2:
 			P3_3 = 1;
 			P3_1 = 1;
+			P3_0 = 1;
 			P3_2 = 0;
 			break;
+		case 3:
+			P3_0 = 1;
+			P3_1 = 1;
+			P3_2 = 1;
+			P3_3 = 0;
 	}
 }
 
@@ -97,6 +103,13 @@ void display(unsigned int value) {
 	}
 }
 
+/**
+ * Reset the 4*7 segment display
+**/
+void reset_display() {
+	// Reset display by writing to a nonexisting section
+	write_segment(NUMBER_OF_DIGITS + 1,8);
+}
 
 /**
  * Wait a bit for mechanical switch contacts to settle
@@ -116,9 +129,27 @@ void check_start_press(){
 
 		bounce_delay();
 	    	if (BUTTON_START == 1) {
-	    		// todo
+	    		display(1111); // for testing if btn was pressed
+	    		
+			/**
+			 * Create an artificial time delay
+			 * Needed so the user can have time to remove his/her finger
+			 * from the button before the BUTTON_ENTER == 1 is checked again
+			**/
+			for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
+
 		}
+    	} else {
+		reset_display();
     	}
+}
+
+
+// Initialization
+void init(void) {
+	KEYPAD_PORT = 1; // Define as input
+    
+	cycle_duration = 1; // The artificial time delay is X cycles long
 }
 
 
@@ -129,14 +160,5 @@ void main (void) {
 	while (1) {
 
 		check_start_press();
-
-		/**
-		 * Create an artificial time delay
-		 * Needed so the user can have time to remove his/her finger
-		 * from the button before the BUTTON_ENTER == 1 is checked again
-		**/
-		for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
-
-		
 	}
 }
