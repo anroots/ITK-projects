@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.0.0 #6037 (Oct 31 2010) (MINGW32)
-; This file was generated Mon Nov 07 20:05:32 2011
+; This file was generated Mon Nov 07 22:48:09 2011
 ;--------------------------------------------------------
 	.module main
 	.optsdcc -mmcs51 --model-small
@@ -10,13 +10,14 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
-	.globl _check_incoming
-	.globl _check_outgoing
+	.globl _init
+	.globl _check_start_press
 	.globl _bounce_delay
+	.globl _reset_display
 	.globl _display
 	.globl _get_digit
 	.globl _write_segment
-	.globl _init
+	.globl _GetNumberFromMatrixKeypad
 	.globl _CY
 	.globl _AC
 	.globl _F0
@@ -118,8 +119,6 @@
 	.globl _cycle_duration
 	.globl _cycle_delay
 	.globl _NUMBERS
-	.globl _MAX_SLOTS
-	.globl _free_slots
 	.globl _NUMBER_OF_DIGITS
 ;--------------------------------------------------------
 ; special function registers
@@ -335,12 +334,6 @@ _CY	=	0x00d7
 G$NUMBER_OF_DIGITS$0$0==.
 _NUMBER_OF_DIGITS::
 	.ds 1
-G$free_slots$0$0==.
-_free_slots::
-	.ds 2
-G$MAX_SLOTS$0$0==.
-_MAX_SLOTS::
-	.ds 2
 G$NUMBERS$0$0==.
 _NUMBERS::
 	.ds 10
@@ -426,12 +419,12 @@ __interrupt_vect:
 	.globl __mcs51_genXRAMCLEAR
 	.globl __mcs51_genRAMCLEAR
 	G$main$0$0 ==.
-	C$main.c$21$1$1 ==.
-;	main.c:21: unsigned char NUMBER_OF_DIGITS = 3;
-	mov	_NUMBER_OF_DIGITS,#0x03
+	C$main.c$22$1$1 ==.
+;	main.c:22: unsigned char NUMBER_OF_DIGITS = 4;
+	mov	_NUMBER_OF_DIGITS,#0x04
 	G$main$0$0 ==.
-	C$main.c$29$1$1 ==.
-;	main.c:29: unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
+	C$main.c$25$1$1 ==.
+;	main.c:25: unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 	mov	_NUMBERS,#0xC0
 	mov	(_NUMBERS + 0x0001),#0xF9
 	mov	(_NUMBERS + 0x0002),#0xA4
@@ -458,16 +451,18 @@ __sdcc_program_startup:
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'init'
+;Allocation info for local variables in function 'GetNumberFromMatrixKeypad'
 ;------------------------------------------------------------
+;col                       Allocated to registers r2 
+;row                       Allocated to registers r3 
 ;------------------------------------------------------------
-	G$init$0$0 ==.
-	C$main.c$37$0$0 ==.
-;	main.c:37: void init(void) {
+	G$GetNumberFromMatrixKeypad$0$0 ==.
+	C$main.c$36$0$0 ==.
+;	main.c:36: unsigned char GetNumberFromMatrixKeypad()
 ;	-----------------------------------------
-;	 function init
+;	 function GetNumberFromMatrixKeypad
 ;	-----------------------------------------
-_init:
+_GetNumberFromMatrixKeypad:
 	ar2 = 0x02
 	ar3 = 0x03
 	ar4 = 0x04
@@ -476,29 +471,265 @@ _init:
 	ar7 = 0x07
 	ar0 = 0x00
 	ar1 = 0x01
-	C$main.c$38$1$1 ==.
-;	main.c:38: MAX_SLOTS = 200; // We have this many free slots, max
-	mov	_MAX_SLOTS,#0xC8
-	mov	(_MAX_SLOTS + 1),#0x00
+	C$main.c$38$1$0 ==.
+;	main.c:38: unsigned char col = 0, row = 0;
+	mov	r2,#0x00
+	mov	r3,#0x00
+	C$main.c$39$1$1 ==.
+;	main.c:39: KEYPAD_PORT = 240;    //column info
+	mov	_P1,#0xF0
 	C$main.c$40$1$1 ==.
-;	main.c:40: free_slots = MAX_SLOTS; // All slots are empty in the beginning
-	mov	_free_slots,#0xC8
-	mov	(_free_slots + 1),#0x00
-	C$main.c$42$1$1 ==.
-;	main.c:42: BUTTON_ENTER = 1; // Define as input
-	setb	_P1_0
-	C$main.c$43$1$1 ==.
-;	main.c:43: BUTTON_EXIT = 1; // Define as input
-	setb	_P1_1
-	C$main.c$45$1$1 ==.
-;	main.c:45: cycle_duration = 1; // The artificial time delay is X cycles long
-	mov	_cycle_duration,#0x01
+;	main.c:40: switch(P1)
+	mov	r4,_P1
+	cjne	r4,#0x70,00219$
+	sjmp	00104$
+00219$:
+	cjne	r4,#0xB0,00220$
+	sjmp	00103$
+00220$:
+	cjne	r4,#0xD0,00221$
+	sjmp	00102$
+00221$:
+	cjne	r4,#0xE0,00106$
+	C$main.c$42$2$2 ==.
+;	main.c:42: case 224:    col = 1;    break;   
+	mov	r2,#0x01
+	C$main.c$43$2$2 ==.
+;	main.c:43: case 208:    col = 2;    break;    
+	sjmp	00106$
+00102$:
+	mov	r2,#0x02
+	C$main.c$44$2$2 ==.
+;	main.c:44: case 176:    col = 3;    break;    
+	sjmp	00106$
+00103$:
+	mov	r2,#0x03
+	C$main.c$45$2$2 ==.
+;	main.c:45: case 112:    col = 4;    break;    
+	sjmp	00106$
+00104$:
+	mov	r2,#0x04
+	C$main.c$47$1$1 ==.
+;	main.c:47: }
+00106$:
+	C$main.c$49$1$1 ==.
+;	main.c:49: KEYPAD_PORT = 15;    //row info
+	mov	_P1,#0x0F
+	C$main.c$50$1$1 ==.
+;	main.c:50: switch(P1)
+	mov	r4,_P1
+	cjne	r4,#0x07,00224$
+	sjmp	00110$
+00224$:
+	cjne	r4,#0x0B,00225$
+	sjmp	00109$
+00225$:
+	cjne	r4,#0x0D,00226$
+	sjmp	00108$
+00226$:
+	cjne	r4,#0x0E,00112$
+	C$main.c$52$2$3 ==.
+;	main.c:52: case 14:    row = 1;    break;
+	mov	r3,#0x01
+	C$main.c$53$2$3 ==.
+;	main.c:53: case 13:    row = 2;    break;
+	sjmp	00112$
+00108$:
+	mov	r3,#0x02
+	C$main.c$54$2$3 ==.
+;	main.c:54: case 11:    row = 3;    break;
+	sjmp	00112$
+00109$:
+	mov	r3,#0x03
+	C$main.c$55$2$3 ==.
+;	main.c:55: case 7:    row = 4;    break;
+	sjmp	00112$
+00110$:
+	mov	r3,#0x04
+	C$main.c$57$1$1 ==.
+;	main.c:57: }
+00112$:
+	C$main.c$59$1$1 ==.
+;	main.c:59: if((col == 1) && (row == 1))
 	clr	a
-	mov	(_cycle_duration + 1),a
-	mov	(_cycle_duration + 2),a
-	mov	(_cycle_duration + 3),a
-	C$main.c$46$1$1 ==.
-	XG$init$0$0 ==.
+	cjne	r2,#0x01,00229$
+	inc	a
+00229$:
+	mov	r4,a
+	jz	00174$
+	cjne	r3,#0x01,00174$
+	C$main.c$60$1$1 ==.
+;	main.c:60: return 1;
+	mov	dpl,#0x01
+	ret
+00174$:
+	C$main.c$61$1$1 ==.
+;	main.c:61: else if((col == 2) && (row == 1))
+	clr	a
+	cjne	r2,#0x02,00234$
+	inc	a
+00234$:
+	mov	r5,a
+	jz	00170$
+	cjne	r3,#0x01,00170$
+	C$main.c$62$1$1 ==.
+;	main.c:62: return 2;
+	mov	dpl,#0x02
+	ret
+00170$:
+	C$main.c$63$1$1 ==.
+;	main.c:63: else if((col == 3) && (row == 1))
+	clr	a
+	cjne	r2,#0x03,00239$
+	inc	a
+00239$:
+	mov	r6,a
+	jz	00166$
+	cjne	r3,#0x01,00166$
+	C$main.c$64$1$1 ==.
+;	main.c:64: return 3;
+	mov	dpl,#0x03
+	ret
+00166$:
+	C$main.c$65$1$1 ==.
+;	main.c:65: else if((col == 4) && (row == 1))    //Letter A
+	clr	a
+	cjne	r2,#0x04,00244$
+	inc	a
+00244$:
+	mov	r2,a
+	jz	00162$
+	cjne	r3,#0x01,00162$
+	C$main.c$66$1$1 ==.
+;	main.c:66: return 10;
+	mov	dpl,#0x0A
+	ret
+00162$:
+	C$main.c$67$1$1 ==.
+;	main.c:67: else if((col == 1) && (row == 2))
+	mov	a,r4
+	jz	00158$
+	cjne	r3,#0x02,00158$
+	C$main.c$68$1$1 ==.
+;	main.c:68: return 4;
+	mov	dpl,#0x04
+	ret
+00158$:
+	C$main.c$69$1$1 ==.
+;	main.c:69: else if((col == 2) && (row == 2))
+	mov	a,r5
+	jz	00154$
+	cjne	r3,#0x02,00154$
+	C$main.c$70$1$1 ==.
+;	main.c:70: return 5;
+	mov	dpl,#0x05
+	ret
+00154$:
+	C$main.c$71$1$1 ==.
+;	main.c:71: else if((col == 3) && (row == 2))
+	mov	a,r6
+	jz	00150$
+	cjne	r3,#0x02,00150$
+	C$main.c$72$1$1 ==.
+;	main.c:72: return 6;
+	mov	dpl,#0x06
+	ret
+00150$:
+	C$main.c$73$1$1 ==.
+;	main.c:73: else if((col == 4) && (row == 2))    //Letter B
+	mov	a,r2
+	jz	00146$
+	cjne	r3,#0x02,00146$
+	C$main.c$74$1$1 ==.
+;	main.c:74: return 11;
+	mov	dpl,#0x0B
+	ret
+00146$:
+	C$main.c$75$1$1 ==.
+;	main.c:75: else if((col == 1) && (row == 3))
+	mov	a,r4
+	jz	00142$
+	cjne	r3,#0x03,00142$
+	C$main.c$76$1$1 ==.
+;	main.c:76: return 7;
+	mov	dpl,#0x07
+	ret
+00142$:
+	C$main.c$77$1$1 ==.
+;	main.c:77: else if((col == 2) && (row == 3))
+	mov	a,r5
+	jz	00138$
+	cjne	r3,#0x03,00138$
+	C$main.c$78$1$1 ==.
+;	main.c:78: return 8;
+	mov	dpl,#0x08
+	ret
+00138$:
+	C$main.c$79$1$1 ==.
+;	main.c:79: else if((col == 3) && (row == 3))
+	mov	a,r6
+	jz	00134$
+	cjne	r3,#0x03,00134$
+	C$main.c$80$1$1 ==.
+;	main.c:80: return 9;
+	mov	dpl,#0x09
+	ret
+00134$:
+	C$main.c$81$1$1 ==.
+;	main.c:81: else if((col == 4) && (row == 3))    //Letter C
+	mov	a,r2
+	jz	00130$
+	cjne	r3,#0x03,00130$
+	C$main.c$82$1$1 ==.
+;	main.c:82: return 12;
+	mov	dpl,#0x0C
+	ret
+00130$:
+	C$main.c$83$1$1 ==.
+;	main.c:83: else if((col == 1) && (row == 4))    //Char * (ASCII 42)
+	mov	a,r4
+	jz	00126$
+	cjne	r3,#0x04,00126$
+	C$main.c$84$1$1 ==.
+;	main.c:84: return 42;
+	mov	dpl,#0x2A
+	ret
+00126$:
+	C$main.c$85$1$1 ==.
+;	main.c:85: else if((col == 2) && (row == 4))
+	mov	a,r5
+	jz	00122$
+	cjne	r3,#0x04,00122$
+	C$main.c$86$1$1 ==.
+;	main.c:86: return 0;
+	mov	dpl,#0x00
+	ret
+00122$:
+	C$main.c$87$1$1 ==.
+;	main.c:87: else if((col == 3) && (row == 4))    //Char # (ASCII 35)
+	mov	a,r6
+	jz	00118$
+	cjne	r3,#0x04,00118$
+	C$main.c$88$1$1 ==.
+;	main.c:88: return 35;
+	mov	dpl,#0x23
+	ret
+00118$:
+	C$main.c$89$1$1 ==.
+;	main.c:89: else if((col == 4) && (row == 4))    //Letter D
+	mov	a,r2
+	jz	00114$
+	cjne	r3,#0x04,00114$
+	C$main.c$90$1$1 ==.
+;	main.c:90: return 13;
+	mov	dpl,#0x0D
+	C$main.c$92$1$1 ==.
+;	main.c:92: return 255;
+	C$main.c$96$1$1 ==.
+	XG$GetNumberFromMatrixKeypad$0$0 ==.
+	ret
+00114$:
+	mov	dpl,#0xFF
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'write_segment'
@@ -507,84 +738,120 @@ _init:
 ;segment_number            Allocated to registers r2 
 ;------------------------------------------------------------
 	G$write_segment$0$0 ==.
-	C$main.c$54$1$1 ==.
-;	main.c:54: void write_segment(unsigned char segment_number, unsigned char value) {
+	C$main.c$106$1$1 ==.
+;	main.c:106: void write_segment(unsigned char segment_number, unsigned char value) {
 ;	-----------------------------------------
 ;	 function write_segment
 ;	-----------------------------------------
 _write_segment:
 	mov	r2,dpl
-	C$main.c$56$1$1 ==.
-;	main.c:56: P3_0 = 1; // Reset P3 to avoid flickers
+	C$main.c$108$1$1 ==.
+;	main.c:108: P3_0 = 1; // Reset P3 to avoid flickers
 	setb	_P3_0
-	C$main.c$57$1$1 ==.
-;	main.c:57: P3_1 = 1;
+	C$main.c$109$1$1 ==.
+;	main.c:109: P3_1 = 1;
 	setb	_P3_1
-	C$main.c$58$1$1 ==.
-;	main.c:58: P3_2 = 1;
+	C$main.c$110$1$1 ==.
+;	main.c:110: P3_2 = 1;
 	setb	_P3_2
-	C$main.c$61$1$1 ==.
-;	main.c:61: P2 = NUMBERS[value];
+	C$main.c$111$1$1 ==.
+;	main.c:111: P3_3 = 1;
+	setb	_P3_3
+	C$main.c$114$1$1 ==.
+;	main.c:114: P2 = NUMBERS[value];
 	mov	a,_write_segment_PARM_2
 	add	a,#_NUMBERS
 	mov	r0,a
 	mov	_P2,@r0
-	C$main.c$64$1$1 ==.
-;	main.c:64: switch (segment_number) {
-	cjne	r2,#0x00,00110$
-	sjmp	00101$
-00110$:
-	cjne	r2,#0x01,00111$
-	sjmp	00102$
+	C$main.c$117$1$1 ==.
+;	main.c:117: switch (segment_number) {
+	mov	a,#0x03
+	cjne	a,ar2,00109$
+00109$:
+	jc	00106$
+	mov	a,r2
+	add	a,r2
+	add	a,r2
+	mov	dptr,#00111$
+	jmp	@a+dptr
 00111$:
-	C$main.c$65$2$2 ==.
-;	main.c:65: case 0:
-	cjne	r2,#0x02,00105$
-	sjmp	00103$
+	ljmp	00101$
+	ljmp	00102$
+	ljmp	00103$
+	ljmp	00104$
+	C$main.c$118$2$2 ==.
+;	main.c:118: case 0:
 00101$:
-	C$main.c$66$2$2 ==.
-;	main.c:66: P3_1 = 1;
+	C$main.c$119$2$2 ==.
+;	main.c:119: P3_1 = 1;
 	setb	_P3_1
-	C$main.c$67$2$2 ==.
-;	main.c:67: P3_2 = 1;
+	C$main.c$120$2$2 ==.
+;	main.c:120: P3_2 = 1;
 	setb	_P3_2
-	C$main.c$68$2$2 ==.
-;	main.c:68: P3_0 = 0;
+	C$main.c$121$2$2 ==.
+;	main.c:121: P3_3 = 1;
+	setb	_P3_3
+	C$main.c$122$2$2 ==.
+;	main.c:122: P3_0 = 0;
 	clr	_P3_0
-	C$main.c$69$2$2 ==.
-;	main.c:69: break;
-	C$main.c$70$2$2 ==.
-;	main.c:70: case 1:
+	C$main.c$123$2$2 ==.
+;	main.c:123: break;
+	C$main.c$124$2$2 ==.
+;	main.c:124: case 1:
 	ret
 00102$:
-	C$main.c$71$2$2 ==.
-;	main.c:71: P3_0 = 1;
+	C$main.c$125$2$2 ==.
+;	main.c:125: P3_0 = 1;
 	setb	_P3_0
-	C$main.c$72$2$2 ==.
-;	main.c:72: P3_2 = 1;
+	C$main.c$126$2$2 ==.
+;	main.c:126: P3_2 = 1;
 	setb	_P3_2
-	C$main.c$73$2$2 ==.
-;	main.c:73: P3_1 = 0;
+	C$main.c$127$2$2 ==.
+;	main.c:127: P3_3 = 1;
+	setb	_P3_3
+	C$main.c$128$2$2 ==.
+;	main.c:128: P3_1 = 0;
 	clr	_P3_1
-	C$main.c$74$2$2 ==.
-;	main.c:74: break;
-	C$main.c$75$2$2 ==.
-;	main.c:75: case 2:
+	C$main.c$129$2$2 ==.
+;	main.c:129: break;
+	C$main.c$130$2$2 ==.
+;	main.c:130: case 2:
 	ret
 00103$:
-	C$main.c$76$2$2 ==.
-;	main.c:76: P3_3 = 1;
+	C$main.c$131$2$2 ==.
+;	main.c:131: P3_3 = 1;
 	setb	_P3_3
-	C$main.c$77$2$2 ==.
-;	main.c:77: P3_1 = 1;
+	C$main.c$132$2$2 ==.
+;	main.c:132: P3_1 = 1;
 	setb	_P3_1
-	C$main.c$78$2$2 ==.
-;	main.c:78: P3_2 = 0;
+	C$main.c$133$2$2 ==.
+;	main.c:133: P3_0 = 1;
+	setb	_P3_0
+	C$main.c$134$2$2 ==.
+;	main.c:134: P3_2 = 0;
 	clr	_P3_2
-	C$main.c$80$1$1 ==.
-;	main.c:80: }
-00105$:
-	C$main.c$81$1$1 ==.
+	C$main.c$135$2$2 ==.
+;	main.c:135: break;
+	C$main.c$136$2$2 ==.
+;	main.c:136: case 3:
+	ret
+00104$:
+	C$main.c$137$2$2 ==.
+;	main.c:137: P3_0 = 1;
+	setb	_P3_0
+	C$main.c$138$2$2 ==.
+;	main.c:138: P3_1 = 1;
+	setb	_P3_1
+	C$main.c$139$2$2 ==.
+;	main.c:139: P3_2 = 1;
+	setb	_P3_2
+	C$main.c$140$2$2 ==.
+;	main.c:140: P3_3 = 0;
+	clr	_P3_3
+	C$main.c$141$1$1 ==.
+;	main.c:141: }
+00106$:
+	C$main.c$142$1$1 ==.
 	XG$write_segment$0$0 ==.
 	ret
 ;------------------------------------------------------------
@@ -594,20 +861,20 @@ _write_segment:
 ;value                     Allocated to registers r2 r3 
 ;------------------------------------------------------------
 	G$get_digit$0$0 ==.
-	C$main.c$87$1$1 ==.
-;	main.c:87: unsigned char get_digit(unsigned int value, unsigned char place) {
+	C$main.c$148$1$1 ==.
+;	main.c:148: unsigned char get_digit(unsigned int value, unsigned char place) {
 ;	-----------------------------------------
 ;	 function get_digit
 ;	-----------------------------------------
 _get_digit:
 	mov	r2,dpl
 	mov	r3,dph
-	C$main.c$89$1$1 ==.
-;	main.c:89: if (place == 0) {
+	C$main.c$150$1$1 ==.
+;	main.c:150: if (place == 0) {
 	mov	a,_get_digit_PARM_2
 	jnz	00104$
-	C$main.c$90$2$2 ==.
-;	main.c:90: return (unsigned char)value % 10;
+	C$main.c$151$2$2 ==.
+;	main.c:151: return (unsigned char)value % 10;
 	mov	ar4,r2
 	mov	b,#0x0A
 	mov	a,r4
@@ -615,12 +882,12 @@ _get_digit:
 	mov	dpl,b
 	ret
 00104$:
-	C$main.c$91$1$1 ==.
-;	main.c:91: } else if (place == 1) {
+	C$main.c$152$1$1 ==.
+;	main.c:152: } else if (place == 1) {
 	mov	a,#0x01
 	cjne	a,_get_digit_PARM_2,00105$
-	C$main.c$92$1$1 ==.
-;	main.c:92: return (unsigned char)(value / 10) % 10;
+	C$main.c$153$1$1 ==.
+;	main.c:153: return (unsigned char)(value / 10) % 10;
 	mov	__divuint_PARM_2,#0x0A
 	mov	(__divuint_PARM_2 + 1),#0x00
 	mov	dpl,r2
@@ -633,13 +900,13 @@ _get_digit:
 	mov	dpl,b
 	ret
 00105$:
-	C$main.c$94$1$1 ==.
-;	main.c:94: return (unsigned char)(value / 100);
+	C$main.c$155$1$1 ==.
+;	main.c:155: return (unsigned char)(value / 100);
 	mov	__divuint_PARM_2,#0x64
 	mov	(__divuint_PARM_2 + 1),#0x00
 	mov	dpl,r2
 	mov	dph,r3
-	C$main.c$95$1$1 ==.
+	C$main.c$156$1$1 ==.
 	XG$get_digit$0$0 ==.
 	ljmp	__divuint
 ;------------------------------------------------------------
@@ -649,24 +916,24 @@ _get_digit:
 ;i                         Allocated to registers r4 
 ;------------------------------------------------------------
 	G$display$0$0 ==.
-	C$main.c$102$1$1 ==.
-;	main.c:102: void display(unsigned int value) {
+	C$main.c$163$1$1 ==.
+;	main.c:163: void display(unsigned int value) {
 ;	-----------------------------------------
 ;	 function display
 ;	-----------------------------------------
 _display:
 	mov	r2,dpl
 	mov	r3,dph
-	C$main.c$107$1$1 ==.
-;	main.c:107: for (i = 0; i < NUMBER_OF_DIGITS; i++) {
+	C$main.c$168$1$1 ==.
+;	main.c:168: for (i = 0; i < NUMBER_OF_DIGITS; i++) {
 	mov	r4,#0x00
 00101$:
 	mov	a,r4
 	cjne	a,_NUMBER_OF_DIGITS,00109$
 00109$:
 	jnc	00105$
-	C$main.c$108$2$2 ==.
-;	main.c:108: write_segment(i, get_digit(value, i));
+	C$main.c$169$2$2 ==.
+;	main.c:169: write_segment(i, get_digit(value, i));
 	mov	_get_digit_PARM_2,r4
 	mov	dpl,r2
 	mov	dph,r3
@@ -682,27 +949,47 @@ _display:
 	pop	ar4
 	pop	ar3
 	pop	ar2
-	C$main.c$107$1$1 ==.
-;	main.c:107: for (i = 0; i < NUMBER_OF_DIGITS; i++) {
+	C$main.c$168$1$1 ==.
+;	main.c:168: for (i = 0; i < NUMBER_OF_DIGITS; i++) {
 	inc	r4
 	sjmp	00101$
 00105$:
-	C$main.c$110$1$1 ==.
+	C$main.c$171$1$1 ==.
 	XG$display$0$0 ==.
 	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'reset_display'
+;------------------------------------------------------------
+;------------------------------------------------------------
+	G$reset_display$0$0 ==.
+	C$main.c$176$1$1 ==.
+;	main.c:176: void reset_display() {
+;	-----------------------------------------
+;	 function reset_display
+;	-----------------------------------------
+_reset_display:
+	C$main.c$178$1$1 ==.
+;	main.c:178: write_segment(NUMBER_OF_DIGITS + 1,8);
+	mov	a,_NUMBER_OF_DIGITS
+	inc	a
+	mov	dpl,a
+	mov	_write_segment_PARM_2,#0x08
+	C$main.c$179$1$1 ==.
+	XG$reset_display$0$0 ==.
+	ljmp	_write_segment
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'bounce_delay'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 	G$bounce_delay$0$0 ==.
-	C$main.c$116$1$1 ==.
-;	main.c:116: void bounce_delay() {
+	C$main.c$184$1$1 ==.
+;	main.c:184: void bounce_delay() {
 ;	-----------------------------------------
 ;	 function bounce_delay
 ;	-----------------------------------------
 _bounce_delay:
-	C$main.c$117$1$1 ==.
-;	main.c:117: for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
+	C$main.c$185$1$1 ==.
+;	main.c:185: for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
 	mov	_cycle_delay,#0x0A
 	clr	a
 	mov	(_cycle_delay + 1),a
@@ -728,115 +1015,45 @@ _bounce_delay:
 	mov	(_cycle_delay + 1),a
 	mov	(_cycle_delay + 2),a
 	mov	(_cycle_delay + 3),a
-	C$main.c$118$1$1 ==.
+	C$main.c$186$1$1 ==.
 	XG$bounce_delay$0$0 ==.
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'check_outgoing'
+;Allocation info for local variables in function 'check_start_press'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-	G$check_outgoing$0$0 ==.
-	C$main.c$124$1$1 ==.
-;	main.c:124: void check_outgoing(){
+	G$check_start_press$0$0 ==.
+	C$main.c$193$1$1 ==.
+;	main.c:193: void check_start_press(){
 ;	-----------------------------------------
-;	 function check_outgoing
+;	 function check_start_press
 ;	-----------------------------------------
-_check_outgoing:
-	C$main.c$126$1$1 ==.
-;	main.c:126: if (BUTTON_EXIT == 1) {
-	jnb	_P1_1,00107$
-	C$main.c$128$2$2 ==.
-;	main.c:128: bounce_delay();
+_check_start_press:
+	C$main.c$195$1$1 ==.
+;	main.c:195: if (BUTTON_START == 1) {
+	mov	c,_P1_3
+	anl	c,_P1_6
+	jnc	00104$
+	C$main.c$197$2$2 ==.
+;	main.c:197: bounce_delay();
 	lcall	_bounce_delay
-	C$main.c$129$1$2 ==.
-;	main.c:129: if (BUTTON_EXIT == 1) {
-	jnb	_P1_1,00107$
-	C$main.c$131$3$3 ==.
-;	main.c:131: if (free_slots < MAX_SLOTS) {
-	clr	c
-	mov	a,_free_slots
-	subb	a,_MAX_SLOTS
-	mov	a,(_free_slots + 1)
-	subb	a,(_MAX_SLOTS + 1)
-	jnc	00107$
-	C$main.c$132$4$4 ==.
-;	main.c:132: free_slots++;
-	inc	_free_slots
-	clr	a
-	cjne	a,_free_slots,00115$
-	inc	(_free_slots + 1)
-00115$:
-00107$:
-	C$main.c$136$1$1 ==.
-	XG$check_outgoing$0$0 ==.
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'check_incoming'
-;------------------------------------------------------------
-;------------------------------------------------------------
-	G$check_incoming$0$0 ==.
-	C$main.c$142$1$1 ==.
-;	main.c:142: void check_incoming() {
-;	-----------------------------------------
-;	 function check_incoming
-;	-----------------------------------------
-_check_incoming:
-	C$main.c$143$1$1 ==.
-;	main.c:143: if (BUTTON_ENTER == 1) {
-	jnb	_P1_0,00107$
-	C$main.c$144$2$2 ==.
-;	main.c:144: bounce_delay();
-	lcall	_bounce_delay
-	C$main.c$146$1$2 ==.
-;	main.c:146: if (BUTTON_ENTER == 1) {
-	jnb	_P1_0,00107$
-	C$main.c$148$3$3 ==.
-;	main.c:148: if (free_slots > 0) {    
-	mov	a,_free_slots
-	orl	a,(_free_slots + 1)
-	jz	00107$
-	C$main.c$149$4$4 ==.
-;	main.c:149: free_slots--;
-	dec	_free_slots
-	mov	a,#0xff
-	cjne	a,_free_slots,00115$
-	dec	(_free_slots + 1)
-00115$:
-00107$:
-	C$main.c$153$1$1 ==.
-	XG$check_incoming$0$0 ==.
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
-;------------------------------------------------------------
-;------------------------------------------------------------
-	G$main$0$0 ==.
-	C$main.c$156$1$1 ==.
-;	main.c:156: void main (void) {
-;	-----------------------------------------
-;	 function main
-;	-----------------------------------------
-_main:
-	C$main.c$157$1$1 ==.
-;	main.c:157: init(); // Initialize
-	lcall	_init
-	C$main.c$159$1$1 ==.
-;	main.c:159: while (1) {
-00102$:
-	C$main.c$161$2$2 ==.
-;	main.c:161: check_incoming(); // Car enters
-	lcall	_check_incoming
-	C$main.c$163$2$2 ==.
-;	main.c:163: check_outgoing(); // Car leaves
-	lcall	_check_outgoing
-	C$main.c$170$2$2 ==.
-;	main.c:170: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
+	C$main.c$198$2$2 ==.
+;	main.c:198: if (BUTTON_START == 1) {
+	mov	c,_P1_3
+	anl	c,_P1_6
+	jnc	00110$
+	C$main.c$199$3$3 ==.
+;	main.c:199: display(1111); // for testing if btn was pressed
+	mov	dptr,#0x0457
+	lcall	_display
+	C$main.c$206$3$3 ==.
+;	main.c:206: for (cycle_delay = 0; cycle_delay < cycle_duration; cycle_delay++);
 	clr	a
 	mov	_cycle_delay,a
 	mov	(_cycle_delay + 1),a
 	mov	(_cycle_delay + 2),a
 	mov	(_cycle_delay + 3),a
-00104$:
+00106$:
 	clr	c
 	mov	a,_cycle_delay
 	subb	a,_cycle_duration
@@ -846,23 +1063,69 @@ _main:
 	subb	a,(_cycle_duration + 2)
 	mov	a,(_cycle_delay + 3)
 	subb	a,(_cycle_duration + 3)
-	jnc	00107$
+	jnc	00110$
 	inc	_cycle_delay
 	clr	a
-	cjne	a,_cycle_delay,00104$
+	cjne	a,_cycle_delay,00106$
 	inc	(_cycle_delay + 1)
-	cjne	a,(_cycle_delay + 1),00104$
+	cjne	a,(_cycle_delay + 1),00106$
 	inc	(_cycle_delay + 2)
-	cjne	a,(_cycle_delay + 2),00104$
+	cjne	a,(_cycle_delay + 2),00106$
 	inc	(_cycle_delay + 3)
-	sjmp	00104$
-00107$:
-	C$main.c$172$2$2 ==.
-;	main.c:172: display(free_slots); // Output the number of free slots
-	mov	dpl,_free_slots
-	mov	dph,(_free_slots + 1)
-	lcall	_display
-	C$main.c$174$1$1 ==.
+	sjmp	00106$
+00104$:
+	C$main.c$210$2$4 ==.
+;	main.c:210: reset_display();
+	C$main.c$212$1$1 ==.
+	XG$check_start_press$0$0 ==.
+	ljmp	_reset_display
+00110$:
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'init'
+;------------------------------------------------------------
+;------------------------------------------------------------
+	G$init$0$0 ==.
+	C$main.c$216$1$1 ==.
+;	main.c:216: void init(void) {
+;	-----------------------------------------
+;	 function init
+;	-----------------------------------------
+_init:
+	C$main.c$217$1$1 ==.
+;	main.c:217: KEYPAD_PORT = 1; //#E
+	mov	_P1,#0x01
+	C$main.c$220$1$1 ==.
+;	main.c:220: cycle_duration = 1; // The artificial time delay is X cycles long
+	mov	_cycle_duration,#0x01
+	clr	a
+	mov	(_cycle_duration + 1),a
+	mov	(_cycle_duration + 2),a
+	mov	(_cycle_duration + 3),a
+	C$main.c$221$1$1 ==.
+	XG$init$0$0 ==.
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;------------------------------------------------------------
+	G$main$0$0 ==.
+	C$main.c$225$1$1 ==.
+;	main.c:225: void main (void) {
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+	C$main.c$226$1$1 ==.
+;	main.c:226: init(); // Initialize
+	lcall	_init
+	C$main.c$228$1$1 ==.
+;	main.c:228: while (1) {
+00102$:
+	C$main.c$230$2$2 ==.
+;	main.c:230: check_start_press();
+	lcall	_check_start_press
+	C$main.c$232$1$1 ==.
 	XG$main$0$0 ==.
 	sjmp	00102$
 	.area CSEG    (CODE)
