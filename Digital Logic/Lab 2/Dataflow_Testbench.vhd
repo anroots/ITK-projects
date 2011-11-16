@@ -1,12 +1,12 @@
-entity FullAdderTest is
-end FullAdderTest;
+entity FullAdderDataflowTest is
+end FullAdderDataflowTest;
  
-architecture bench of FullAdderTest is
+architecture bench of FullAdderDataflowTest is
  
   signal a_tb, b_tb, c_in_tb: bit := '0'; -- Ajutised signaalid
   signal s_tb, c_out_tb: bit;
  
-  component FullAdder                    -- Simuleeritava komponendideklaratsioon
+  component FullAdderDataflow                    -- Simuleeritava komponendideklaratsioon
     port ( a, b, c_in: in bit;
            s, c_out: out bit );
   end component;
@@ -30,6 +30,6 @@ begin    -- Testpingi funktsionaalne kood
 	wait;
   end process;
  
-  UUT: FullAdder port map (a=>a_tb, b=>b_tb, c_in=>c_in_tb, s=> s_tb, c_out=>c_out_tb);    -- Simuleeritava komponenti initsialiseermine
+  UUT: FullAdderDataflow port map (a=>a_tb, b=>b_tb, c_in=>c_in_tb, s=> s_tb, c_out=>c_out_tb);    -- Simuleeritava komponenti initsialiseermine
   
 end bench;
