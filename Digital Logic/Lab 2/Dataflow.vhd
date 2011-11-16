@@ -1,9 +1,9 @@
-entity FullAdder is
+entity FullAdderDataflow is
   port ( a, b, c_in : in bit;
 s, c_out : out bit );
-end FullAdder;
+end FullAdderDataflow;
  
-architecture dataflow of FullAdder is
+architecture dataflow of FullAdderDataflow is
 begin
 
   s <= (a xor b) xor c_in; -- Sum
