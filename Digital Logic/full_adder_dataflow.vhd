@@ -7,6 +7,6 @@ architecture dataflow of FullAdder is
 begin
 
   s <= (a xor b) xor c_in; -- Sum
-
-  c_out <= (a and b) or (b and c_in); -- Carry out
+  c_out <= ((a xor b) and c_in) or (a and b); -- Carry out
+  
 end dataflow;
