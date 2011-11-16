@@ -10,7 +10,8 @@ architecture bench of FullAdderTest is
     port ( a, b, c_in: in bit;
            s, c_out: out bit );
   end component;
- 
+
+  
   -- Konstandid testimiseks
   constant a_arr: bit_vector (0 to 7) := "00110011";
   constant b_arr: bit_vector (0 to 7) := "01010101";
@@ -30,5 +31,5 @@ begin    -- Testpingi funktsionaalne kood
   end process;
  
   UUT: FullAdder port map (a=>a_tb, b=>b_tb, c_in=>c_in_tb, s=> s_tb, c_out=>c_out_tb);    -- Simuleeritava komponenti initsialiseermine
- 
+  
 end bench;
