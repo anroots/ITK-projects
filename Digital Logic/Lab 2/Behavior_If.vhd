@@ -1,23 +1,42 @@
-entity FullAdder is
+entity FullAdderIf is
   port ( a, b, c_in : in bit;
 		 s, c_out : out bit );
-end FullAdder;
+end FullAdderIf;
  
-architecture behave of FullAdder is
+architecture behave of FullAdderIf is
+
+signal inputs: bit_vector (0 to 2);
+
 begin
   process ( a, b, c_in ) begin
-	if  a = '1' and b = '1' then
-		if c_in = '1' then
-			a <= '1';
-			b <= '0';
-			c_out <= '1'
-		else
-			a <= '0';
-			b <= '0';
-			c_out <= '1';
-		end if;
-	else
-	  o <= b;
-	end if;
+  	
+  	inputs <= a & b & c_in;
+  	
+  	if inputs = "001" then 
+  		s <= '1';
+		c_out <= '0'; 
+	elsif inputs = "010" then 
+  		s <= '1';
+		c_out <= '0';
+	elsif inputs = "011" then 
+  		s <= '0';
+		c_out <= '1';
+	elsif inputs = "100" then 
+  		s <= '1';
+		c_out <= '0';
+	elsif inputs = "101" then 
+  		s <= '0';
+		c_out <= '1';
+	elsif inputs = "110" then 
+  		s <= '0';
+		c_out <= '1';
+	elsif inputs = "111" then 
+  		s <= '1';
+		c_out <= '1';
+  	else 
+		s <= '0';
+		c_out <= '0';  	
+  	end if;
+  	
   end process;
 end behave;
