@@ -5,12 +5,15 @@ end FullAdderIf;
  
 architecture behave of FullAdderIf is
 
-signal inputs: bit_vector (0 to 2);
 
 begin
-  process ( a, b, c_in ) begin
+  process ( a, b, c_in )
+  
+  	variable inputs: bit_vector (2 downto 0);
   	
-  	inputs <= a & b & c_in;
+  	begin
+  	
+	inputs := a & b & c_in;
   	
   	if inputs = "001" then 
   		s <= '1';
