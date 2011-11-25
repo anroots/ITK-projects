@@ -1,7 +1,7 @@
 M:main
 F:G$GetNumberFromMatrixKeypad$0$0({2}DF,SC:U),C,0,0,0,0,0
 F:G$write_segment$0$0({2}DF,SV:S),C,0,0,0,0,0
-F:G$get_digit$0$0({2}DF,SC:U),C,0,0,0,0,0
+F:G$get_digit$0$0({2}DF,SI:U),C,0,0,0,0,0
 F:G$display$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$reset_display$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$bounce_delay$0$0({2}DF,SV:S),C,0,0,0,0,0
@@ -10,6 +10,8 @@ F:G$init$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
 F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
+F:G$main$0$0({2}DF,SV:S),C,0,0,0,0,0
+S:G$RUNNING$0$0({1}SC:U),E,0,0
 S:G$NUMBER_OF_DIGITS$0$0({1}SC:U),E,0,0
 S:G$NUMBERS$0$0({10}DA10,SC:U),E,0,0
 S:G$cycle_delay$0$0({4}SL:U),E,0,0
@@ -20,6 +22,7 @@ S:Lwrite_segment$value$1$1({1}SC:U),E,0,0
 S:Lwrite_segment$segment_number$1$1({1}SC:U),R,0,0,[r2]
 S:Lget_digit$place$1$1({1}SC:U),E,0,0
 S:Lget_digit$value$1$1({2}SI:U),R,0,0,[r2,r3]
+S:Lget_digit$powers$1$1({8}DA4,SI:U),E,0,0
 S:Ldisplay$value$1$1({2}SI:U),R,0,0,[r2,r3]
 S:Ldisplay$i$1$1({1}SC:U),R,0,0,[r4]
 S:G$P0$0$0({1}SC:U),I,0,0
@@ -120,7 +123,8 @@ S:G$AC$0$0({1}SX:U),J,0,0
 S:G$CY$0$0({1}SX:U),J,0,0
 S:G$GetNumberFromMatrixKeypad$0$0({2}DF,SC:U),C,0,0
 S:G$write_segment$0$0({2}DF,SV:S),C,0,0
-S:G$get_digit$0$0({2}DF,SC:U),C,0,0
+S:L-null-$reset_display$1$1({2}DF,SI:S),C,0,0
+S:G$get_digit$0$0({2}DF,SI:U),C,0,0
 S:G$display$0$0({2}DF,SV:S),C,0,0
 S:G$reset_display$0$0({2}DF,SV:S),C,0,0
 S:G$bounce_delay$0$0({2}DF,SV:S),C,0,0

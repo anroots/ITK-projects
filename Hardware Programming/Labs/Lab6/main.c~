@@ -1,7 +1,7 @@
 #include <8051.h>
 
 /**
- * Subject: Hardware Programming
+ * Subject: Hardware Programming 2011
  * Lab 6
  * Assignment: Microwave oven with timer, keyboard and 7-segment * 4 display
  * Team members:
@@ -13,8 +13,9 @@
 // Keypad port
 #define KEYPAD_PORT P1
 
-// Define start/stop button
-#define BUTTON_START P1_3 & P1_6
+// Define start/stop state
+// Changes with START button press
+unsigned char RUNNING = 0;
 
 
 // The max number of digits we need to display the time
@@ -24,6 +25,7 @@ unsigned char NUMBER_OF_DIGITS = 4;
 // An array of numbers 0...9 for LED display
 unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 0x92, 0x82, 0xf0, 0x80, 0x90};
+
 
 // Used to create an artificial delay
 unsigned long cycle_delay, cycle_duration;
@@ -109,10 +111,7 @@ unsigned char GetNumberFromMatrixKeypad()
 **/
 void write_segment(unsigned char segment_number, unsigned char value) {
 
-	P3_0 = 1; // Reset P3 to avoid flickers
-	P3_1 = 1;
-	P3_2 = 1;
-	P3_3 = 1;
+	reset_display();
 
 	// This is the actual numerical value
 	P2 = NUMBERS[value];
@@ -147,24 +146,34 @@ void write_segment(unsigned char segment_number, unsigned char value) {
 
 /**
  * Returns a specified digit from a n-digit number 
- * Example: get_digit(124, 1) would return 1
+ * Read from left to right
+ * Example: get_digit(1245, 0) would return 1
+ * Example: get_digit(1245, 1) would return 2
+ * Max input value for 'value': 65,535 
 **/
-unsigned char get_digit(unsigned int value, unsigned char place) {
+unsigned short int get_digit(unsigned int value, unsigned char place) {
 
-	if (place == 0) {
-		return (unsigned char)value % 10;
-	} else if (place == 1) {
-		return (unsigned char)(value / 10) % 10;
+	// Define powers of 10 (for speed)
+	unsigned int powers [] = {1, 10, 100, 1000};
+	
+	// Return 0 if input is not long enough
+	if (value < 10 && place > 1) {
+		return 0;
+	} else if (value < 100 && place > 2) {
+		return 0;
+	} else if (value < 1000 && place > 3) {
+		return 0;
 	}
-	return (unsigned char)(value / 100);
+	
+	return (unsigned short int)(value / powers[place]) % 10;
 }
 
 
 /**
  * Writes a number to the LED display
- * Can handle up to 3-digit decimal numbers (<=250)
+ * Can handle up to 16-bit numbers (0 - 65 535)
 **/
-void display(unsigned int value) {
+void display(unsigned short int value) { // todo: should be unsigned short int
 
 	unsigned char i;
 	
@@ -178,8 +187,10 @@ void display(unsigned int value) {
  * Reset the 4*7 segment display
 **/
 void reset_display() {
-	// Reset display by writing to a nonexisting section
-	write_segment(NUMBER_OF_DIGITS + 1,8);
+	P3_0 = 1;
+	P3_1 = 1;
+	P3_2 = 1;
+	P3_3 = 1;
 }
 
 /**
@@ -196,10 +207,10 @@ void bounce_delay() {
 **/
 void check_start_press(){
 
-    	if (BUTTON_START == 1) {
+    	if (P1_3 && P1_6) {
 
 		bounce_delay();
-	    	if (BUTTON_START == 1) {
+	    	if (P1_3 && P1_6 == 1) {
 	    		display(1111); // for testing if btn was pressed
 	    		
 			/**
@@ -218,9 +229,8 @@ void check_start_press(){
 
 // Initialization
 void init(void) {
-        KEYPAD_PORT = 1; //#E
-	//KEYPAD_PORT = 1; // Define as input
-    
+	KEYPAD_PORT = 1; // Define as input
+    	
 	cycle_duration = 1; // The artificial time delay is X cycles long
 }
 
@@ -229,8 +239,7 @@ void init(void) {
 void main (void) {
 	init(); // Initialize
 
-	while (1) {
-
-		check_start_press();
+	while (!RUNNING) {
+		display(GetNumberFromMatrixKeypad());
 	}
 }

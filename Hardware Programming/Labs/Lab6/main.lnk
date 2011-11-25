@@ -1,5 +1,4 @@
--myux
--i main.ihx
+-myuxi
 -Y
 -a 0x0080
 -v 0x0000
@@ -8,7 +7,8 @@
 -b HOME = 0x0000
 -b ISEG = 0x0000
 -b BSEG = 0x0000
--k C:\Program Files\SDCC\bin\..\lib\small
+-k /usr/bin/../share/sdcc/lib/small
+-k /usr/share/sdcc/lib/small
 -l mcs51
 -l libsdcc
 -l libint
