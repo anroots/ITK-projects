@@ -30,6 +30,21 @@ unsigned char NUMBERS [] = {0xc0, 0xf9, 0xa4, 0xb0, 0x99,
 // Used to create an artificial delay
 unsigned long cycle_delay, cycle_duration;
 
+// Key code for the START / STOP button
+unsigned char BUTTON_START = 35;
+
+// Error code - no key pressed
+unsigned char BUTTON_ERROR = 255;
+
+/**
+ * The time in seconds the oven works.
+ * Set before start and decremented by 1 each second when running
+ * Converted to ii:ss (minutes:seconds) for displaying
+**/
+short int seconds_left = 0; 
+
+
+
 /** 
  * Reads number form matrix keypad
  * We need to read data twice from keypad port:
@@ -98,10 +113,19 @@ unsigned char GetNumberFromMatrixKeypad()
     else if((col == 4) && (row == 4))    //Letter D
         return 13;
     else
-        return 255;    //error code :)
+        return BUTTON_ERROR;    //error code :)
 }
 
 
+/**
+ * Reset the 4*7 segment display
+**/
+void reset_display() {
+	P3_0 = 1;
+	P3_1 = 1;
+	P3_2 = 1;
+	P3_3 = 1;
+}
 
 /**
  * Writes value to segment_number
@@ -183,15 +207,6 @@ void display(unsigned short int value) { // todo: should be unsigned short int
 	}
 }
 
-/**
- * Reset the 4*7 segment display
-**/
-void reset_display() {
-	P3_0 = 1;
-	P3_1 = 1;
-	P3_2 = 1;
-	P3_3 = 1;
-}
 
 /**
  * Wait a bit for mechanical switch contacts to settle
@@ -234,12 +249,99 @@ void init(void) {
 	cycle_duration = 1; // The artificial time delay is X cycles long
 }
 
+/**
+ * Set time left. When the oven is OFF, the user can press the numeric
+ * keypad buttons up to 4 times to set the time.
+ * The first 2 digits act as seconds, the last 2 as minutes
+ * This function must know which digit is entered and set the
+ * seconds_left variable accordingly.
+**/
+void set_time(unsigned char digit) {
+	seconds_left = digit; // Todo!
+}
+
+/**
+ * Start the oven
+**/
+void start() {
+	// Configure timer
+	/*TH0 = 0xB8;
+	TL0 = 0x00;
+	TMOD = 0x01;
+	TR0 = 1; // Start the timer
+*/
+	RUNNING = 1; // Set system running state - todo deprecate by using TR0 for that
+}
+
+/**
+ * Stop the oven
+**/
+void stop() {
+	//return; // Disabled for testing
+	RUNNING = 0;
+	seconds_left = 0;
+	TR0 = 0; // Stop the timer
+}
+
+/**
+ * Take action when key is pressed
+**/
+void process_key_press() {
+	unsigned char pressed_key = GetNumberFromMatrixKeypad(); // Current button or error code
+	
+	if (pressed_key == BUTTON_ERROR || (pressed_key > 9 && pressed_key != BUTTON_START)) { // No key pressed (or invalid), standby...
+		return;
+	}
+
+	// Any keypress stops the oven when it's running
+	if (RUNNING) {
+		stop();
+		return;
+	}
+
+	if (pressed_key == BUTTON_START) { // Start?
+		start();
+	} else { // Button was numeric
+		set_time(pressed_key);
+	}
+	
+}
+
+/**
+ * Converts seconds into ii:ss (minutes:seconds) format for displaying
+**/
+unsigned short int convert_seconds(short int seconds) {
+	return seconds; // Todo!
+}
 
 // Main
 void main (void) {
 	init(); // Initialize
 
-	while (!RUNNING) {
-		display(GetNumberFromMatrixKeypad());
+	while (1) { // Run main program forever
+
+		process_key_press(); // Check for keyboard press
+		
+		// ----------------------- STATE 0: Oven is not running ----------------------- //
+		if (!RUNNING) {
+
+			
+
+		// ------------------------- STATE 1: Oven is running ------------------------- //		
+		} else {
+			if (seconds_left == 0) {
+				stop();
+			}
+			/*while (!TF0)	{
+				display(seconds_left);
+
+ 			}*/
+ 			seconds_left = seconds_left - 1;
+		  	/*TH0 = 0xB8;
+	   		TF0 = 0;
+			*/
+		}
+		// Show remaining time
+		display(convert_seconds(seconds_left));	
 	}
 }
