@@ -36,6 +36,9 @@ unsigned char BUTTON_START = 35;
 // Error code - no key pressed
 unsigned char BUTTON_ERROR = 255;
 
+// Holds last value from Matrix Keypad
+unsigned char last_keypad_value = 255;
+
 /**
  * The time in seconds the oven works.
  * Set before start and decremented by 1 each second when running
@@ -59,7 +62,7 @@ short int seconds_left = 0;
 */
 unsigned char GetNumberFromMatrixKeypad()
 {
-    unsigned char col = 0, row = 0;
+    unsigned char col = 0, row = 0, returnVal = BUTTON_ERROR;
     KEYPAD_PORT = 240;    //column info
     switch(P1)
     {
@@ -81,39 +84,46 @@ unsigned char GetNumberFromMatrixKeypad()
     }
 
     if((col == 1) && (row == 1))
-        return 1;
+        returnVal = 1;
     else if((col == 2) && (row == 1))
-        return 2;
+        returnVal = 2;
     else if((col == 3) && (row == 1))
-        return 3;
+        returnVal = 3;
     else if((col == 4) && (row == 1))    //Letter A
-        return 10;
+        returnVal = 10;
     else if((col == 1) && (row == 2))
-        return 4;
+        returnVal = 4;
     else if((col == 2) && (row == 2))
-        return 5;
+        returnVal = 5;
     else if((col == 3) && (row == 2))
-        return 6;
+        returnVal = 6;
     else if((col == 4) && (row == 2))    //Letter B
-        return 11;
+        returnVal = 11;
     else if((col == 1) && (row == 3))
-        return 7;
+        returnVal = 7;
     else if((col == 2) && (row == 3))
-        return 8;
+        returnVal = 8;
     else if((col == 3) && (row == 3))
-        return 9;
+        returnVal = 9;
     else if((col == 4) && (row == 3))    //Letter C
-        return 12;
+        returnVal = 12;
     else if((col == 1) && (row == 4))    //Char * (ASCII 42)
-        return 42;
+        returnVal = 42;
     else if((col == 2) && (row == 4))
-        return 0;
+        returnVal = 0;
     else if((col == 3) && (row == 4))    //Char # (ASCII 35)
-        return 35;
+        returnVal = 35;
     else if((col == 4) && (row == 4))    //Letter D
-        return 13;
+        returnVal = 13;
     else
-        return BUTTON_ERROR;    //error code :)
+        returnVal = BUTTON_ERROR;    //error code
+
+    if(returnVal == last_keypad_value)
+        returnVal = BUTTON_ERROR;
+    else
+        last_keypad_value = returnVal;
+
+    return returnVal;
 }
 
 
@@ -258,13 +268,15 @@ void init(void) {
 **/
 void set_time(unsigned char digit) {
     if(seconds_left == 0)
+    {
         seconds_left = digit;
-    else if(seconds_left < 10)
-        seconds_left += digit * 10;
-    else if(seconds_left < 100)
-        seconds_left += digit * 100;
+        return;
+    }
     else if(seconds_left < 1000)
-        seconds_left += digit * 1000;
+    {
+        seconds_left *= 10;
+        seconds_left += digit;
+    }
 }
 
 /**
