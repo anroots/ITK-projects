@@ -287,9 +287,9 @@ void stop() {
  * Take action when key is pressed
 **/
 void process_key_press() {
-	unsigned char pressed_key = GetNumberFromMatrixKeypad(); // Current button or error code
+	int pressed_key = GetNumberFromMatrixKeypad(); // Current button or error code
 	
-	if (pressed_key == BUTTON_ERROR || (pressed_key > 9 && pressed_key != BUTTON_START)) { // No key pressed (or invalid), standby...
+	if ((pressed_key == BUTTON_ERROR) || ((pressed_key > 9) && (pressed_key != BUTTON_START))) { // No key pressed (or invalid), standby...
 		return;
 	}
 
@@ -322,14 +322,9 @@ void main (void) {
 
 		process_key_press(); // Check for keyboard press
 		
-		// ----------------------- STATE 0: Oven is not running ----------------------- //
-		if (!RUNNING) {
-
-			
-
-		// ------------------------- STATE 1: Oven is running ------------------------- //		
-		} else {
-			if (seconds_left == 0) {
+		// ----------------------- STATE 0: Oven is running ----------------------- //
+		if (RUNNING) {
+		    if (seconds_left == 0) {
 				stop();
 			}
 			/*while (!TF0)	{
@@ -340,6 +335,9 @@ void main (void) {
 		  	/*TH0 = 0xB8;
 	   		TF0 = 0;
 			*/
+
+		// ------------------------- STATE 1: Oven is not running ------------------------- //		
+		} else {
 		}
 		// Show remaining time
 		display(convert_seconds(seconds_left));	
