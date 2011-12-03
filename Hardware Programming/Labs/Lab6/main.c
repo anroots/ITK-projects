@@ -257,7 +257,14 @@ void init(void) {
  * seconds_left variable accordingly.
 **/
 void set_time(unsigned char digit) {
-	seconds_left = digit; // Todo!
+    if(seconds_left == 0)
+        seconds_left = digit;
+    else if(seconds_left < 10)
+        seconds_left += digit * 10;
+    else if(seconds_left < 100)
+        seconds_left += digit * 100;
+    else if(seconds_left < 1000)
+        seconds_left += digit * 1000;
 }
 
 /**
