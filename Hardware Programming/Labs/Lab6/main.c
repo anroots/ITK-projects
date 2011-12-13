@@ -340,13 +340,6 @@ void process_key_press() {
 	
 }
 
-/**
- * Converts seconds into ii:ss (minutes:seconds) format for displaying
-**/
-unsigned short int convert_seconds(short int seconds) {
-	return seconds; // Todo!
-}
-
 // Main
 void main (void) {
 	init(); // Initialize
@@ -357,14 +350,24 @@ void main (void) {
 		
 		// ----------------------- STATE 0: Oven is running ----------------------- //
 		if (RUNNING) {
-		    if (seconds_left == 0) {
-				stop();
-			}
+		    if ((seconds_left == 0) && (minutes_left == 0)) 
+		    {
+		        stop();
+		    }
+		    else
+		    {
+		         if((seconds_left == 0) && (minutes_left > 0))
+ 			{
+ 			    minutes_left -= 1;
+ 			    seconds_left = 59;
+ 			}
+ 			else
+ 			    seconds_left = seconds_left - 1;
+ 		    }
 			/*while (!TF0)	{
 				display(seconds_left);
 
  			}*/
- 			seconds_left = seconds_left - 1;
 		  	/*TH0 = 0xB8;
 	   		TF0 = 0;
 			*/
@@ -373,7 +376,6 @@ void main (void) {
 		} else {
 		}
 		// Show remaining time
-                   display(minutes_left * 100 + seconds_left);
-		//display(convert_seconds(seconds_left));	
+                   display(minutes_left * 100 + seconds_left);	
 	}
 }
