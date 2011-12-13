@@ -44,7 +44,7 @@ unsigned char last_keypad_value = 255;
  * Set before start and decremented by 1 each second when running
  * Converted to ii:ss (minutes:seconds) for displaying
 **/
-short int seconds_left = 0; 
+short int minutes_left = 0, seconds_left = 0, first_sec_digit = 0; 
 
 
 
@@ -267,15 +267,28 @@ void init(void) {
  * seconds_left variable accordingly.
 **/
 void set_time(unsigned char digit) {
-    if(seconds_left == 0)
+    if(seconds_left == 10)
     {
-        seconds_left = digit;
-        return;
+        first_sec_digit = digit;
     }
-    else if(seconds_left < 1000)
+
+    if((seconds_left < 10) && (minutes_left == 0))
     {
         seconds_left *= 10;
         seconds_left += digit;
+    }
+    else if((seconds_left > 10) && (minutes_left == 0))
+    {
+       minutes_left *= 10;
+       minutes_left += first_sec_digit;
+       seconds_left -= (10 * first_sec_digit);
+       seconds_left *= 10;
+       seconds_left += digit;
+    }
+    else if((minutes_left < 10) && (minutes_left > 0))
+    {
+        minutes_left *= 10;
+        minutes_left += digit;
     }
 }
 
@@ -299,6 +312,7 @@ void stop() {
 	//return; // Disabled for testing
 	RUNNING = 0;
 	seconds_left = 0;
+	minutes_left = 0;
 	TR0 = 0; // Stop the timer
 }
 
@@ -359,6 +373,7 @@ void main (void) {
 		} else {
 		}
 		// Show remaining time
-		display(convert_seconds(seconds_left));	
+                   display(minutes_left * 100 + seconds_left);
+		//display(convert_seconds(seconds_left));	
 	}
 }
