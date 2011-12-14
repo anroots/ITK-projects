@@ -31,6 +31,12 @@ unsigned char NUMBER_OF_PHASES = 4;
  * mode needs to be activated.
 **/
 unsigned char pedestrian_waiting = 0;
+
+/**
+ * Time delay used between cycles - small for testing purposes
+ * Indexes are 0-based and correspond with stage_id's
+**/
+unsigned char time_delays[] = {1, 1, 1, 1};
 	
 // Define the colors of a traffic light
 typedef enum Colors {RED, YELLOW, GREEN};
@@ -72,7 +78,9 @@ void init(void) {
 
 	unsigned char i, id;
 	id =1;
-	for (i = 0; i<NUMBER_OF_STANDS; i++) {
+
+	// Set unique IDs to each of the traffic light bulbs
+	for (i = 0; i<NUMBER_OF_STANDS; i++) { // For each stand...
 		TrafficLights[i].Red.id = id;
 		id += 1;
 		TrafficLights[i].Yellow.id = id;
@@ -103,6 +111,8 @@ void brownout() {
 void burn_bulb(unsigned char light_id) {
 	// Todo: Figure out how to refer to ports as pointers / variables
 	// so as to rewrite the function based on division
+
+	brownout();
 	
 	switch (light_id) {
 		case 1: // 1red
@@ -258,15 +268,18 @@ void main() {
 	while(1) {
 		//test_all_bulbs();
 		unsigned char i;
-		for (i = 1; i<=NUMBER_OF_PHASES; i++) {
+		for (i = 1; i<NUMBER_OF_PHASES; i++) {
 			check_pedestrian_button();
-			if (i == 4 && pedestrian_waiting != 1 ) { // Define pedestrian stages here
-				continue;
+			if (i == 3) { // Pedestrian has pressed the btn
+				if(pedestrian_waiting == 1 ) { // Define pedestrian stages here
+					activate_stage(4);
+				}
+			} else {
+				activate_stage(i); // Activate on non-pedestrian sequences
 			}
 			
-			activate_stage(i);
-			burn();
-			wait(10);
+			burn(); // Switch on all currently active bulbs in sequence
+			wait(time_delays[i]);
 		}
 	}
 }
