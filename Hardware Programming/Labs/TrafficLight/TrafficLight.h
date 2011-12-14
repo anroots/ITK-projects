@@ -3,11 +3,13 @@
  * Common variable and type definitions
 **/
 
-__sbit __at (0x90)  TLightMainRed;
-__sbit __at (0x91) TLightMainYellow;
-__sbit __at (0x92) TLightMainGreen;
-__sbit __at (0x93) TLightLinnuRed;
-__sbit __at (0x94) TLightLinnuYellow;
-__sbit __at (0x95) TLightLinnuGreen;
-__sbit __at (0x96) TLightMainLeftRed ;
-__sbit __at (0x97) TLightMainLeftGreen;
+__sfr __at (0x90) TLightBulbs;
+__sbit __at (0x90) TLightMain;
+__sbit __at (0x91) TLightLeftTurn;
+__sbit __at (0x92) TLightAside;
+__sbit __at (0x93) TLightAsidePedestrian;
+__sbit __at (0x94) TLightMainPedestrian;
+
+//__sbit __at (0x95) TLightLinnuGreen;
+//__sbit __at (0x96) TLightMainLeftRed ;
+//__sbit __at (0x97) TLightMainLeftGreen;

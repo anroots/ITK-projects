@@ -10,7 +10,8 @@
 #include <8051.h>
 
 #include "TrafficLight.h"
-
+#define ON 0x00;
+#define OFF 1;
 
 // Define the colors of a traffic light
 enum Colors {RED, YELLOW, GREEN};
@@ -51,12 +52,56 @@ void init(void) {
 }
 
 
+
 /**
- * Turn on 
+ * Switch off all the traffic lights at once
 **/
-void on(TrafficLight *l, __sbit light_addr, char i) {
+void brownout() {
+	TLightBulbs = OFF;
+		TLightMain = OFF;
+		TLightLeftTurn = OFF;
+		TLightAside = OFF;
+		TLightAsidePedestrian = OFF;
+		TLightMainPedestrian = OFF;
+}
+
+/**
+ * Activates different stages in the
+ * Traffic light life-cycle
+ * @param stage_id The ID of the stage to activate, defaults none (all lights off)
+**/
+void activate_stage(unsigned char stage_id) {
+	brownout();
 	
-	light_addr = i;
+	switch (stage_id) {
+		case 1:
+			TLightMain = ON;
+			TLightAsidePedestrian = ON;
+		break;
+
+		case 2:
+			TLightLeftTurn = ON;
+		break;
+
+		case 3:
+			TLightMain = ON;
+			TLightMainPedestrian = ON;
+			TLightAside = ON;
+		break;
+	case 0: // Test function
+		TLightBulbs = ON;
+		TLightMain = ON;
+		TLightLeftTurn = ON;
+		TLightAside = ON;
+		TLightAsidePedestrian = ON;
+		TLightMainPedestrian = ON;
+	break;
+	}
+}
+
+void wait() {
+	unsigned long cycle_delay;
+	for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
 }
 
 /**
@@ -70,8 +115,9 @@ void main() {
 	while(1) {
 	
 	char i = 0;
-		for (i=0;i<5;i++) { 
-			on(&TrafficLights[0], TLightMainRed, i);
+		for (i=0;i<3;i++) { 
+			activate_stage(i);
+			wait();
 		}
 	}
 }
