@@ -56,9 +56,16 @@ TrafficLight TrafficLights[4];
 **/
 void init(void) {
 
-	TrafficLights[0].Red.id = 1;
-	TrafficLights[0].Yellow.id = 2;
-	TrafficLights[0].Green.id = 3;
+	unsigned char i, id;
+	id =1;
+	for (i = 0; i<4; i++) {
+		TrafficLights[i].Red.id = id;
+		id = id +1;
+		TrafficLights[i].Yellow.id = id;
+		id = id + 1;
+		TrafficLights[i].Green.id = id;
+		id = id +1;
+	}
 	return;
 }
 
@@ -110,9 +117,29 @@ void burn_bulb(unsigned char light_id) {
 	switch (light_id) {
 		case 1:
 			P2_1 = ON;
-			P3_1 = ON;
+			P3_0 = ON;
 		break;
-	}
+		case 2:
+			P2_2 = ON;
+			P3_0 = ON;
+		break;
+		case 3:
+			P2_3 = ON;
+			P3_0 = ON;
+		break;
+		case 4:
+			P3_1 = ON;
+			P2_1 = ON;
+		break;
+		case 5:
+			P3_1 = ON;
+			P2_2 = ON;
+		break;
+		case 6:
+			P3_1 = ON;
+			P2_3 = ON;
+		break;
+		}
 	return;
 }
 
@@ -160,6 +187,7 @@ void main() {
 		unsigned char i;
 		for (i = 1; i<4; i++) {
 			activate_stage(i);
+			burn();
 			wait();
 		}
 	}
