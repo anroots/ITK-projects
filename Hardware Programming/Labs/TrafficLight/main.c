@@ -22,6 +22,16 @@ unsigned char NUMBER_OF_STANDS = 3; // Todo
 // Number of total bulbs
 unsigned char NUMBER_OF_BULBS = 9;
 
+// Defines the number of different light permutations
+unsigned char NUMBER_OF_PHASES = 4;
+
+/**
+ * If the button (WaitingToCross) is pressed
+ * then the value is 1. We need to check that to determine if special operation
+ * mode needs to be activated.
+**/
+unsigned char pedestrian_waiting = 0;
+	
 // Define the colors of a traffic light
 typedef enum Colors {RED, YELLOW, GREEN};
 
@@ -58,7 +68,8 @@ TrafficLight TrafficLights[4]; // Todo
  * Configure startup environment
 **/
 void init(void) {
-	
+
+
 	unsigned char i, id;
 	id =1;
 	for (i = 0; i<NUMBER_OF_STANDS; i++) {
@@ -68,7 +79,8 @@ void init(void) {
 		id += 1;
 		TrafficLights[i].Green.id = id;
 		id += 1;
-	}
+	}	
+	P1_0 = 1; // Input button for pedestrians
 	return;
 }
 
@@ -129,6 +141,7 @@ void burn_bulb(unsigned char light_id) {
 			P3_2 = ON;
 			P2_2 = ON;
 		break;
+		
 		}
 	return;
 }
@@ -176,6 +189,13 @@ void activate_stage(unsigned char stage_id) {
 			TrafficLights[1].CurrentlyOn = RED;
 			TrafficLights[2].CurrentlyOn = GREEN;
 		break;
+
+		case 4: // Special pedestrian phase, might not get activated at all
+			TrafficLights[0].CurrentlyOn = RED;
+			TrafficLights[1].CurrentlyOn = RED;
+			TrafficLights[2].CurrentlyOn = GREEN;
+			pedestrian_waiting = 0;
+		break;
 		default:
 			brownout();
 		break;
@@ -213,6 +233,12 @@ void wait() {
 	for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);*/
 	return;
 }
+void check_pedestrian_button() {
+	if (P1_0 == 1) {
+		pedestrian_waiting = 1;
+	}
+	return;
+}
 
 /**
  * Main superloop function
@@ -223,7 +249,12 @@ void main() {
 	while(1) {
 		//test_all_bulbs();
 		unsigned char i;
-		for (i = 1; i<=NUMBER_OF_STANDS; i++) {
+		for (i = 1; i<=NUMBER_OF_PHASES; i++) {
+			check_pedestrian_button();
+			if (i == 10 && pedestrian_waiting != 1 ) { // Define pedestrian stages here
+				continue;
+			}
+			
 			activate_stage(i);
 			burn();
 			wait();
