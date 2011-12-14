@@ -11,13 +11,16 @@
 
 #include "TrafficLight.h"
 
+#define ON 0x00;
+#define OFF 0xFF;
+
 /**
  * The number of different TrafficLight stands
 **/
 const unsigned char NUMBER_OF_STANDS = 4; // Todo
 
 // Define the colors of a traffic light
-enum Colors {RED, YELLOW, GREEN};
+typedef enum Colors {RED, YELLOW, GREEN};
 
 
 /**
@@ -25,13 +28,14 @@ enum Colors {RED, YELLOW, GREEN};
 **/
 typedef struct Light {
 	/**
-	 * The P2 and P3 addresses that should be set
-	 * for the light to "burn"
-	 * @see SarcasmException
-	 **/
-	unsigned char addrP2, addrP3;
+	 * Workaround. Ideally we'd have 2 pointers to sbits of X&Y here for
+	 * the matrix LED position. However, this appears to be impossible. Yes, freakin' impossible.
+	**/
+	unsigned char id;
+
+	// The color of the light
+	//enum Color color;
 	
-	enum Color color;
 }Light;
 
 
@@ -40,7 +44,7 @@ typedef struct TrafficLight {
 	Light Yellow;
 	Light Green;
 
-	Light *CurrentlyOn;
+	enum Colors CurrentlyOn;
 	
 } TrafficLight;
 
@@ -52,10 +56,12 @@ TrafficLight TrafficLights[4];
 **/
 void init(void) {
 
-	TrafficLights[0].Red.addrP2 = 0x91;
-	TrafficLights[0].Red.addrP3 = 0x01;
+	TrafficLights[0].Red.id = 1;
+	TrafficLights[0].Yellow.id = 2;
+	TrafficLights[0].Green.id = 3;
 	return;
 }
+
 
 
 
@@ -63,8 +69,8 @@ void init(void) {
  * Switch off all the traffic lights at once
 **/
 void brownout() {
-	P2 = 0;
-	P3 = 0;
+	P2 = 0xFF;
+	P3 = 0xFF;
 }
 
 /**
@@ -82,42 +88,66 @@ void activate_stage(unsigned char stage_id) {
 		break;
 		
 		case 1:
-			
+			TrafficLights[0].CurrentlyOn = RED;
 		break;
 
 		case 2:
-			
+			TrafficLights[0].CurrentlyOn = YELLOW;
 		break;
 
 		case 3:
-			
+			TrafficLights[0].CurrentlyOn = GREEN;
 		break;
 	}
 }
 
 
-	__sbit __at (0x83) P0_32 ;
-void burn() {
 
-	//volatile unsigned int *miki = (volatile unsigned int *)0xA5;
-	//volatile * miki = (unsigned int volatile *) &0xA5;
-	//volatile unsigned char mm = (*(volatile unsigned char *) 0xA5);
-	P3 = 0x00;
-	//PPP = 0x00;
-	//miki = 0x00;
-	
-	//P2_5 = 0x06;
-	//P2_5 = 0x00;
-	/*unsigned char i;
-	for (i = 0; i<NUMBER_OF_STANDS; i++) {
+/**
+ * Switch on a single bulb
+**/
+void burn_bulb(unsigned char light_id) {
+	switch (light_id) {
+		case 1:
+			P2_1 = ON;
+			P3_1 = ON;
+		break;
+	}
+	return;
+}
+
+
+/**
+ * Set all TrafficLight Lights to ON
+**/
+void burn() {
+	unsigned char j;
+	for (j = 0; j < 4; j++) {
+		unsigned char light_id;
 		
-	}*/
+		switch (TrafficLights[j].CurrentlyOn) {
+			case RED:
+				light_id = TrafficLights[j].Red.id;
+			break;
+
+			case YELLOW:
+				light_id = TrafficLights[j].Yellow.id;
+			break;
+
+			case GREEN:
+				light_id = TrafficLights[j].Green.id;
+			break;
+		}
+		
+		burn_bulb(light_id);
+	}
 	return;
 }
 
 void wait() {
-	unsigned long cycle_delay;
-	for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);
+	/*unsigned long cycle_delay;
+	for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);*/
+	return;
 }
 
 /**
@@ -125,15 +155,12 @@ void wait() {
 **/
 void main() {
 
-	
-	
 	init();
 	while(1) {
-	
-
-			//activate_stage(1);
-			burn();
-			//wait();
-		
+		unsigned char i;
+		for (i = 1; i<4; i++) {
+			activate_stage(i);
+			wait();
+		}
 	}
 }
