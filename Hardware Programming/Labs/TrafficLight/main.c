@@ -9,67 +9,69 @@
 
 #include <8051.h>
 
-//#include "TrafficLight.c"
+#include "TrafficLight.h"
 
 
 // Define the colors of a traffic light
 enum Colors {RED, YELLOW, GREEN};
 
-// Represents a single light in the Traffic Light
-struct Light {
-	char a;
-};
+
+/**
+ * Represents a single light in the Traffic Light
+**/
+typedef struct Light {
+	/**
+	 * The location of the LED
+	 * @see 8051.h
+	 **/
+	 char addr;
+	
+}Light;
 
 
+typedef struct TrafficLight {
+	Light Red;
+	Light Yellow;
+	Light Green;
 
-//struct TrafficLight;
-
-typedef struct {
-	int a;
-	int b;
+	Light *CurrentlyOn;
+	
 } TrafficLight;
 
 
-/**
- * Turns all lights OFF
-**/
-void off() {
-	//LIGHTS = 0;
-}
-
-/**
- * Turns on a single light
- * @param light_id The ID of the light to activate
-**/
-void on(TrafficLight * TLight) {
-
-
-}
-
-__sfr __at (0x90) LIGHTS;
-
-//TrafficLight TrafficLights[2];
+TrafficLight TrafficLights[2];
 
 /**
  * Configure startup environment
 **/
-void init() {
+void init(void) {
 
+	TrafficLights[0].Red.addr = 0x91;
+	return;
 }
 
 
+/**
+ * Turn on 
+**/
+void on(TrafficLight *l, __sbit light_addr, char i) {
+	
+	light_addr = i;
+}
 
 /**
  * Main superloop function
 **/
-void main(void) {
-	init();
+void main() {
 
-	TrafficLight light;
+	
+	
+	init();
 	while(1) {
+	
 	char i = 0;
-		for (i=0;i<5;i++) {
-			//on(foor);
+		for (i=0;i<5;i++) { 
+			on(&TrafficLights[0], TLightMainRed, i);
 		}
 	}
 }
