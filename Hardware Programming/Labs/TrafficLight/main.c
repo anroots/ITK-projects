@@ -17,7 +17,10 @@
 /**
  * The number of different TrafficLight stands
 **/
-const unsigned char NUMBER_OF_STANDS = 4; // Todo
+unsigned char NUMBER_OF_STANDS = 3; // Todo
+
+// Number of total bulbs
+unsigned char NUMBER_OF_BULBS = 9;
 
 // Define the colors of a traffic light
 typedef enum Colors {RED, YELLOW, GREEN};
@@ -49,22 +52,22 @@ typedef struct TrafficLight {
 } TrafficLight;
 
 
-TrafficLight TrafficLights[4];
+TrafficLight TrafficLights[4]; // Todo
 
 /**
  * Configure startup environment
 **/
 void init(void) {
-
+	
 	unsigned char i, id;
 	id =1;
-	for (i = 0; i<4; i++) {
+	for (i = 0; i<NUMBER_OF_STANDS; i++) {
 		TrafficLights[i].Red.id = id;
-		id = id +1;
+		id += 1;
 		TrafficLights[i].Yellow.id = id;
-		id = id + 1;
+		id += 1;
 		TrafficLights[i].Green.id = id;
-		id = id +1;
+		id += 1;
 	}
 	return;
 }
@@ -86,6 +89,9 @@ void brownout() {
  * Switch on a single bulb
 **/
 void burn_bulb(unsigned char light_id) {
+	// Todo: Figure out how to refer to ports as pointers / variables
+	// so as to rewrite the function based on division
+	
 	switch (light_id) {
 		case 1: // 1red
 			P2_0 = ON;
@@ -111,14 +117,29 @@ void burn_bulb(unsigned char light_id) {
 			P3_1 = ON;
 			P2_2 = ON;
 		break;
+		case 7: //3red
+			P3_2 = ON;
+			P2_0 = ON;
+		break;
+		case 8: //2yellow
+			P3_2 = ON;
+			P2_1 = ON;
+		break;
+		case 9: //3green
+			P3_2 = ON;
+			P2_2 = ON;
+		break;
 		}
 	return;
 }
 
-
+/**
+ * Burn all bulbs in sequence
+ * Testing function only
+**/
 void test_all_bulbs(){
 	unsigned char i;
-	for (i = 0; i<6; i++) {
+	for (i = 0; i<=NUMBER_OF_BULBS; i++) {
 		brownout();
 		burn_bulb(i);
 	}
@@ -141,16 +162,22 @@ void activate_stage(unsigned char stage_id) {
 		case 1:
 			TrafficLights[0].CurrentlyOn = RED;
 			TrafficLights[1].CurrentlyOn = GREEN;
+			TrafficLights[2].CurrentlyOn = GREEN;
 		break;
 
 		case 2:
 			TrafficLights[0].CurrentlyOn = YELLOW;
 			TrafficLights[1].CurrentlyOn = YELLOW;
+			TrafficLights[2].CurrentlyOn = YELLOW;
 		break;
 
 		case 3:
 			TrafficLights[0].CurrentlyOn = GREEN;
 			TrafficLights[1].CurrentlyOn = RED;
+			TrafficLights[2].CurrentlyOn = GREEN;
+		break;
+		default:
+			brownout();
 		break;
 	}
 }
@@ -162,8 +189,7 @@ void activate_stage(unsigned char stage_id) {
 **/
 void burn() {
 	unsigned char j;
-	for (j = 0; j < 2; j++) {
-		unsigned char light_id;
+	for (j = 0; j <= NUMBER_OF_STANDS; j++) {
 		
 		switch (TrafficLights[j].CurrentlyOn) {
 			case RED:
@@ -195,12 +221,12 @@ void main() {
 
 	init();
 	while(1) {
-		test_all_bulbs();
-		/*unsigned char i;
-		for (i = 1; i<3; i++) {
+		//test_all_bulbs();
+		unsigned char i;
+		for (i = 1; i<=NUMBER_OF_STANDS; i++) {
 			activate_stage(i);
 			burn();
 			wait();
-		}*/
+		}
 	}
 }
