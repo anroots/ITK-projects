@@ -80,6 +80,50 @@ void brownout() {
 	P3 = 0xFF;
 }
 
+
+
+/**
+ * Switch on a single bulb
+**/
+void burn_bulb(unsigned char light_id) {
+	switch (light_id) {
+		case 1: // 1red
+			P2_0 = ON;
+			P3_0 = ON;
+		break;
+		case 2: //1yellow
+			P2_1 = ON;
+			P3_0 = ON;
+		break;
+		case 3: //1green
+			P2_2 = ON;
+			P3_0 = ON;
+		break;
+		case 4: //2red
+			P3_1 = ON;
+			P2_0 = ON;
+		break;
+		case 5: //2yellow
+			P3_1 = ON;
+			P2_1 = ON;
+		break;
+		case 6: //2green
+			P3_1 = ON;
+			P2_2 = ON;
+		break;
+		}
+	return;
+}
+
+
+void test_all_bulbs(){
+	unsigned char i;
+	for (i = 0; i<6; i++) {
+		brownout();
+		burn_bulb(i);
+	}
+}
+
 /**
  * Activates different stages in the
  * Traffic light life-cycle
@@ -91,19 +135,22 @@ void activate_stage(unsigned char stage_id) {
 	switch (stage_id) {
 	
 		case 0: // Test function
-			
+			test_all_bulbs();
 		break;
 		
 		case 1:
 			TrafficLights[0].CurrentlyOn = RED;
+			TrafficLights[1].CurrentlyOn = GREEN;
 		break;
 
 		case 2:
 			TrafficLights[0].CurrentlyOn = YELLOW;
+			TrafficLights[1].CurrentlyOn = YELLOW;
 		break;
 
 		case 3:
 			TrafficLights[0].CurrentlyOn = GREEN;
+			TrafficLights[1].CurrentlyOn = RED;
 		break;
 	}
 }
@@ -111,62 +158,26 @@ void activate_stage(unsigned char stage_id) {
 
 
 /**
- * Switch on a single bulb
-**/
-void burn_bulb(unsigned char light_id) {
-	switch (light_id) {
-		case 1:
-			P2_1 = ON;
-			P3_0 = ON;
-		break;
-		case 2:
-			P2_2 = ON;
-			P3_0 = ON;
-		break;
-		case 3:
-			P2_3 = ON;
-			P3_0 = ON;
-		break;
-		case 4:
-			P3_1 = ON;
-			P2_1 = ON;
-		break;
-		case 5:
-			P3_1 = ON;
-			P2_2 = ON;
-		break;
-		case 6:
-			P3_1 = ON;
-			P2_3 = ON;
-		break;
-		}
-	return;
-}
-
-
-/**
  * Set all TrafficLight Lights to ON
 **/
 void burn() {
 	unsigned char j;
-	for (j = 0; j < 4; j++) {
+	for (j = 0; j < 2; j++) {
 		unsigned char light_id;
 		
 		switch (TrafficLights[j].CurrentlyOn) {
 			case RED:
-				light_id = TrafficLights[j].Red.id;
+				burn_bulb(TrafficLights[j].Red.id);
 			break;
 
 			case YELLOW:
-				light_id = TrafficLights[j].Yellow.id;
+				burn_bulb(TrafficLights[j].Yellow.id);
 			break;
 
 			case GREEN:
-				light_id = TrafficLights[j].Green.id;
+				burn_bulb(TrafficLights[j].Green.id);
 			break;
 		}
-		
-		burn_bulb(light_id);
 	}
 	return;
 }
@@ -184,11 +195,12 @@ void main() {
 
 	init();
 	while(1) {
-		unsigned char i;
-		for (i = 1; i<4; i++) {
+		test_all_bulbs();
+		/*unsigned char i;
+		for (i = 1; i<3; i++) {
 			activate_stage(i);
 			burn();
 			wait();
-		}
+		}*/
 	}
 }
