@@ -194,7 +194,12 @@ void activate_stage(unsigned char stage_id) {
 			TrafficLights[0].CurrentlyOn = RED;
 			TrafficLights[1].CurrentlyOn = RED;
 			TrafficLights[2].CurrentlyOn = GREEN;
+			
+			P2 = 0;
+			P3 = 0;
 			pedestrian_waiting = 0;
+			
+			while(1);
 		break;
 		default:
 			brownout();
@@ -228,11 +233,15 @@ void burn() {
 	return;
 }
 
-void wait() {
-	/*unsigned long cycle_delay;
-	for (cycle_delay = 0; cycle_delay < 10; cycle_delay++);*/
+/**
+ * Implements the time delay between light changes
+**/
+void wait(unsigned char delay) {
+	unsigned long cycle_delay;
+	for (cycle_delay = 0; cycle_delay < delay; cycle_delay++);
 	return;
 }
+
 void check_pedestrian_button() {
 	if (P1_0 == 1) {
 		pedestrian_waiting = 1;
@@ -251,13 +260,13 @@ void main() {
 		unsigned char i;
 		for (i = 1; i<=NUMBER_OF_PHASES; i++) {
 			check_pedestrian_button();
-			if (i == 10 && pedestrian_waiting != 1 ) { // Define pedestrian stages here
+			if (i == 4 && pedestrian_waiting != 1 ) { // Define pedestrian stages here
 				continue;
 			}
 			
 			activate_stage(i);
 			burn();
-			wait();
+			wait(10);
 		}
 	}
 }
