@@ -10,8 +10,11 @@
 #include <8051.h>
 
 #include "TrafficLight.h"
-#define ON 0x00;
-#define OFF 1;
+
+/**
+ * The number of different TrafficLight stands
+**/
+const unsigned char NUMBER_OF_STANDS = 4; // Todo
 
 // Define the colors of a traffic light
 enum Colors {RED, YELLOW, GREEN};
@@ -22,11 +25,13 @@ enum Colors {RED, YELLOW, GREEN};
 **/
 typedef struct Light {
 	/**
-	 * The location of the LED
-	 * @see 8051.h
+	 * The P2 and P3 addresses that should be set
+	 * for the light to "burn"
+	 * @see SarcasmException
 	 **/
-	 char addr;
+	unsigned char addrP2, addrP3;
 	
+	enum Color color;
 }Light;
 
 
@@ -40,14 +45,15 @@ typedef struct TrafficLight {
 } TrafficLight;
 
 
-TrafficLight TrafficLights[2];
+TrafficLight TrafficLights[4];
 
 /**
  * Configure startup environment
 **/
 void init(void) {
 
-	TrafficLights[0].Red.addr = 0x91;
+	TrafficLights[0].Red.addrP2 = 0x91;
+	TrafficLights[0].Red.addrP3 = 0x01;
 	return;
 }
 
@@ -57,12 +63,8 @@ void init(void) {
  * Switch off all the traffic lights at once
 **/
 void brownout() {
-	TLightBulbs = OFF;
-		TLightMain = OFF;
-		TLightLeftTurn = OFF;
-		TLightAside = OFF;
-		TLightAsidePedestrian = OFF;
-		TLightMainPedestrian = OFF;
+	P2 = 0;
+	P3 = 0;
 }
 
 /**
@@ -74,29 +76,43 @@ void activate_stage(unsigned char stage_id) {
 	brownout();
 	
 	switch (stage_id) {
+	
+		case 0: // Test function
+			
+		break;
+		
 		case 1:
-			TLightMain = ON;
-			TLightAsidePedestrian = ON;
+			
 		break;
 
 		case 2:
-			TLightLeftTurn = ON;
+			
 		break;
 
 		case 3:
-			TLightMain = ON;
-			TLightMainPedestrian = ON;
-			TLightAside = ON;
+			
 		break;
-	case 0: // Test function
-		TLightBulbs = ON;
-		TLightMain = ON;
-		TLightLeftTurn = ON;
-		TLightAside = ON;
-		TLightAsidePedestrian = ON;
-		TLightMainPedestrian = ON;
-	break;
 	}
+}
+
+
+	__sbit __at (0x83) P0_32 ;
+void burn() {
+
+	//volatile unsigned int *miki = (volatile unsigned int *)0xA5;
+	//volatile * miki = (unsigned int volatile *) &0xA5;
+	//volatile unsigned char mm = (*(volatile unsigned char *) 0xA5);
+	P3 = 0x00;
+	//PPP = 0x00;
+	//miki = 0x00;
+	
+	//P2_5 = 0x06;
+	//P2_5 = 0x00;
+	/*unsigned char i;
+	for (i = 0; i<NUMBER_OF_STANDS; i++) {
+		
+	}*/
+	return;
 }
 
 void wait() {
@@ -114,10 +130,10 @@ void main() {
 	init();
 	while(1) {
 	
-	char i = 0;
-		for (i=0;i<3;i++) { 
-			activate_stage(i);
-			wait();
-		}
+
+			//activate_stage(1);
+			burn();
+			//wait();
+		
 	}
 }
