@@ -6,7 +6,8 @@ using System.Text;
 namespace Eksam
 {
     /// <summary>
-    /// C# Exam
+    /// C# Exam Fall 2011
+    /// The Estonian Information Technology College
     /// Vector class
     /// @author Ando Roots 2012
     /// </summary>
@@ -215,7 +216,7 @@ namespace Eksam
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (int)(x*2 + y*3);
+            return (int)(x * 2 + y * 3);
         }
 
         /// <summary>

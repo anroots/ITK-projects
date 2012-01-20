@@ -1,0 +1,1 @@
+Blog post: http://sqroot.eu/2012/01/of-c-and-exams-in-general

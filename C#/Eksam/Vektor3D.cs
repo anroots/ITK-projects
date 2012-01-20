@@ -6,9 +6,12 @@ using System.Text;
 namespace Eksam
 {
     /// <summary>
-    /// C# Exam
+    /// C# Exam Fall 2011
+    /// The Estonian Information Technology College
+    /// 
     /// A 3D vector class with x, y, z coordinates
     /// Extends and overrides the more generic Vektor class
+    /// 
     /// @author Ando Roots
     /// </summary>
     public class Vektor3D : Vektor
@@ -108,7 +111,7 @@ namespace Eksam
         /// <returns>The scalar length of the vector</returns>
         public override double Length()
         {
-            return Math.Sqrt(x * x + y * y+z*z);
+            return Math.Sqrt(x * x + y * y + z * z);
         }
 
         /// <summary>
@@ -166,7 +169,7 @@ namespace Eksam
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (int)(x * 2 + y * 3 + z*4);
+            return (int)(x * 2 + y * 3 + z * 4);
         }
 
         /// <summary>

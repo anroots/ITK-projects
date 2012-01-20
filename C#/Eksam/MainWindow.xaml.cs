@@ -26,7 +26,7 @@ namespace Eksam
         }
 
 
-        
+
 
         /// <summary>
         /// Tests for Vector3D class
@@ -105,7 +105,7 @@ namespace Eksam
 
             watch.Stop();
             double elapsed = watch.ElapsedMilliseconds;
-            txtVector.Text += "\r\nTest suite finished, time elapsed: "+elapsed+"ms.";
+            txtVector.Text += "\r\nTest suite finished, time elapsed: " + elapsed + "ms.";
         }
 
     }
