@@ -1,0 +1,13 @@
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\MainWindow.baml
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\MainWindow.g.cs
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\App.g.cs
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\Eksam_MarkupCompile.cache
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\Eksam.g.resources
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\Eksam.Properties.Resources.resources
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\bin\Debug\Eksam.exe
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\bin\Debug\Eksam.pdb
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\Eksam.exe
+C:\Users\david\Documents\Visual Studio 2010\Projects\Eksam\obj\x86\Debug\Eksam.pdb
