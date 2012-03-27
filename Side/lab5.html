@@ -1,0 +1,474 @@
+﻿<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <title>Sidevõrgud Labor 5</title>
+    <meta name="author" content="Ando Roots">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" style="padding-top: 30px;">
+<h1>
+    Sidevõrgud labor #5
+</h1>
+
+<div class="well span3 offset9">
+    <p class="help-block">
+        22. veebruar 2012, <a href="http://enos.itcollege.ee/~irokk/vorgud_k12/Labor5.html"
+                              title="Labori juhend">juhend</a>
+    </p>
+
+    <p>
+        Meeskond:
+    </p>
+    <ul>
+        <li> Ando Roots (D22)</li>
+        <li>Mikk Pärast (D22)</li>
+    </ul>
+</div>
+<div class="clearfix"></div>
+
+<h1>Töö käik</h1>
+
+<div class="clearfix"></div>
+
+<h2>WLAN tugijaama seadistus</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <TR>
+        <TD>
+            <P>Variant nr</P>
+        </TD>
+        <TD>
+            <P>V&otilde;rgu aadress</P>
+        </TD>
+        <TD>
+            <P>Maski bittide arv</P>
+        </TD>
+        <TD>
+            <P>V&otilde;rgus seadmetele antavate aadresside max arv</P>
+        </TD>
+        <TD>
+            <P>V&otilde;rgumask kümnendkujul</P>
+        </TD>
+        <TD>
+            <P>Esimene kasutatav aadress - <br>tugijaama IP aadress</P>
+        </TD>
+        <TD>
+            <P>Teine kasutatav aadress - <br>esimene DHCPga jagatav aadress</P>
+        </TD>
+        <TD>
+            <P>Viimane kasutatav aadress - <br>viimane DHCPga jagatav aadress</P>
+        </TD>
+        <TD>
+            <P>Aadressruumi viimane aadress, levisaade (<I>broadcast</I>)</P>
+        </TD>
+    </TR>
+    </thead>
+    <tr>
+        <td>7</td>
+        <td>172.18.74.48</td>
+        <td>28</td>
+        <td>14<p class="help-block">(Subnet mahutab 16 hosti, esimene ja viimane aadress on reserveeritud võrgule/broadcastile)</p></td>
+        <td>255.255.255.240<p class="help-block">(Teisendus kahendkujust: 11111111.11111111.11111111.1111 0000)</p></td>
+        <td>172.18.74.49<p class="help-block">(172.18.74.48 on selle subneti võrgu aadress)</p></td>
+        <td>172.18.74.50<p class="help-block">(172.18.74.49 on reserveeritud tugijaamale)</p></td>
+        <td>172.18.74.62 <p class="help-block">(Rohkem aadresse subneti ei mahu [peale broadcast aadressi])</p></td>
+        <td>172.18.74.63 <p class="help-block">(Viimane aadress subnetis)</p></td>
+    </tr>
+</table>
+
+<p>
+    <strong>Hinnang tulemustele:</strong>
+    <br/>
+
+    Kõik testitud aadressid peale <em>www.ee</em> asuvad samas hoones, seetõttu on kiirused märgatavalt paremad (võiks
+    öelda, ideaalsed).
+</p>
+
+<p>
+    Tugijaamalt saadud IP Ethernet kaabliga ühendatud arvutile: 192.168.1.100, peale seadete muutmist:
+    192.168.1.50
+</p>
+
+<div class="span3 well">
+    <p>
+        SSID: Kala<br/>
+        WPA Shared Key: ToreKala
+    </p>
+</div>
+<div class="clearfix"></div>
+
+<h2>Võrgu uurimine</h2>
+<br/>
+
+<ul class="thumbnails">
+    <li class="span3">
+        <a href="img/inSSIDer-2.4ghz.PNG" class="thumbnail">
+            <img src="img/inSSIDer-2.4ghz.PNG" alt="inss1"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a href="img/inSSIDer-5ghz.PNG" class="thumbnail">
+            <img src="img/inSSIDer-5ghz.PNG" alt="inss1"/>
+        </a>
+    </li>
+</ul>
+
+<div class="clearfix"></div>
+<p>
+
+</p>
+
+<ul>
+    <li>Mitu ja millised on 802.11a standardi ning millised on 802.11b või 802.11g standardi võrgud?
+        <ul>
+            <li>
+                <em>itcollege</em> võrk kanalil <em>6</em> on ainus <em>a</em> standardi võrk
+            </li>
+            <li>kõik teised võrgud on <em>b</em> standardi võrgud</li>
+        </ul>
+    </li>
+
+    <li>Millised 2 võrku on kõige tugevama signaaliga?
+        <ul>
+            <li>võrgud "Kala" (kanal 7, RSSI -47) ja "teinev6rk24" (kanal 1, RSSI -58)</li>
+        </ul>
+    </li>
+    <li>Selgitada tabelis näidatavate MAC aadresside tähendust. Mis seadmete MAC aadressid need on?</li>
+</ul>
+<blockquote>
+    MAC-aadress, meediumipöörduse juhtimise aadress Kohtvõrgus (või mõnes muus võrgus) on
+    MAC-aadress teie arvuti võrgukaardile tootja poolt omistatud unikaalne riistvaranumber.
+    Etherneti kohtvõrgus on see identne teie ethernetiaadressiga. Kui teie arvuti on ühendatud
+    Internetiga (IP-protokolli kohaselt on teie arvuti siis host), paneb vastavustabel teie IP
+    aadressi vastavusse teie arvuti füüsilise MAC-aadressiga kohtvõrgus.
+    - <a href="http://vallaste.ee/">http://vallaste.ee/</a>
+</blockquote>
+<p class="help-block">
+    Käesoleval juhul kuuluvad MAC aadressid tugijaamadele, mis võrku jagavad.
+</p>
+
+<br/>
+<ul>
+
+    <li>Millised raadiokanalid on kasutuses ja kus on veel vaba ruumi uute võrkude jaoks?
+        <ul>
+            <li>
+                Kasutusel on kanalid <strong>7,1,3,40,12,36,36,6,13</strong>. Uue võrgu võiks panna kanalile <strong>9 või 10</strong>, sest seal on teiste võrkude müra väikseim (nende kanalite tööd siiski segatakse). Suuremaid
+                kanalinumbreid tugijaam seadistada ei lase.
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<h2>WLAN võrgu kiiruste uurimine</h2>
+
+<p>
+    Seadistasime uueks kanaliks kanali <strong>9</strong>.
+</p>
+
+<h3>Võrgu uurimine programmiga <em>ping</em></h3>
+
+<table class="table table-bordered table-rounded table-striped">
+    <thead>
+    <tr>
+        <th>Aadress</th>
+        <th>Ping kaabliga võrgust</th>
+        <th>Ping WLANist</th>
+        <th class="header red">Arvutatud edastuskiirus kaabliga</th>
+        <th class="header red">Arvutatud edastuskiirus WLAN</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>192.168.45.66</td>
+        <td>1</td>
+        <td>24</td>
+        <td>29,29 Mbit/s</td>
+        <td>1,22 Mbit/s</td>
+    </tr>
+    <tr>
+        <td>rasi.lr.ttu.ee</td>
+        <td>1</td>
+        <td>4</td>
+        <td>29,29 Mbit/s</td>
+        <td>7,32 Mbit/s</td>
+    </tr>
+    <tr>
+        <td>www.ttu.ee</td>
+        <td>3</td>
+        <td>4</td>
+        <td>9,77 Mbit/s</td>
+        <td>7,32 Mbit/s</td>
+    </tr>
+    <tr>
+        <td>www.ee</td>
+        <td>2</td>
+        <td>3</td>
+        <td>14,65 Mbit/s</td>
+        <td>9,77 Mbit/s</td>
+    </tr>
+    <tr>
+        <td>www.example.com</td>
+        <td>116</td>
+        <td>117</td>
+        <td>0,25 Mbit/s</td>
+        <td>0,25 Mbit/s</td>
+    </tr>
+    </tbody>
+</table>
+
+
+<div class="clearfix"></div>
+<h3>Programmiga JPerf 2.0.2 uurimine</h3>
+
+<blockquote>
+    Ühenduse kiirus TCP protokolli korral. Valida transpordikihi protokolliks TCP (Transport layer options -> TCP) ja
+    veenduda, et ülejäänud TCP protokolli valiku võimalusi ei ole valitud. Teha 3 mõõtmist ja iga mõõtmise lõppedes
+    salvestada kiiruste graafik.
+</blockquote>
+
+<ul class="thumbnails">
+    <li class="span3">
+        <a class="thumbnail" href="img/JPerf1.png">
+            <img src="img/JPerf1.png" alt="jPerf1"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a class="thumbnail" href="img/JPerf2.png">
+            <img src="img/JPerf2.png" alt="jPerf2"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a class="thumbnail" href="img/JPerf3.png">
+            <img src="img/JPerf3.png" alt="jPerf3"/>
+        </a>
+    </li>
+</ul>
+<div class="clearfix"></div>
+<p>
+    Graafikutelt on näha ühenduskiirus kahe arvuti vahel ajavahemikus 25 sekundit. Ühendus toimib, on suhteliselt kiire
+    ning stabiilne (välja arvatud esimesel katsel). Maksimaalseks kiiruseks saavutati ligikaudu 23 Kbits/s.
+</p>
+
+
+<blockquote>
+    Ühenduse kiirus UDP protokolli korral. Valida transpordikihi protokolliks UDP (Transport layer options -> UDP),
+    panna protokolli ribalaiuseks 10 Mbaiti/s ( UDP Bandwidth 10 MBytes/sec) ja veenduda, et ülejäänud UDP protokolli
+    valiku võimalusi ei ole valitud. Teha 3 mõõtmist ja iga mõõtmise lõppedes salvestada kiiruste graafik.
+</blockquote>
+
+<p>
+    UDP ühenduse testimisel esines JPerf 2.0.2 versioonis viga: veateade "Invalid argument", seetõttu ei saanud mõõtmist
+    teostada.
+</p>
+
+<div class="clearfix"></div>
+
+<h2>Spektri mõõtmine</h2>
+
+<table class="table table-bordered table-rounded">
+    <tr>
+        <td>katse</td>
+        <td>kanal</td>
+        <td>Kanali sagedus</td>
+        <td>M&otilde;&otilde;detud spektri kesksagedus</td>
+        <td>M&otilde;&otilde;detud spektri alumine sagedus</td>
+        <td>M&otilde;&otilde;detud spektri &uuml;lemine sagedus</td>
+        <td>M&otilde;&otilde;detud spektri laius</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>6</td>
+        <td>2.437</td>
+        <td>2,43685</td>
+        <td>2,42785</td>
+        <td>2,44560</td>
+        <td>17.75</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>4</td>
+        <td>2.427</td>
+        <td>2,42735</td>
+        <td>2,41710</td>
+        <td>2,43635</td>
+        <td>19.5</td>
+    </tr>
+</table>
+
+<ul class="thumbnails">
+    <li class="span3">
+        <a href="img/1.png" class="thumbnail">
+            <img src="img/1.png" alt="Analüsaator #1"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a href="img/2.png" class="thumbnail">
+            <img src="img/2.png" alt="Analüsaator #2"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a href="img/3.png" class="thumbnail">
+            <img src="img/3.png" alt="Analüsaator #3"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a href="img/4.png" class="thumbnail">
+            <img src="img/4.png" alt="Analüsaator #4"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a href="img/5.png" class="thumbnail">
+            <img src="img/5.png" alt="Analüsaator #5"/>
+        </a>
+    </li>
+    <li class="span3">
+        <a href="img/6.png" class="thumbnail">
+            <img src="img/6.png" alt="Analüsaator #6"/>
+        </a>
+    </li>
+</ul>
+<div class="clearfix"></div>
+<h1>Raport</h1>
+
+<h2>Iseseisev</h2>
+
+<blockquote>Individuaalülesande lahendus ja tabelist 4 üliõpilaskoodi viimase numbri järgi valitud veerg
+    täidetuna.
+</blockquote>
+
+<div class="span4">
+    <table class="table table-bordered table-striped">
+        <caption>Ando Roots (veerg 3)</caption>
+        <thead>
+        <tr>
+            <th class="span1">Suurus</th>
+            <th class="span1">Ühik</th>
+            <th>Väärtus</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>R</td>
+            <td>Mbps</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>W</td>
+            <td>MHz</td>
+            <td>100</td>
+        </tr>
+        <tr>
+            <td>S</td>
+            <td>dBm</td>
+            <td>-26.02</td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>dBm</td>
+            <td>-69</td>
+        </tr>
+        <tr>
+            <td>S/N</td>
+            <td>dB</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>S</td>
+            <td>mW</td>
+            <td>0,0025</td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>mW</td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+   <table class="table table-bordered table-striped">
+        <caption>Mikk Pärast</caption>
+        <thead>
+        <tr>
+            <th class="span1">Suurus</th>
+            <th class="span1">Ühik</th>
+            <th>Väärtus</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>R</td>
+            <td>Mbps</td>
+            <td>0,28</td>
+        </tr>
+        <tr>
+            <td>W</td>
+            <td>MHz</td>
+            <td>0,2</td>
+        </tr>
+        <tr>
+            <td>S</td>
+            <td>dBm</td>
+            <td>-50</td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>dBm</td>
+            <td>-80</td>
+        </tr>
+        <tr>
+            <td>S/N</td>
+            <td>dB</td>
+            <td>30</td>
+        </tr>
+        <tr>
+            <td>S</td>
+            <td>mW</td>
+            <td>10<sup>-5</sup></td>
+        </tr>
+        <tr>
+            <td>N</td>
+            <td>mW</td>
+            <td>10<sup>-8</sup></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="clearfix"></div>
+<h2>Raport - kokkuvõte ja järeldused.</h2>
+
+<p>
+    Laboratoorse tööna seadistasime DHCP serverina käituva WLAN ja Ethernet tugijaama. Testisime seadistatud võrku
+    erinevate tarkvaraliste tööriistade- ja tehnikate abil ning hindasime selle läbilaskevõimet. Uurisime võrgu
+    tekitatud raadiolaineid spektraalanalüsaatori abil ning määrasime kasutatava sagedusvahemiku.
+</p>
+
+<h3>Lisa</h3>
+
+<p>inSSIDer-ga analüüsitud Üliõpilasküla võrk. Ilmneb, et kanalite kattuvus on suur (kanalil 11 tegutseb 6 võrku), parema keskkonna saavutamiseks tuleks kanaleid spektri ulatuses hõredamalt jaotada.</p>
+
+<ul class="thumbnails">
+    <li class="span5">
+        <a href="img/ssid-dorm.PNG" class="thumbnail">
+            <img src="img/ssid-dorm.PNG" alt="dorm"/>
+        </a>
+    </li>
+</ul>
+
+<div style="padding-bottom: 30px;"></div>
+</div>
+</body>
+</html>

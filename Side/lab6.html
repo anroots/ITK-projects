@@ -1,0 +1,387 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+
+	<title>Sidevõrgud Labor 6 </title>
+	<meta name="author" content="Ando Roots">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" style="padding-top: 30px;">
+<h1>
+	Sidevõrgud labor #6
+</h1>
+
+<div class="row span8">
+<div class="well span3 offset9">
+	<p class="help-block">
+		15. märts 2012, <a href="http://enos.itcollege.ee/~irokk/vorgud_k12/Labor6.html"
+		                   title="Labori juhend">juhend</a>
+	</p>
+
+	<p>
+		Meeskond:
+	</p>
+	<ul>
+		<li>Ando Roots (D22)</li>
+		<li>Eero Jämsa (D22)</li>
+		<li>?? (D22)</li>
+	</ul>
+</div>
+<div class="clearfix"></div>
+
+
+<h1>Osa 1 - IP protokollistik ja selle rakendused.</h1>
+
+<h2>A. kasutatava arvuti info</h2>
+Kirjutage üles oma arvuti IP aadress ja MAC aadress.
+<div class="well">
+	<ul>
+		<li>
+			172.23.170.169 - sisene
+		</li>
+		<li>
+			193.40.194.198 - väline, NAT
+		</li>
+		<li>
+			00:16:35:0c:14:14 - MAC
+		</li>
+	</ul>
+</div>
+<div class="clearfix"></div>
+<h3>Küsimused:</h3>
+
+<h5>Millisesse klassi see IP aadress kuuluks kui tegemist oleks klassisüsteemiga adresseerimsiega? Mitu bitti oleks
+	antud klassis võrguosa pikkus?
+</h5>
+
+<p><strong>B, 16</strong></p>
+<h5>Mis on antud laboris võrgumaski väärtus? Mitu bitti on selle maskiga eraldatud IP aadressist võrgu osale?
+</h5>
+
+<p><strong>255.255.255.240, 24</strong></p>
+<h5>Mis on teie IP aadressi võrgu- ja levisaateaadressid (<i>broadcast</i>)?
+</h5>
+
+<p><strong>172.23.170.161</strong> (broadcast)</p>
+<h5>Pange nii kümnend- kui kahendkujul kirja arvuti IP aadress, võrgu- ja levisaateaadress ning võrgumask.
+</h5>
+<ul>
+	<li>Address: 172.23.170.169; 10101100.00010111.10101010 .10101001</li>
+	<li>Netmask: 255.255.255.0; 11111111.11111111.11111111 .00000000</li>
+	<li>Broadcast: 172.23.170.255; 10101100.00010111.10101010 .11111111</li>
+</ul>
+<h5>Milline on kogu vajalik info arvuti seadistamiseks internetti kasutama?
+</h5>
+<ul>
+	<li>Default gateway 172.23.170.161</li>
+	<li>IP aadress 172.23.170.169</li>
+	<li>Network mask 255.255.255.0</li>
+	<li>DNS server auto (või käsitsi, näiteks Google 8.8.8.8)</li>
+</ul>
+
+<div class="clearfix"></div>
+<h2>C. ping</h2>
+
+<p>C.1 Käivitage pakettide püüdmine ja filtriks on
+	<br>host <i>teie_masina_IP_aadress</i>.
+	<br>
+	Käivitage teises terminali aknas käsk <br>
+	<a href="static/lab6/ping-172.29.170.167.pcap">
+		<span class="icon icon-file"></span>
+		ping 172.23.170.169</a>
+
+	<br>
+	Lõpetage pakettide püüdmine.<br>
+</p>
+
+<p>C.2 Käivitage pakettide püüdmine. Käivitage
+	terminali aknas käsk <br>
+	<a href="static/lab6/ping-www.ttu.ee.pcap">
+		<span class="icon icon-file"></span>ping www.ttu.ee</a>
+	<br>
+	kui on paketid edastatud, lõpetage pakettide püüdmine<br>
+
+</p>
+
+<p>C.3 uurige, mida teevad allpool toodud käsud. Salvestage käskude uurimise ajal
+	liidest läbinud paketid hilisemaks analüüsiks.<br>
+	Käsud on:</p>
+
+<ul>
+	<li><a href="static/lab6/c3-1.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -a
+		193.40.252.130</a></li>
+	<li><a href="static/lab6/c3-2.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -n 8
+		www.lr.ttu.ee</a></li>
+	<li><a href="static/lab6/c3-3.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -l
+		<em>2039</em>
+		earl.itcollege.ee</a></li>
+	<li><a href="static/lab6/c3-4.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -l
+		<em>2039</em>
+		-f earl.itcollege.ee</a></li>
+	<li><a href="static/lab6/c3-5.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -i 1
+		earl.itcollege.ee</a></li>
+	<li><a href="static/lab6/c3-6.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -i 2
+		earl.itcollege.ee</a></li>
+	<li><a href="static/lab6/c3-7.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -l 30000
+		-w
+		200 earl.itcollege.ee</a></li>
+	<li><a href="static/lab6/c3-8.pcap" title="Laadi alla .pcap fail"><span class="icon icon-file"></span>ping -f -l
+		1472 -w
+		1 rasi.lr.ttu.ee</a></li>
+</ul>
+<p class="help-block">Vastava .pcap faili allalaadimiseks klikka loetelu käsule.</p>
+
+<div class="clearfix"></div>
+<h3>Küsimused:</h3>
+
+
+<h5>Mis olid punktis C.3 toodud käskude tulemused?
+</h5>
+
+<p>
+	Vaata ülal lingitud .pcap faile.</p>
+<h5>Milliste protokollide pakette edastati?
+</h5>
+
+<p>
+	<strong>ICMP, ARP, DNS</strong>
+</p>
+<h5>Milliseid madalamate kihtide protokolle kasutati eelnevalt loetletud protokollide juures?
+	Loetleda kõigi eelmises punktis toodud protokollide juures kõik need madalamate kihtide protokollid.
+</h5>
+<ol>
+	<li>DNS
+		<ol>
+			<li>IP</li>
+		</ol>
+	</li>
+	<li>ARP</li>
+	<li>ICMP</li>
+</ol>
+<h5>Millised kanali- ja võrgukihi protokolli päiste väljad näitavad ära paketis kõrgemal kihil asuva protokolli.
+	Tuua ära need väärtused kuueteistkümnendkujul kõikide eelpool loetletud protokollide puhul.
+</h5>
+<h5>Kui pikad olid edastatud protokollide päised?
+</h5>
+<h5>Kui pikk oli pikim IP pakett? Miks just selline number?
+</h5>
+<h5>Milline küsimus edastati ARP protokolli kaudu ning kellele ja milline oli vastus?
+</h5>
+
+<p>Brodcast (saada kõigile
+	subnetis osalejatele) kaudu küsiti IP aadressi omaniku võrgukaardi (MAC) aadressi. Vastus tuli esimeselt
+	hostilt, kes seda teadis ning sisaldas küsitud IP MAC aadressi.</p>
+<h5>Mitmes bitt Etherneti aadressis näitab, kas tegemist on üksiksaate (<i>unicast</i>) või multisaate
+	(<i>multicast</i>)/ levisaatega (<i>broadcast</i>) aadressiga?
+	Mis on selle biti väärtus levisaate korral?
+</h5>
+<h5>Kuidas saadakse teada nimest IP aadress?
+</h5>
+
+<p>DNS päringu abil default gateway-le. Kui default gateway-l info selle
+	kohta puudub, küsib ta seda topoloogias kõrgemal asuvalt hostilt.</p>
+<h5>Kuidas ICMP protokollis eristati erinevadi ping päringu pakette mida saadeti sihtpunkti?
+	Kas oli erinevusi, kui ping päringu algatajateks oli mõni teine arvuti?
+</h5>
+<h5>Millised on "näitamise filtrid" (<i>display filters</i>) näitamaks ainult ARP päringu pakette?
+	Milline filter sobiks näitamaks kõiki pakette välja arvatud ARP päringu paketid? Pakette mille pikkus on suurem
+	kui 1499 baiti?</h5>
+
+<div class="clearfix"></div>
+<h2>D. traceroute (tracert)</h2>
+
+<p>D.1. Käivitage paketi püüdmine, filtri parameetrid
+	jätke samaks, mis ülesandes C.
+	<br>Käivitage uues terminaliaknas käsk <br>
+
+	<b>ipconfig /flushdns</b> <br>
+	Vajadusel avada see terminaliaken õigustes, mis võimaldavad teil seda käsku käivitada.
+	<br>
+	<br>Käivitage terminaliaknas käsk <br>
+	<a href="static/lab6/tracert-rasi.lr.ttu.ee.pcap">
+		<span class="icon icon-file"></span>
+		tracert rasi.lr.ttu.ee</a>.
+	<br>
+	Oodake kuni programm lõpetab töö ja lõpetage pakettide püüdmine.<br>
+
+</p>
+
+<h3>Küsimused:</h3>
+
+
+<h5>Milliseid protokolle kasutatakse?
+</h5><h5>Millisele masinale edastatakse UDP pakette?
+</h5><h5>Miks saadetakse meie masinale veateateid ja millistelt masinatelt need tulevad?
+</h5><h5>Võrrelge veateateid ja traceroute käsu tulemusena saadud infot.
+</h5><h5>Seletage saadud info põhjal traceroute toimimise põhimõtteid.
+	Kirjeldage traceroute algoritmi nii nagu see töötas teil antud laboris.
+</h5><h5>Võrrelge veateateid saatnud masinate IP ja MAC aadresse ning seletage nähtut.
+</h5><h5>Millised on "näitamise filtrid" (<i>display filters</i>) näitamaks ainult pakette,
+	mis on saadetud kindlast arvutist? Pakette, mille TTL on 5? Pakette, mille TTL on väiksem kui 3? ICMP
+	"Time-to-live exceeded" pakette?</h5>
+
+
+<h1>Osa 2 - Veebilehe edastamine kasutajale.</h1>
+
+<h2>A. veebilehe vaatamine veebilehitsejaga</h2>
+<ol>
+	<li>Avada veebilehitseja ja tühjendada selle cashe.<br>
+
+	<li>Käivitada Wiresharkis pakettide püüdmine võrguliideselt
+	<li>Avada lehitsejas URL <a href="http://rasi.lr.ttu.ee/" target="_blank">http://rasi.lr.ttu.ee/</a>
+	<li>Oodata, kuni leht on laetud ja peale seda veel minimaalselt 2 minutit (120 sekundit), et püütaks kinni ka TCP
+		ühendust lõpetavad paketid
+	<li>Laadida see leht uuesti tehes lehele uuenduse (<i>Refresh</i>)
+	<li>Oodata, kuni leht on laetud ja peale seda veel minimaalselt 2 minutit (120 sekundit)
+
+	<li>Lõpetada pakettide püüdmine
+	<li>Salvestada püütud paketid hilisemaks analüüsiks.
+</ol>
+
+<h2>B. veebilehe vaatamine käsitsi</h2>
+
+<p>Antud punktis vaadatakse veebilehte käsurealt kasutades HTTP protokolli käsustikku.<br>
+	Serveriga saab ühendust kasutades telnet klienti ja pordiks on 80.
+
+<div class="well">
+	<a href="static/lab6/tshark-ssh-15-03-2012.pcap" title="Veebiserverist püütud paketid">
+		<span class="icon icon-file"></span>
+		Veebiserverist püütud paketid
+	</a>
+</div>
+
+<h3>Küsimused:</h3>
+
+<h5>Milliseid protokolle kasutatakse?</h5>
+<h5>Tuua ära kasutusel olnud IP aadressid ja transpordikihi pordinumbrid. Iga ühenduse kohta järjestusega:</h5>
+<ul>
+	<li>kohalik võrgukihi aadress
+	<li>kohalik transpordikihi pordinumber
+	<li>teise osapoole võrgukihi aadress
+	<li>teise osapoole transpordikihi pordinumber
+</ul>
+<h5>Millist infot antakse kliendi kohta ja millist infot serveri kohta nii A kui B vaatamise korral?</h5>
+<h5>Mis olid serveripoolsed vastused lehepäringule punktides A.3 ja A.5. Millise kliendipoolse info põhjal tehti see
+	otsus?</h5>
+<h5>Kui palju andmeid (baitides) ja pakette edastati võrgu- ning kui palju transpordikihis?
+	(vihjeks&nbsp;<span>Statistics
+  </span>-&gt;<span> Conversations</span>) Millisel korral oli andmemaht lehe
+	edastamisel kõige väiksem ja miks?</h5>
+
+<h5>Kui pikad olid arvutite vahelised TCP ühendused? Aega hakatakse lugema esimesest paketist, millel oli seatud SYN
+	lipp.
+	Aeg esitada millisekundilise täpsusega</h5>
+<h5>Mis on reaalsed TCP ühenduste loomisel kasutatud <i>Sequence Number</i> mõlema osapoole juures. Näidata need
+	numbrid nii kümnend- kui ka
+	kuueteistkümnend kujul. <span>Wireshark</span> näitab originaalseadistuse korral
+	sellel väljal <i>relative sequence number</i> ja esimesel paketil on see alati 0. Õige numbri leidmiseks vaadake
+	tegelikke püütud andmeid
+	(oktette, Wiresharki alumine aken).</h5>
+<h5>Millised on "näitamise filtrid" (<i>display filters</i>) näitamaks ainult pakette,
+	mida kasutatakse ühe lehe edastamiseks? Näidatakse ainult TCP ühenduse loomise pakette (<i>three-way
+		handsake</i>)?
+	Näidatakse HTTP serveri vastuse pakette, milles <i>response code</i> on <span>200 OK</span>?</h5>
+
+
+<h1>Osa 3 - NAT veebilehe vaatamisel.</h1>
+Wiresharki seadistused on peaaegu samad, mis eelmises osas.
+<span>Capture filtrit</span> tuleb täiendada selliselt et ei püütaks
+SSH ühenduse pakette. Selleks tuleb filtrisse lisada täiendavalt <b><i>not port 22</i></b><br><br>
+
+<b>Kui ei ole märgitud teisiti
+	tuleb kõik järgnevad sammud
+	teha kõigis töös kasutatavates
+	arvutites samaaegselt.</b>
+<ol>
+	<li>Käivitada kasutatavas arvutites (klient arvutid) veebilehitseja
+	<li>Avada veebilehitseja ja tühjendada selle cashe. Olenevalt lehitsejast on sammud:<br>
+
+		<ul>
+			<li>Mozilla Firefox - "Tools" -&gt; "Options" -&gt; "Advanced" -&gt; "Network" -&gt;
+				"Offline Storage" -&gt; nupp "Clear Now".
+			<li>Internet Explorer 8 - "Safety" menüü -&gt; "Delete Browsing History" -&gt;
+
+				jätta linnuke ainult "Temporary Internet files" ette -&gt; nupp "Delete".
+
+		</ul>
+	<li>Kasutades programmi <span>Putty</span>
+		ja <font face="Courier New, monospace">SSH</font> protokolli,
+		logida <font face="Courier New, monospace">rasi.lr.ttu.ee</font> serverisse.<br>
+		Kasutajanime
+		<!--on tudeng# (# on teie arvuti number),-->ja parooli annab juhendaja.<br>
+
+	<li>Serveris kasutada pakettide püüdmiseks programmi tshark ja püüda ainult pakette mille pordi numbriks on 80.<br>
+
+		Käsk: <span>tshark port 80 -i eth0 -w <i>teile sobiv faili nimi</i>.pcap</span>
+	<li>Käivitada kasutatavas arvutis Wiresharkis pakettide püüdmine võrguliideselt
+	<li>Arvutis avada lehitsejas URL <a href="http://rasi.lr.ttu.ee/" target="_blank">http://rasi.lr.ttu.ee/</a>
+	<li>Oodata, kuni leht on laetud ja peale seda veel minimaalselt 2 minutit (120 sekundit), et püütaks kinni ka TCP
+		ühendust lõpetavad paketid
+	<li>Laadida see leht uuesti tehes lehele uuenduse (<i>Refresh</i>)
+	<li>Oodata, kuni leht on laetud ja peale seda veel minimaalselt 2 minutit (120 sekundit)
+	<li>Lõpetada pakettide püüdmine nii kasutatvas arvutis kui ka serveris
+
+	<li>Salvestada püütud paketid hilisemaks analüüsiks. Serverist salvestatud faili kättesaamiseks kasutada programmi
+		<font face="Courier New, monospace">WinSCP</font>
+
+</ol>
+
+<p><u>Küsimused:</u>
+<ol>
+	<li>
+		Tuua ära kasutusel olnud IP aadressid ja transpordikihi pordinumbrid nii klientarvuti kui ka serveri vaatest.
+		Iga ühenduse kohta järjestusega:<br>
+		Klient arvuti
+		<ul>
+			<li>kohalik võrgukihi aadress
+			<li>kohalik transpordikihi pordinumber
+			<li>teise osapoole võrgukihi aadress
+			<li>teise osapoole transpordikihi pordinumber
+
+		</ul>
+		Server
+		<ul>
+
+			<li>kohalik võrgukihi aadress
+			<li>kohalik transpordikihi pordinumber
+			<li>teise osapoole võrgukihi aadress
+			<li>teise osapoole transpordikihi pordinumber
+		</ul>
+	<li>Teha vastavustabel kasutatavatest pordinumbritest. Kas mingitele portidele tehakse NAT? Kuna
+		<font face="Courier New, monospace">rasi.lr.ttu.ee</font> serverisse võib teie mõõtmise ajal olla tehtud
+		mitu ühendust, siis oma ühenduse pakettide leidmiseks kasutage TCP paketi päises oleva <i>Sequence Number</i>
+		väärtust.
+</ol>
+
+
+<h1>Osa 4 - Multimeediavoo ülekanne Real serverist.</h1>
+
+<p>Seda labori osa ei olnud tehnilistel põhjustel võimalik sooritada (meediaserver oli maas).</p>
+
+<h1>Osa 5 - Multimeediavoo ülekanne <i>multicast'iga</i>
+	kasutades programmi sdr.</h1>
+
+<p>Seda labori osa ei olnud tehnilistel põhjustel võimalik sooritada (meediaserver oli maas).</p>
+
+
+<a href="http://www.w3.org/html/logo/">
+	<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" width="165" height="64"
+	     alt="HTML5 Powered with CSS3 / Styling, and Semantics"
+	     title="HTML5 Powered with CSS3 / Styling, and Semantics">
+</a>
+
+<div style="padding-bottom: 30px;"></div>
+</div>
+</div>
+</body>
+</html>
