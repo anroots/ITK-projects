@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+      <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+      <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:onClick="onClearClicked"
+            android:text="@string/clear" />
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_weight="2"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="8" />
+
+            <Button
+            android:id="@+id/button9"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="9" />
+                <Button
+            android:id="@+id/buttonDiv"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onOperationClicked"
+            android:layout_width="0dip"
+            android:text="/" />
+
+    </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="5" />
+
+            <Button
+            android:id="@+id/button6"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="6" />
+                <Button
+            android:id="@+id/buttonMul"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onOperationClicked"
+            android:layout_width="0dip"
+            android:text="*" />
+
+    </LinearLayout>
+       <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="2" />
+
+            <Button
+            android:id="@+id/button3"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="3" />
+                <Button
+            android:id="@+id/buttonSub"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onOperationClicked"
+            android:layout_width="0dip"
+            android:text="-" />
+
+    </LinearLayout>
+       <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+
+        <Button
+            android:id="@+id/buttonDot"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:text="." />
+
+        <Button
+            android:id="@+id/button0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onDigitClicked"
+            android:layout_width="0dip"
+            android:text="0" />
+
+            <Button
+            android:id="@+id/buttonEnt"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onEnterClicked"
+            android:layout_width="0dip"
+            android:text="@string/enter" />
+                <Button
+            android:id="@+id/buttonAdd"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onOperationClicked"
+            android:layout_width="0dip"
+            android:text="+" />
+
+    </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical" >
+
+           <TextView
+               android:id="@+id/textView1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/intro"
+               android:textAppearance="?android:attr/textAppearanceMedium" />
+
+       </LinearLayout>
+
+</LinearLayout>

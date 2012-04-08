@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="enter">Sisesta</string>
+    <string name="app_name">Calculator</string>
+    <string name="clear">Puhasta</string>
+    <string name="intro">Pinu-põhine kalkulaator, Ando Roots D22 ITK 2012</string>
+
+</resources>
