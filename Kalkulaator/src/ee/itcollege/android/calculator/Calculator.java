@@ -4,32 +4,38 @@ import java.util.Stack;
 
 public class Calculator {
 
-	
-	Stack<Double> stack= new Stack<Double>();
-	
+	private Stack<Double> stack = new Stack<Double>();
+
 	public void addNumber(Double number) {
 		stack.add(number);
 	}
-	
+
+	public int size() {
+		return stack.size();
+	}
+
 	/**
 	 * 
 	 * @param operation
 	 * @return
 	 */
 	public Double performOperation(String operation) {
-		
+
 		if (stack.size() < 2) {
-			return -500.5; // Error code
+			return -1.0; // Error code
 		}
-		
+
+		Double op1 = stack.pop();
+		Double op2 = stack.pop();
+
 		if (operation.equals("+")) {
-			return stack.pop()+stack.pop();
+			return op1 + op2;
 		} else if (operation.equals("-")) {
-			return stack.pop()-stack.pop();
+			return op2 - op1;
 		} else if (operation.equals("/")) {
-			return stack.pop()/stack.pop();
+			return op2 / op1;
 		} else {
-		return stack.pop()*stack.pop();
+			return op1 * op2;
 		}
 	}
 

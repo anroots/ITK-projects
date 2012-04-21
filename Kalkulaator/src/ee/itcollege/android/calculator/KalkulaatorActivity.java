@@ -22,8 +22,10 @@ public class KalkulaatorActivity extends Activity {
 
 	public void onClearClicked(View view) {
 		display.setText("0");
+		isAddingDigits = false;
 		calc.reset();
 	}
+	
 	/**
 	 * 
 	 * @param view
