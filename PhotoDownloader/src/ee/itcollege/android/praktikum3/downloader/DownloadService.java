@@ -8,6 +8,7 @@ import android.util.Log;
 
 public class DownloadService extends IntentService {
 
+	public static final String DL_COMPLETE = "ee.itcollege.android.praktikum3.downloader.DOWNLOADED";
 	public DownloadService() {
 		super("ExampleDownloadService");
 	}
@@ -18,6 +19,7 @@ public class DownloadService extends IntentService {
 	public void onHandleIntent(Intent intent) {
 		url = intent.getExtras().getString(ConfirmDownloadActivity.EXTRA_URL);
 		download();
+		stopSelf();
 	}
 
 
@@ -31,6 +33,10 @@ public class DownloadService extends IntentService {
 		}
 		Log.d("DownloadService", "Download complete " + url);
 
+		// Broadcast DL complete
+		Intent intent = new Intent();
+		intent.setAction(DL_COMPLETE);
+		sendBroadcast(intent);
 	}
 
 }
