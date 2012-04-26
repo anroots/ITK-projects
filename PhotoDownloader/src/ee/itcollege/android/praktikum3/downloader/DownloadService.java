@@ -1,32 +1,26 @@
 package ee.itcollege.android.praktikum3.downloader;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
-public class DownloadService extends Service implements Runnable {
+public class DownloadService extends IntentService {
+
+	public DownloadService() {
+		super("ExampleDownloadService");
+	}
 
 	private String url;
 
 	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
-
-	@Override
-	public void onStart(Intent intent, int startId) {
-		super.onStart(intent, startId);
+	public void onHandleIntent(Intent intent) {
 		url = intent.getExtras().getString(ConfirmDownloadActivity.EXTRA_URL);
-		new Thread(this).start();
+		download();
 	}
 
-	@Override
-	public void run() {
-		download();
-		stopSelf();
-	}
+
 
 	private void download() {
 		Log.d("DownloadService", "Downloading " + url);
