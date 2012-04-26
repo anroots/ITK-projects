@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="download">Download</string>
+    <string name="url_hint">Enter address</string>
+    <string name="confirm">Yes, Download!</string>
+    <string name="question">Do you want to download %1$s ?</string>  
+    <string name="app_name">PhotoDownloader</string>
+
+</resources>
