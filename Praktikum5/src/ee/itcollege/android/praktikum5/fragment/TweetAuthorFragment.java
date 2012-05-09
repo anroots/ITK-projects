@@ -26,17 +26,21 @@ public class TweetAuthorFragment extends ListFragment {
 	private String userId;
 
 	public TweetAuthorFragment() {
-		
+
 	}
-	
+
 	public TweetAuthorFragment(String userName, String userId) {
 		this.userName = userName;
 		this.userId = userId;
 	}
-	
+
 	public void showTweetsFromUser() {
 		setListShown(false);
 		getUserTweets(userId);
+	}
+
+	public int countTweets() {
+		return tweets.size();
 	}
 	
 	public void showTweetsFromUser(String userName, String userId) {
@@ -48,16 +52,15 @@ public class TweetAuthorFragment extends ListFragment {
 	public void getUserTweets(String userId) {
 		Log.d("TweetAuthorFragment", "getUserTweets(" + userId + ")");
 		try {
-			String api_url = 
-					"http://api.twitter.com/1/statuses/user_timeline.json?trim_user=true&include_entities=false&user_id="
-							+ URLEncoder.encode(userId);
-			
+			String api_url = "http://api.twitter.com/1/statuses/user_timeline.json?trim_user=true&include_entities=false&user_id="
+					+ URLEncoder.encode(userId);
+
 			URL url = new URL(api_url);
 			new GetUrlContents().execute(url);
-			Log.d("TweetAuthorFragment","Executing request...");
+			Log.d("TweetAuthorFragment", "Executing request...");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			Log.d("TweetAuthorFragment","Loading tweets failed.");
+			Log.d("TweetAuthorFragment", "Loading tweets failed.");
 		}
 	}
 
@@ -83,6 +86,7 @@ public class TweetAuthorFragment extends ListFragment {
 		adapter.setTweets(tweets);
 		setListAdapter(adapter);
 		setListShown(true);
+		Log.d("TweetAuthorFragment","Got a total of "+countTweets()+" tweets to display.");
 	}
 
 	private class GetUrlContents extends AsyncTask<URL, Void, String> {
