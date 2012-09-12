@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class StringCalculatorTest {
 
-	StringCalculator str;
+	private StringCalculator str;
 
 	@Before
 	public void setUp() {
