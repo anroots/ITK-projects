@@ -1,4 +1,4 @@
-package ex.s1;
+package ex.s3;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

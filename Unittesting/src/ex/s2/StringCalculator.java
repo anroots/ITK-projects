@@ -1,4 +1,4 @@
-package lab1;
+package ex.s2;
 
 public class StringCalculator {
 

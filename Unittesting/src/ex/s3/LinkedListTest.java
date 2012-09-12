@@ -1,4 +1,4 @@
-package ex.s1;
+package ex.s3;
 
 import static java.util.Arrays.asList;
 

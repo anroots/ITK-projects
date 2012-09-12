@@ -1,0 +1,18 @@
+Ülesanne 1*.
+
+Teha läbi loengus tehtud StringCalculator-i näide. Lahendus on kodulehel üleval
+(esimese loengu materjalide juures) aga vaadake seda pigem ainult siis, kui ise 
+kuidagi edasi minna ei oska.
+
+Kirjuatada klass StringCalculator kirjutades testid enne koodi. StringCalculator-il
+on meetod add(), mis võtab sisse komaga eraldatud numbrite jada ja tagastab 
+nende numbrite summa.
+
+oodatud tulemus:
+
+sisend -> väljund
+
+"" -> 0
+"1" -> 1
+"1, 2" -> 3
+null -> IllegalArgumentException
