@@ -1,0 +1,8 @@
+- name: Configure syslog
+  lineinfile:
+    dest: '{{ rsyslog_config_path }}'
+    regexp: ^\*\.\*
+    line: '*.* @{{ansible_default_ipv4.address}}:514'
+
+- name: Reload rsyslog
+  service: name=rsyslog state=restarted

@@ -1,0 +1,85 @@
+
+- name: Add Java repository
+  apt_repository: repo='ppa:webupd8team/java' state=present update_cache=yes
+
+- name: Accept Oracle license
+  shell: "echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections"
+  changed_when: no
+
+- name: Install Java8
+  apt: name=oracle-java8-installer state=present
+
+- name: Add Elastic repo key
+  apt_key: url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
+  
+- name: Install Elasticsearch
+  apt: deb=https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.4.1/elasticsearch-2.4.1.deb
+
+- name: Enable Elasticsearch service
+  service: name=elasticsearch state=started enabled=yes
+
+- name: Change cluster name
+  lineinfile:
+    dest: '{{ elastic_config_path }}'
+    regexp: ^cluster.name
+    line: 'cluster.name: itk-elk'
+
+- name: Change node name
+  lineinfile:
+    dest: '{{ elastic_config_path }}'
+    regexp: ^node.name
+    line: 'node.name: elk-master-1'
+
+- name: Set node to master
+  lineinfile:
+    dest: '{{ elastic_config_path }}'
+    regexp: ^node.master
+    line: 'node.master: true'
+
+- name: Enable node.data storage
+  lineinfile:
+    dest: '{{ elastic_config_path }}'
+    regexp: ^node.data
+    line: 'node.data: true'
+
+- name: Set shards number
+  lineinfile:
+    dest: '{{ elastic_config_path }}'
+    regexp: ^index.number_of_shards
+    line: 'index.number_of_shards: 1'
+
+- name: Set replicas number
+  lineinfile:
+    dest: '{{ elastic_config_path }}'
+    regexp: ^index.number_of_replicas
+    line: 'index.number_of_replicas: 1'
+
+- name: Restart Elasticsearch
+  service: name=elasticsearch state=started
+
+- name: Add Kibana repo
+  apt_repository: repo='deb http://packages.elastic.co/kibana/4.6/debian stable main' state=present update_cache=yes
+
+- name: Install Kibana
+  apt: name=kibana state=present
+
+- name: Set Kibana to listen on all interfaces
+  lineinfile:
+    dest: '{{ kibana_config_path }}'
+    regexp: ^server.host
+    line: 'server.host: 0.0.0.0'
+
+- name: Enable Kibana service
+  service: name=kibana state=restarted enabled=yes
+
+- name: Add Logstash repo
+  apt_repository: repo='deb http://packages.elastic.co/logstash/2.2/debian stable main' update_cache=yes state=present
+
+- name: Install Logstash
+  apt: name=logstash state=present
+
+- name: Add Logstash template for syslog input
+  template: src=10-syslog-input.conf dest=/etc/logstash/conf.d/
+
+- name: Reload Logstash
+  service: name=logstash state=restarted

@@ -1,0 +1,9 @@
+- name: Install ELK
+  hosts: elk
+  vars:
+    elastic_config_path: /etc/elasticsearch/elasticsearch.yml
+    kibana_config_path: /opt/kibana/config/kibana.yml
+    rsyslog_config_path: /etc/rsyslog.d/50-default.conf
+  roles: 
+    - elk
+    - syslog
