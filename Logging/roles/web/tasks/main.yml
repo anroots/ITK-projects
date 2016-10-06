@@ -1,0 +1,25 @@
+- name: Install web server
+  apt: name=apache2 state=present update_cache=yes cache_valid_time=3600
+
+- name: Delete default web contents
+  file: path=/var/www/html state=absent
+
+- name: Download website content
+  get_url:
+    url: https://github.com/improv-jaa/improfestival-2015/archive/master.zip
+    dest: /var/www
+
+- name: Install unzip
+  apt: name=unzip state=present
+
+- name: Unarchive website
+  command: unzip -d /var/www /var/www/improfestival-2015-master.zip
+
+- name: Move website to apache docroot
+  command: mv /var/www/improfestival-2015-master/html /var/www/
+
+- name: Delete zipped website
+  file: name=/var/www/improfestival-2015-master.zip state=absent
+
+- name: Delete unneeded web conf
+  file: name=/var/www/improfestival-2015-master/ state=absent

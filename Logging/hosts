@@ -1,2 +1,5 @@
 [elk]
 138.68.64.112 ansible_user=root
+
+[web]
+138.68.66.49 ansible_user=root

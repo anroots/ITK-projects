@@ -7,3 +7,11 @@
   roles: 
     - elk
     - syslog
+
+- name: Install a web server
+  hosts: web
+  vars:
+    rsyslog_config_path: /etc/rsyslog.d/50-default.conf
+  roles:
+    - web
+    - syslog

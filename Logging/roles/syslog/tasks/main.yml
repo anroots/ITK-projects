@@ -2,7 +2,7 @@
   lineinfile:
     dest: '{{ rsyslog_config_path }}'
     regexp: ^\*\.\*
-    line: '*.* @{{ansible_default_ipv4.address}}:5000'
+    line: "*.* @{{ hostvars[groups['elk'][0]]['ansible_eth0']['ipv4']['address'] }}:5000"
 
 - name: Restart rsyslog
   service: name=rsyslog state=restarted
