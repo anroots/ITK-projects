@@ -1,17 +1,21 @@
-- name: Install ELK
+- name: Install the ELK server
   hosts: elk
   vars:
     elastic_config_path: /etc/elasticsearch/elasticsearch.yml
     kibana_config_path: /opt/kibana/config/kibana.yml
     rsyslog_config_path: /etc/rsyslog.d/50-default.conf
+    datadog_api_key: "{{ lookup('env','DD_API_KEY') }}"
   roles: 
     - elk
     - syslog
+    - roles/Datadog.datadog
 
 - name: Install a web server
   hosts: web
   vars:
     rsyslog_config_path: /etc/rsyslog.d/50-default.conf
+    datadog_api_key: "{{ lookup('env','DD_API_KEY') }}"
   roles:
     - web
     - syslog
+    - roles/Datadog.datadog

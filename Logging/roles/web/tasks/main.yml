@@ -23,3 +23,18 @@
 
 - name: Delete unneeded web conf
   file: name=/var/www/improfestival-2015-master/ state=absent
+
+- name: Add Elastic repo key
+  apt_key: url=https://packages.elastic.co/GPG-KEY-elasticsearch state=present
+
+- name: Install Filebeat repo
+  apt_repository: repo='deb https://packages.elastic.co/beats/apt stable main' update_cache=yes state=present
+
+- name: Install Filebeat
+  apt: name=filebeat state=present
+
+- name: Install Filebeat conf
+  template: src=filebeat.yml dest=/etc/filebeat/filebeat.yml
+
+- name: Restart Filebeat
+  service: name=filebeat state=restarted

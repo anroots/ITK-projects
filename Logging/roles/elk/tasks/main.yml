@@ -55,7 +55,7 @@
     line: 'index.number_of_replicas: 1'
 
 - name: Restart Elasticsearch
-  service: name=elasticsearch state=started
+  service: name=elasticsearch state=restarted
 
 - name: Add Kibana repo
   apt_repository: repo='deb http://packages.elastic.co/kibana/4.6/debian stable main' state=present update_cache=yes
@@ -80,6 +80,9 @@
 
 - name: Add Logstash template for syslog input
   template: src=10-syslog-input.conf dest=/etc/logstash/conf.d/
+
+- name: Add Logstash template for filebeat input
+  template: src=20-filebeat-input.conf dest=/etc/logstash/conf.d/
 
 - name: Reload Logstash
   service: name=logstash state=restarted
