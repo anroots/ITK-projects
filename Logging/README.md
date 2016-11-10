@@ -35,6 +35,8 @@ Datadog is a cloud-based monitoring solution. It allows the operators to monitor
 - closed-source server
 - requires Python
 
+Datadog was chosen over older monitoring solutions such as Nagios or Zabbix because it is much easier to operate and configure and is more suitable for monitoring larger, distributed and dynamic server infrastructure.
+
 ## Provisioning
 
 - Provision two new VMs in DigitalOcean (4GB RAM, Ubuntu 16.04)
