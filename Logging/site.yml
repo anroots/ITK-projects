@@ -5,6 +5,13 @@
     kibana_config_path: /opt/kibana/config/kibana.yml
     rsyslog_config_path: /etc/rsyslog.d/50-default.conf
     datadog_api_key: "{{ lookup('env','DD_API_KEY') }}"
+    datadog_checks:
+      elasticsearch:
+        init_config:
+        instances:
+          - url: http://localhost:9200
+            cluster_stats: true
+            pshard_stats: true
   roles: 
     - elk
     - syslog

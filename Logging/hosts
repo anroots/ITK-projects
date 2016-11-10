@@ -1,5 +1,7 @@
 [elk]
-139.59.209.74 ansible_user=root
+138.68.75.147 ansible_user=root
+#159.203.227.212 ansible_user=root
 
 [web]
-138.68.84.96 ansible_user=root
+46.101.85.94 ansible_user=root
+#159.203.208.151 ansible_user=root
