@@ -77,7 +77,7 @@ Kibana can be used to search logs. Enter the IP address of the web server to the
 
 ## Monitoring
 
-Ansible should have installed Datadog agents to both servers. They should be visible from Datadog.
+Ansible should have installed Datadog agents to both servers. The servers should be visible from Datadog "Infrastructure" view.
 
 ![Starting Datadog Agents](doc/agents-started.png)
 ![Infrastructure view](doc/infra.png)
@@ -88,9 +88,19 @@ Clicking on the "elasticsearch" tag behind the ELK server should open a dashboar
 
 The dashboard is mostly empty if the server was started just moments ago.
 
-We can configure e-mail alerts from under "Monitors" that will alert the operator if the Elasticsearch server experiences issues.
+We can configure e-mail alerts from under "Monitors" that will alert the operator, if the Elasticsearch server experiences issues.
 
 ![ELK alert](doc/elk-monitor.png)
+
+## Summary
+
+This project installs and configures ELK as a centralized logging solution. Proof-of-concept configuration is done to send syslog of multiple servers to one searchable database, as well as logs from an application server (Apache2).
+
+ELK is well-suited to serve as a centralized log station for large volumes of data. Although the current solution uses only one ELK server, it could easily be configured to scale over multiple nodes in a cluster configuration, thereby increasing capacity and log throughput.
+
+The servers are monitored with a cloud-native monitoring solution that gives detailed insight into any possible problems with the services as well as providing timely alerts to operators when something goes wrong.
+
+In an enterprise / corporate setting, having centralized logging that works and scales is essential. ELK and Datadog suit well for satisfying those needs.
 
 ## Links
 
